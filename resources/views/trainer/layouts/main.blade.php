@@ -9,7 +9,7 @@
     @endphp
 </head>
 <body>
- 
+
 <!-- Layout -->
 <div class="flex">
     <aside class="fixed top-0 left-0 w-64 bg-[#F2F4FA] text-[#798AA3] transform -translate-x-full md:translate-x-0  transition-transform duration-300 lg:translate-x-0 z-50  h-full 
@@ -132,7 +132,6 @@
                 profileBtn.addEventListener('click', () => {
                     profileDropdown.classList.toggle('hidden');
                 });
-                // Optional: close dropdown when clicking outside
                 window.addEventListener('click', function (e) {
                     if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
                         profileDropdown.classList.add('hidden');

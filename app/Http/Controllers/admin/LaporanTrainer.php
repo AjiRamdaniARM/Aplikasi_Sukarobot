@@ -72,7 +72,7 @@ class LaporanTrainer extends Controller
                 'data_levels.*',
                 'data_levels.id as id_level',
                 'data_sekolahs.*',
-                'data_laporans.*'
+                'data_laporans.'
 
                 // ===  tambahkan kolom lainnya sesuai kebutuhan === //
             )
@@ -85,9 +85,7 @@ class LaporanTrainer extends Controller
                 ->select('big_data.*', 'data_siswas.*')
                 ->get();
             $hari = $schedules->hari;
-            // Proses data lainnya
         } else {
-            // Tangani kasus di mana data tidak ditemukan
             return response()->json(['error' => 'Data not found'], 404);
         }
         $getMateri = DataMateri::where('id', $schedules->id_materi)->first();

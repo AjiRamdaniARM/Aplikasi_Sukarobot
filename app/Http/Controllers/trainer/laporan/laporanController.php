@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\trainer\laporan;
 
 use App\Http\Controllers\Controller;
+use App\Models\DataSiswa;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class laporanController extends Controller
             ->leftJoin('data_programs', 'schedules.id_program', '=', 'data_programs.id')
             ->leftJoin('data_levels', 'schedules.id_level', '=', 'data_levels.id')
             ->leftJoin('data_sekolahs', 'schedules.id_sekolah', '=', 'data_sekolahs.id_sekolah')
+            ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
             ->where('schedules.id_trainer', $fetchTrainerId)
             ->where('ab_trainer','Hadir')
             ->when($search, function ($query, $search) {
@@ -45,10 +47,10 @@ class laporanController extends Controller
                 'data_alats.alat as nama_alat',
                 'data_programs.program as program_name',
                 'data_levels.levels as level_name',
-                'data_sekolahs.sekolah as school_name'
+                'data_sekolahs.sekolah as school_name',
+                'data_laporans.*'
             )
             ->paginate(5);
-
             
             if ($request->ajax()) {
                 if ($query->isEmpty()) {
@@ -75,10 +77,16 @@ class laporanController extends Controller
                 }
                 return view('trainer.pages.laporanTrainer.partials.dataTable', compact('query'))->render();
             } 
-            
-    
+
+           
         return view('trainer.pages.laporanTrainer.index', compact('query'));
     }
+
+    public function fetchSiswa() {
+        $siswa = DataSiswa::all(); // Ambil semua data siswa, atau gunakan query sesuai kebutuhan.
+        return response()->json($siswa);
+    }
+
     
 
         

@@ -1,12 +1,10 @@
-
-
 {{-- === component table === --}}
-<div class="container mx-auto p-4 lg:block hidden">
+<div class="container mx-auto p-4 lg:w-full w-80">
+    <!-- Wrapper dengan overflow-x-auto -->
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white shadow-md rounded-lg">
             <thead>
                 <tr class="bg-[#0E2C75] text-white rounded-2xl">
-                    <th class="py-4 px-6 text-left text-sm font-semibold uppercase">No</th>
                     <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Private / Sekolah</th>
                     <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Level</th>
                     <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Hari</th>
@@ -19,7 +17,7 @@
                 {{-- === component modal === --}}
                     @include('trainer.pages.laporanTrainer.partials.modalDetail')
                 {{-- === end component modal === --}}
-                    <tr class="hover:bg-gray-100 border-b">
+                    <tr class="border-b hover:bg-gray-100 @if ($loop->iteration % 2 == 0) bg-gray-50 @endif">
                         <td class="py-4 px-6 text-gray-700">
                             {{ ($query->currentPage() - 1) * $query->perPage() + $loop->iteration }}
                         </td>
@@ -32,10 +30,7 @@
                         <td class="py-4 px-6 text-gray-700">
                             <span class="bg-yellow-400 py-2 px-5 rounded-lg">{{ $key->hari ?? '-' }}</span>
                         </td>
-                        <td class="py-4 px-6 text-gray-700">
-                            {{ $key->tanggal_jd ? \Carbon\Carbon::parse($key->tanggal_jd)->translatedFormat('d F Y') : '-' }}
-                        </td>
-                        <td class="py-4 px-6 text-gray-700">
+                        <td class="py-4 px-6 hover:text-blue-400 transition-all hover:scale-105 text-gray-700">
                             <button onclick="document.getElementById('modal-laporan-detail-{{ $key->id_schedules }}').showModal();" class="bg-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
@@ -45,23 +40,24 @@
                     </tr>
                 @empty
                     <tr>
-                        <td class="py-4 px-6 text-gray-700">
+                        <td colspan="5" class="py-4 px-6 text-gray-700 text-center">
                             Tidak menemukan data pencarian
                         </td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
-        
-        <div class="mt-4">
-            {{ $query->links('vendor.pagination.tailwind-custom') }}
-        </div>
+    </div>
+    
+    <!-- Pagination -->
+    <div class="mt-4">
+        {{ $query->links('vendor.pagination.tailwind-custom') }}
     </div>
 </div>
 {{-- === end component table === --}}
 
 {{-- === component card mobile === --}}
-<div class="lg:hidden block flex flex-col gap-5">
+<div class="hidden block flex flex-col gap-5">
     <div class="container c-card ">
         <div class="max-w-2xl mx-auto bg-[#074177FF] shadow-lg rounded-lg">
             <div class="px-6 py-5">

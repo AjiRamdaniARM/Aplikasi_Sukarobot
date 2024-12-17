@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class JadwalController extends Controller
-{
+{ 
     public function index () {
         $trainerId = Auth::guard('trainer')->id();
         $getScheduleTrainer = DB::table('schedules')
@@ -46,6 +46,7 @@ class JadwalController extends Controller
         return view('trainer.pages.jadwalMenu.jadwal', compact('getScheduleTrainer'));
     }
 
+ 
     public function filterDate(Request $request)
     {
         $date = $request->input('date');

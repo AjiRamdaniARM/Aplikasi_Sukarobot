@@ -50,7 +50,7 @@ class laporanController extends Controller
                 'data_sekolahs.sekolah as school_name',
                 'data_laporans.*'
             )
-            ->paginate(5);
+            ->paginate(100);
             
             if ($request->ajax()) {
                 if ($query->isEmpty()) {
@@ -82,12 +82,27 @@ class laporanController extends Controller
         return view('trainer.pages.laporanTrainer.index', compact('query'));
     }
 
-    public function fetchSiswa() {
-        $siswa = DataSiswa::all(); // Ambil semua data siswa, atau gunakan query sesuai kebutuhan.
-        return response()->json($siswa);
-    }
+    public function fetchSiswa(Request $request)
+    {
+        $id = $request->query('id');
+        $query = DB::table('schedules')
+        ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
+        ->where('schedules.id', $id)
+        ->select('data_trainers.id as trainer_id','schedules.*')
+        ->first();
 
-    
-
+        if ($query) {
+            $getDataStudent = DB::table('big_data')
+                ->leftJoin('data_siswas', 'big_data.id_siswa', '=', 'data_siswas.id')
+                ->where('big_data.id_bigData', $query->id_bigData)
+                ->select('big_data.*', 'data_siswas.*')
+                ->get();
+        } else {
+            return response()->json(['error' => 'Data not found'], 404);
+        }
         
+        return response()->json($getDataStudent);
+    }
+    
+ 
 }

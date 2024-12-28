@@ -9,8 +9,9 @@
                 <div class="content-body flex gap-3">
                     <img src="{{ asset('assets/imgmodal/ICON-FOLDER.svg') }}" class="w-20" alt="icon-folder-svg">
                     <div class="text-body"> 
-                        <h1 class="poppins-semibold lg:text-2xl text-1xl">Absensi Anda Pada :</h1>
-                        <p class="poppins-regular">{{ $key->tanggal_jd ? \Carbon\Carbon::parse($key->tanggal_jd)->translatedFormat('d F Y') : '-' }}</p>
+                        <h1 class="poppins-semibold lg:text-2xl text-[15px]">Absensi Anda Pada :</h1>
+                        <p class="poppins-regular lg:text-1xl text-[15px]">{{ $key->tanggal_jd ? \Carbon\Carbon::parse($key->tanggal_jd)->translatedFormat('d F Y') : '-' }}</p>
+                    <a class="button-component bg-[#D0F8CB] px-1 poppins-regular hover:bg-[#9EF193FF] py-1" href="https://drive.google.com/drive/folders/1A0aYdsjjnuy6EVb5SQiHSjSfUoDdEfZT?usp=sharing">Dokumentasi</a>
                     </div>
                 </div>
                 <div class="content-flex flex gap-3 mt-3">
@@ -32,13 +33,12 @@
                     <textarea class="p-5 w-full lg:rounded-[24px] rounded-lg bg-gray-100 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" readonly name="textArea" id="textArea">{{ $key->catatan }}</textarea>
                     <hr class="border-t border-gray-300 my-4">
                     <button 
-                        id="button-absensi-siswa" 
+                        id="button-absensi-siswa-{{ $key->id_schedules }}" 
                         class="w-full btn-fetch poppins-regular px-5 py-3 text-center bg-[#CBE3FF] hover:bg-[#7CB7F9FF] rounded-[16px] transition-all" 
                         data-schedule-id="{{ $key->id_schedules }}">
                         Lihat Absensi Anak
                     </button>
-                    <div id="siswa-list"></div>
-          
+                    <div class="py-4" id="siswa-list-{{ $key->id_schedules }}"></div>
                 </div>
             </div>
         </div>
@@ -49,100 +49,74 @@
 {{-- === Script JavaScript === --}}
 <script src="https://cdn.jsdelivr.net/npm/dompurify@2.3.4/dist/purify.min.js"></script>
 <script>
-    let siswaData = [
-        { nama: "John Doe", sekolah: "SD MUHAMMAD AL UNAIZY", status: "Hadir", id_schedule: 118 },
-        { nama: "Jane Smith", sekolah: "SD SUKARO", status: "Alpha", id_schedule: 118 },
-        { nama: "Alice Brown", sekolah: "SD MUHAMMAD AL UNAIZY", status: "Hadir", id_schedule: 118 },
-    ];
+  document.addEventListener("DOMContentLoaded", function () {
+    // Delegasi event pada parent
+    document.body.addEventListener("click", function (event) {
+        // Pastikan tombol yang diklik memiliki ID sesuai pola
+        if (event.target && event.target.id.startsWith("button-absensi-siswa-")) {
+            let tombolAbsensi = event.target;
+            let idSchedule = tombolAbsensi.getAttribute("data-schedule-id");
+            let siswaList = document.getElementById(`siswa-list-${idSchedule}`);
+            siswaList.innerHTML = `
+                <div class="text-center py-4 flex flex-col justify-center items-center">
+                    <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-500 border-opacity-50"></div>
+                    <p class="text-gray-500 mt-2">Memuat data siswa...</p>
+                </div>`;
+            fetch(`/fetchSiswa?id=${idSchedule}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    siswaList.innerHTML = ""; 
 
-
-    document.addEventListener("DOMContentLoaded", function () {
-    let tombolAbsensi = document.getElementById("button-absensi-siswa");
-
-    tombolAbsensi.addEventListener("click", function () {
-        let idSchedule = tombolAbsensi.getAttribute("data-schedule-id");
-        fetch(`/fetchSiswa`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                let siswaList = document.getElementById('siswa-list');
-                siswaList.innerHTML = ''; 
-                if (data.length === 0) {
-                    siswaList.innerHTML = '<p class="text-gray-500">Tidak ada data siswa.</p>';
-                } else {
-                    // Tambahkan siswa ke dalam daftar
-                    data.forEach(siswa => {
-                        let item = document.createElement('div');
-item.classList.add(
-    'poppins-regular', 
-    'py-4', 
-    'px-6', 
-    'bg-white', 
-    'rounded-lg', 
-    'shadow-md', 
-    'border', 
-    'mb-4'
-);
-
-// Tambahkan konten card
-item.innerHTML = `
-    <div class="text-lg font-semibold text-gray-800">${siswa.nama_lengkap}</div>
-    <div class="text-sm text-gray-600">Kelas: ${siswa.kelas}</div>
-`;
-
-// Sisipkan ke dalam parent element
-siswaList.appendChild(item);
-
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                let siswaList = document.getElementById('siswa-list');
-                siswaList.innerHTML = '<p class="text-red-500">Gagal memuat data siswa. Silakan coba lagi.</p>';
-            });
+                    if (data.length === 0) {
+                        siswaList.innerHTML =
+                            '<p class="text-gray-500">Tidak ada data siswa.</p>';
+                    } else {
+                        data.forEach((getDataStudent) => {
+                            let item = document.createElement("div");
+                            item.classList.add(
+                                "poppins-regular",
+                                "py-4",
+                                "px-6",
+                                "bg-white",
+                                "rounded-lg",
+                                "shadow-md",
+                                "border",
+                                "mb-4",
+                                "flex",
+                                "justify-between"
+                            );
+                            item.innerHTML = `
+                                <div>
+                                    <div class="text-lg font-semibold text-gray-800">${getDataStudent.nama_lengkap}</div>
+                                    <div class="text-sm text-gray-600">Kelas: ${getDataStudent.kelas}</div>
+                                </div>
+                                <button class="bg-[#83DCFF] rounded-[16px] px-5 py-3">${getDataStudent.absensi_anak}</button>
+                            `;
+                            siswaList.appendChild(item);
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    siswaList.innerHTML =
+                        '<p class="text-red-500">Gagal memuat data siswa. Silakan coba lagi.</p>';
+                });
+        }
     });
 });
 
-
-    // document.addEventListener("DOMContentLoaded", function () {
-    //     let tombolAbsensi = document.querySelectorAll("[id^='button-absensi-siswa-']");
-    //     tombolAbsensi.forEach(function (tombol) {
-    //         tombol.addEventListener("click", function () {
-    //             let idSchedules = tombol.getAttribute("data-schedule-id");
-    //             let hasil = document.getElementById(`view-data-${idSchedules}`);
-
-    //             if (hasil) {
-    //                 let siswaBySchedule = siswaData.filter(siswa => siswa.id_schedule == idSchedules);
-    //                 let siswaHTML = siswaBySchedule.map(siswa => `
-    //                     <div class='card-siswa-custom-one flex justify-between items-center py-5'>
-    //                         <div class='profile-component flex items-center gap-5'>
-    //                             <div class='w-8 h-8 bg-blue-500 rounded-full'></div>
-    //                             <div class='nama-siswa poppins-semibold '>
-    //                                 <h6>${siswa.nama}</h6>
-    //                                 <p class='text-[12px] -mt-3 poppins-regular'>${siswa.sekolah}</p>
-    //                             </div>
-    //                         </div>
-    //                         <div class='container-b-absen px-5 py-2 rounded-[16px] bg-[#60A5FA]'>
-    //                             <h6>${siswa.status}</h6>
-    //                         </div>
-    //                     </div>`).join("");
-    //                 hasil.innerHTML = siswaHTML || `<p class="text-gray-500">Tidak ada data siswa untuk jadwal ini.</p>`;
-    //             }
-    //         });
-    //     });
-    // });
 </script>
 
 
 {{-- === internal css === --}}
 <style>
     dialog {
-        padding: 1rem 3rem;
+        padding: 1rem 2rem;
         background: white;
         max-width: 100%;
         padding-top: 2rem;

@@ -1,5 +1,5 @@
 {{-- === component table === --}}
-<div class="container mx-auto p-4 lg:w-full w-80">
+<div class="container mx-auto p-4 lg:w-full md:w-full sm:w-full w-80">
     <!-- Wrapper dengan overflow-x-auto -->
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white shadow-md rounded-lg">

@@ -1,6 +1,7 @@
 <div class="container w-full  grid lg:grid-cols-2 grid-cols-1  justify-between items-center">
     <div class="button-component">
-        <button class="bg-[#FACC15] hover:bg-[#D8AF0AFF] lg:w-44 w-full py-3 lg:rounded-[24px] rounded-[16px] poppins-semibold">Export Laporan</button>
+        @include('trainer.pages.laporanTrainer.partials.modalExport')
+        <button class="bg-[#FACC15] hover:bg-[#D8AF0AFF] lg:w-44 w-full py-3 lg:rounded-[24px] rounded-[16px] poppins-semibold" onclick="modalExport.showModal()">Export Laporan</button>
     </div>
     <div class="w-full mx-auto rounded-lg overflow-hidden ">
         <div class="md:flex">

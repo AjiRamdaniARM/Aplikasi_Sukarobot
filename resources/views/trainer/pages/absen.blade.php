@@ -41,7 +41,6 @@
                         @else
                             <button id="absensi" onclick="window.location.href='{{ url('/absensiswa/' . $getScheduleTrainer->id_schedules) }}   '" class="bg-[#1A1A34] text-white rounded-[24px] px-3 py-1 hover:scale-105 transition-all bg-[#2E2E4BFF]">Absensi Siswa</button>
                         @endif
-                      
                         <script>
                             document.getElementById('absensi').addEventListener('click', function() {
                             var submitButtonAbsensi = document.getElementById('absensi'); // Mendapatkan tombol

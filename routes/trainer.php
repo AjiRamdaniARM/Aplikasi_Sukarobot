@@ -7,6 +7,7 @@ use App\Http\Controllers\trainer\laporan\laporanController;
 use App\Http\Controllers\trainer\drive\uploadDriveController;
 use App\Http\Controllers\trainer\homeController;
 use App\Http\Controllers\trainer\jadwalMenu\JadwalController;
+use App\Http\Controllers\trainer\laporan\PdfController;
 use App\Http\Controllers\trainer\LaporanController as TrainerLaporanController;
 use App\Http\Controllers\trainer\LoginTrainerController;
 use App\Livewire\UpdateAccount;
@@ -62,17 +63,20 @@ Route::middleware('check.trainer.auth')->group(function () {
     // === backup route === //
     Route::post('/laporantrainer/porsses/{id_schedules}', [Absensi::class, 'UpDrive']);
 
-    // absensi siswa route
+    // === absensi siswa route === //
     Route::post('/absensiswa/prossess/{id}', [Absensi::class, 'absensi'])->name('absensiSiswa.update');
-    // route post laporan
+    // === route post laporan === //
     Route::post('/laporantrainer/prossess/{id_schedules}', [TrainerLaporanController::class, 'postLaporan'])->name('absensiSiswa.update');
 
-    // route logout user trainer
+    // === route logout user trainer === //
     Route::post('/logout', [LoginTrainerController::class, 'destroy'])->name('logout');
 
+
+    // === route export PDF === ///
+    Route::get('PDF', [PdfController::class, 'exportPDF'])->name('exportPDF');
+    Route::post('/exportProsess', [PDFController::class, 'exportPost'])->name('export.post');
    
 });
-
 
 
  // === forgot password === //

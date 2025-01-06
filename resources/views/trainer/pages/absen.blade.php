@@ -53,11 +53,12 @@
                             });
                         </script>
                     </div>
+                    {{-- === absensi siswa ===  --}}
                     <div style="height: 100px; overflow:auto">
                         <table class="table-auto  w-full border-collapse mt-6">
                             <thead class="text-xs font-semibold uppercase text-gray-600 bg-gray-50">
                                 <tr>
-                                    <th class="p-2 w-16 t   ext-center">No</th>
+                                    <th class="p-2 w-16 text-center">No</th>
                                     <th class="p-2 w-24 text-center">Poto</th>
                                     <th class="p-2 w-1/2 text-left">Nama</th>
                                     <th class="p-2 w-1/4 text-center">Kelas</th>
@@ -87,6 +88,7 @@
                             </tbody>
                         </table>
                     </div>
+                    {{-- === akhir absensi siswa === --}}
                    
                 </div>
                 {{-- === end component siswa === --}}

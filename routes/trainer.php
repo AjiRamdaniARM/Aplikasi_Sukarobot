@@ -10,7 +10,6 @@ use App\Http\Controllers\trainer\jadwalMenu\JadwalController;
 use App\Http\Controllers\trainer\laporan\PdfController;
 use App\Http\Controllers\trainer\LaporanController as TrainerLaporanController;
 use App\Http\Controllers\trainer\LoginTrainerController;
-use App\Livewire\UpdateAccount;
 use Illuminate\Support\Facades\Route;
 
 

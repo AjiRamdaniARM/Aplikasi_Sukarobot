@@ -6,16 +6,16 @@
         <div class="relative py-3 sm:max-w-xl sm:mx-auto">
             <div class="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
                 <div class="max-w-md mx-auto">
-                    <div class="flex flex-col md:flex-row items-center space-x-5">
-                        <img src="{{ asset('assets/img/logo.png') }}" width="100" alt="">
-                        <div class="block pl-2 font-semibold text-xl self-start text-gray-700">
+                    <div class="flex flex-col items-center ">
+                        <img src="{{ asset('assets/img/logo.png') }}" class="w-56" alt="logo-sukarobot">
+                        <div class="block pl-2 font-semibold text-xl self-start mt-4 text-gray-700">
                             @if (session('error'))
                                 <h2 class=" text-red-500">{{ session('error') }}</h2>
-                                <p class="text-sm text-gray-500 font-normal leading-relaxed">Yuk, daftarkan anak Anda di
+                                <p class="text-sm text-gray-500 poppins-regular leading-relaxed">Yuk, daftarkan anak Anda di
                                     Sukarobot Academy!</p>
                             @else
-                                <h2 class="leading-relaxed">Formulir Pendaftaran</h2>
-                                <p class="text-sm text-gray-500 font-normal leading-relaxed">Yuk, daftarkan anak Anda di
+                                <h2 class="leading-relaxed poppins-semibold">Formulir Pendaftaran</h2>
+                                <p class="text-sm text-gray-500 poppins-regular leading-relaxed">Yuk, daftarkan anak Anda di
                                     Sukarobot Academy!</p>
                             @endif
                         </div>
@@ -26,9 +26,9 @@
                         <div class="divide-y divide-gray-200">
                             <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Nama Lengkap</label>
+                                    <label class="leading-loose poppins-light">Nama Lengkap Anak</label>
                                     <input type="text"
-                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                        class="px-4 poppins-light py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Cth: Aziz Ramadhan" name="nama_lengkap"
                                         value="{{ old('nama_lengkap') }}" required>
                                     @error('nama_lengkap')
@@ -41,9 +41,9 @@
                                     @enderror
                                 </div>
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Tempat Lahir</label>
+                                    <label class="leading-loose poppins-light">Tempat Lahir</label>
                                     <input type="text"
-                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                        class="px-4 py-2 poppins-light border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Cth: Sukabumi " name="tl" value="{{ old('tl') }}" required>
                                 </div>
                                 @error('tl')
@@ -56,9 +56,9 @@
                                 @enderror
 
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Tanggal Lahir</label>
+                                    <label class="leading-loose poppins-light">Tanggal Lahir</label>
                                     <input type="date"
-                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                        class="px-4 py-2 poppins-light border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
                                 </div>
                                 @error('tanggal_lahir')
@@ -66,33 +66,37 @@
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
+
                                     </div>
                                 @enderror
 
                                 <div class="flex flex-col">
                                     <div class="flex flex-col">
-                                        <label class="leading-loose">Pilih Kelas</label>
+                                        <label class="leading-loose poppins-light">Pilih Kelas</label>
                                         <select
-                                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full  sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                            class="px-4 poppins-light py-2 border focus:ring-gray-500 focus:border-gray-900 w-full  sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                             name="id_kelas" id="" required>
-                                            <option value="">Silahkan Pilih Kelas</option>
+                                            <option value="" class="poppins-light">Silahkan Pilih Kelas</option>
                                             @foreach ($getDataKelas as $kelas)
-                                                <option value="{{ $kelas->id }}">{{ $kelas->kelas }}
+                                                <option class="poppins-light" value="{{ $kelas->id }}">{{ $kelas->kelas }}
                                                 </option>
                                             @endforeach
                                         </select>
+
                                     </div>
+
+
                                 </div>
 
                                 <div class="flex flex-col">
                                     <div class="flex flex-col">
-                                        <label class="leading-loose">Sekolah</label>
+                                        <label class="leading-loose poppins-light">Sekolah</label>
                                         <select
-                                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full  sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                            class="px-4 py-2 border poppins-light focus:ring-gray-500 focus:border-gray-900 w-full  sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                             name="sekolah" id="" required>
-                                            <option value="">Silahkan Pilih Sekolah Anda</option>
+                                            <option value="" class="poppins-light">Silahkan Pilih Sekolah Anda</option>
                                             @foreach ($getData as $sekolah)
-                                                <option value="{{ $sekolah->id_sekolah }}">{{ $sekolah->sekolah }}
+                                                <option class="poppins-light" value="{{ $sekolah->id_sekolah }}">{{ $sekolah->sekolah }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -104,19 +108,17 @@
                                     </div>
                                     @if (session('success'))
                                         <button
-                                            class="bg-green-500 relative -top-5 md:mt-10 w-full rounded-lg text-center p-2 text-white font-bold "
+                                            class="bg-green-500 relative mt-5 p-5 md:mt-10 w-full rounded-lg text-center p-2 text-white poppins-semibold "
                                             type="button"
                                             onclick="window.dialog.showModal();">{{ session('success') }}</button>
                                     @else
                                         <button
-                                            class="bg-blue-500 relative -top-5 md:mt-10 w-full rounded-lg text-center p-2 text-white font-bold "
+                                            class="bg-blue-500 relative mt-5 md:mt-10 w-full rounded-lg text-center p-2 text-white poppins-semibold "
                                             type="button" onclick="window.dialog.showModal();">Daftarkan
                                             Sekolah</button>
                                     @endif
 
-
                                 </div>
-
 
                                 @error('sekolah')
                                     <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
@@ -128,9 +130,9 @@
                                 @enderror
 
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Kelas</label>
+                                    <label class="leading-loose poppins-light">Kelas</label>
                                     <input type="text"
-                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                        class="px-4 poppins-light py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Cth: 3 SD" name="kelas" value="{{ old('kelas') }}" required>
                                 </div>
                                 @error('kelas')
@@ -142,9 +144,9 @@
                                     </div>
                                 @enderror
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Nama Orangtua </label>
+                                    <label class="leading-loose poppins-light">Nama Orangtua </label>
                                     <input type="text"
-                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                        class="px-4 py-2 poppins-light border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Cth: Asep Saeban (Lk/Pr)" value="{{ old('nama_ortu') }}"
                                         name="nama_ortu" required>
                                 </div>
@@ -153,13 +155,12 @@
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
-
                                     </div>
                                 @enderror
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Nomor Handphone </label>
+                                    <label class="leading-loose poppins-light">Nomor Handphone </label>
                                     <input type="text"
-                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                        class="px-4 py-2 poppins-light border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Cth: 08*****" name="telephone" value="{{ old('telephone') }}"
                                         required>
                                 </div>
@@ -172,9 +173,9 @@
                                     </div>
                                 @enderror
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Pekerjaan Orang Tua </label>
+                                    <label class="leading-loose poppins-light">Pekerjaan Orang Tua </label>
                                     <input type="text"
-                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                        class="px-4 py-2 poppins-light border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Cth: Pegawai Negri" name="work_ortu" value="{{ old('work_ortu') }}"
                                         required>
                                 </div>
@@ -187,9 +188,9 @@
                                     </div>
                                 @enderror
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Alamat</label>
+                                    <label class="leading-loose poppins-light">Alamat</label>
                                     <input type="text"
-                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                        class="px-4 poppins-light py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Cth: Jl. A. Yani No.283, Kebonjati, Kec. Cikole, Kota Sukabumi, Jawa Barat 43111"
                                         name="alamat" value="{{ old('alamat') }}" required>
                                 </div>
@@ -202,10 +203,10 @@
                                     </div>
                                 @enderror
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Pas Foto</label>
+                                    <label class="leading-loose  poppins-light">Pas Foto</label>
                                     <input type="file"
-                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                        placeholder="file" name="file" id="fotoInput" required>
+                                        class="px-4 py-2 border poppins-light focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                        placeholder="file" name="file" id="fotoInput" >
                                 </div>
                                 @error('file')
                                     <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
@@ -241,17 +242,13 @@
                                 </script>
                             </div>
                             <div class="pt-4 flex items-center space-x-4">
-
                                 <button
-                                    class="button relative z-0 bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:scale-105 transition-all focus:scale-105"
-                                    type="submit" id="submit">Daftar
+                                    class="button poppins-semibold relative z-0 bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:scale-105 transition-all focus:scale-105"
+                                    type="submit" id="submit">Lanjut Pendaftaran
                                     <div class="arrow-wrapper">
                                         <div class="arrow"></div>
-
                                     </div>
                                 </button>
-
-
                             </div>
                     </form>
 

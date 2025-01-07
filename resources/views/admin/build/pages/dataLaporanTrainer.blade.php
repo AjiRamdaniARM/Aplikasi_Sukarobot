@@ -57,6 +57,7 @@
                                             <div class="flex" style="gap: 20px;">
                                                 <img src="{{ asset('assets/trainer_data/profile/' . $jadwal->profile) }}"
                                                     alt="child"
+                                                     loading="lazy"
                                                     style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%; margin: 0 auto;">
                                                 <div class="flex flex-col">
                                                     <h6 class="mb-4 leading-normal text-sm">{{ $jadwal->nama_trainer }}

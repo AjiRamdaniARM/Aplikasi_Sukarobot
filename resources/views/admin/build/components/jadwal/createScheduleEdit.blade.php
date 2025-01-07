@@ -79,10 +79,19 @@
                                 </label>
                                 <select name="id_alat" id="alat" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="{{ $getDataSchedule->id_alat }}"
-                                        style="background-color: red ; color:white">
-                                        {{ $getDataSchedule->nama_alat }} (
-                                        Dipilih )</option>
+                                    @if ($getDataSchedule->id_alat == null)
+                                        <option value="{{ $getDataSchedule->id_alat }}"
+                                            style="background-color: red ; color:white">
+                                            No Tools (
+                                            Dipilih )
+                                        </option>
+                                    @else
+                                        <option value="{{ $getDataSchedule->id_alat }}"
+                                            style="background-color: red ; color:white">
+                                            {{ $getDataSchedule->nama_alat }} (
+                                            Dipilih )
+                                        </option>
+                                    @endif
                                     @foreach ($getDataTools as $tools)
                                         <option value="{{ $tools->id }}">{{ $tools->alat }}</option>
                                     @endforeach

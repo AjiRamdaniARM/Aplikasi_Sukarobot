@@ -1,7 +1,7 @@
 @php
 $jdTidakHadir = DB::table('schedules')
     ->where('id_trainer', Auth::guard('trainer')->id())
-    ->where('ket', 'Aktif')
+    ->where('ket', 'Tidak Aktif')
     ->whereNull('ab_trainer')
     ->exists();
 @endphp

@@ -17,7 +17,6 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromArray;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use Twilio\Rest\Client;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class LaporanTrainer extends Controller
@@ -72,9 +71,9 @@ class LaporanTrainer extends Controller
                 'data_levels.*',
                 'data_levels.id as id_level',
                 'data_sekolahs.*',
-                'data_laporans.'
+                'data_laporans.*'
 
-                // ===  tambahkan kolom lainnya sesuai kebutuhan === //
+                // tambahkan kolom lainnya sesuai kebutuhan
             )
             ->first();
 
@@ -85,7 +84,9 @@ class LaporanTrainer extends Controller
                 ->select('big_data.*', 'data_siswas.*')
                 ->get();
             $hari = $schedules->hari;
+            // Proses data lainnya
         } else {
+            // Tangani kasus di mana data tidak ditemukan
             return response()->json(['error' => 'Data not found'], 404);
         }
         $getMateri = DataMateri::where('id', $schedules->id_materi)->first();
@@ -137,8 +138,8 @@ class LaporanTrainer extends Controller
             'data_programs.*',
             'data_programs.id as id_program'
         )
-        ->whereBetween('schedules.tanggal_jd', [$startDate, $endDate]) // === Filter tanggal === //
-        // === Cek apakah user memilih 'all' atau trainer tertentu === //
+        ->whereBetween('schedules.tanggal_jd', [$startDate, $endDate]) // Filter tanggal
+        // Cek apakah user memilih 'all' atau trainer tertentu
         ->when($trainerId != 'all', function ($query) use ($trainerId) {
             return $query->where('data_trainers.id', $trainerId);
         })
@@ -309,7 +310,6 @@ public function importExcel(Request $request)
 
     return response()->json(['error' => 'No file uploaded.'], 400);
 }
-
 
 
 }

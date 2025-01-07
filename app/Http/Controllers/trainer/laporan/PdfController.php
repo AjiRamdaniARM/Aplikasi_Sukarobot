@@ -7,9 +7,10 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\ValidationException;
+
 
 class PdfController extends Controller
 {
@@ -26,13 +27,14 @@ class PdfController extends Controller
         public function exportPost(Request $request)
     {
             // Ambil input dari request
-            $trainerId = $request->input('trainer_id');
+            $trainerId = Auth::guard('trainer')->id();
             $startDate = $request->input('start_date');
             $endDate = $request->input('end_date');
             $selectedFields = $request->input('fields', []); 
             
             // Query data dari database
             $querySchedules = DB::table('schedules')
+            ->where('id_trainer', $trainerId)
             ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
             ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
             ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
@@ -77,7 +79,7 @@ class PdfController extends Controller
             ->get()
             ->groupBy('id_bigData');
 
-        // Gabungkan hasil dalam struktur terpisah
+        // Gabungkan hasil dalam struktur terpisah  
         $results = $schedules->map(function ($schedule) use ($dataSiswaw ) {
             return [
                 'schedule' => $schedule,

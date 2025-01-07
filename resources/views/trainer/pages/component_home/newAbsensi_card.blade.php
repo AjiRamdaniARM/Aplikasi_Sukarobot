@@ -2,6 +2,7 @@
  <div class="text-[#798AA3] flex justify-between w-full"> <span>Jadwal Baru</span> <a href="{{ route('jadwal.menu') }}" class="text-blue-500">Lihat Lainnya</a> </div>
  @php
  $jdHadir = DB::table('schedules')
+     ->where('id_trainer', Auth::guard('trainer')->id())
      ->where('ket', 'Aktif')
      ->whereNull('ab_trainer')
      ->exists();

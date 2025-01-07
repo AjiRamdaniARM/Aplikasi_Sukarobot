@@ -80,6 +80,7 @@ class homeController extends Controller
         if (! $id_schedules) {
             return redirect()->route('trainer.login')->with('error', 'Please log in first.');
         }
+
         $getDataMateri = DataMateri::all();
         $getDataTrainer = dataTrainer::all();
 
@@ -109,11 +110,8 @@ class homeController extends Controller
             )
             ->first();
 
-        $getDataStudent = DB::table('big_data')
-        ->leftJoin('data_siswas', 'big_data.id_siswa', '=', 'data_siswas.id')
-        ->where('big_data.id_bigData', $getScheduleTrainer->id_bigData)
-        ->select('big_data.*', 'data_siswas.*')
-        ->get();
+        $getDataBig = BigData::where('id_bigData', $getScheduleTrainer->id_bigData)->pluck('id_siswa');
+        $getDataStudent = DataSiswa::whereIn('id', $getDataBig)->get();
 
         if (!$getScheduleTrainer) {
             return redirect()->route('trainer.home')->with('info', 'No schedule found for this trainer.');

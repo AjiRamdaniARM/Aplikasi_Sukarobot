@@ -1,4 +1,11 @@
-@if ($getScheduleTrainer !== null && $getScheduleTrainer->isNotEmpty())
+@php
+$jdTidakHadir = DB::table('schedules')
+    ->where('id_trainer', Auth::guard('trainer')->id())
+    ->where('ket', 'Aktif')
+    ->whereNull('ab_trainer')
+    ->exists();
+@endphp
+@if ($getScheduleTrainer !== null && $getScheduleTrainer->isNotEmpty() && $jdTidakHadir)
     @foreach ($getScheduleTrainer->take(3) as $jadwal)
         @if($jadwal->ket === 'Tidak Aktif')
             <div data-aos="fade-down" class="card-h  transition-all p-6 rounded-[24px] bg-[#FED2D9] border-2 border-[#A3072B]">
@@ -30,7 +37,7 @@
                         </span>
                     </div>
                 </div>
-            </div>
+            </div>    
         @endif
     @endforeach
 @else

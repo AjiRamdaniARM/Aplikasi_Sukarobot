@@ -1,10 +1,10 @@
 @php
 $jdSudahAbsen = DB::table('schedules')
+    ->where('id_trainer', Auth::guard('trainer')->id())
     ->where('ket', 'Aktif')
     ->where('ab_trainer', 'Hadir')
     ->exists();
 @endphp
-
 @if ($getScheduleTrainer !== null && !$getScheduleTrainer->isEmpty() && $jdSudahAbsen)
     @foreach ($getScheduleTrainer->take(3) as $jadwal)
         @if ($jadwal->ab_trainer === 'Hadir')

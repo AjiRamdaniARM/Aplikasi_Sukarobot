@@ -109,12 +109,10 @@ class homeController extends Controller
             )
             ->first();
 
-        $getDataBig = BigData::where('id_bigData', $getScheduleTrainer->id_bigData)->pluck('id_siswa');
-
-        $getDataStudent = DB::table('data_siswas')
-        ->whereIn('data_siswas.id', $getDataBig)
-        ->join('big_data', 'data_siswas.id', '=', 'big_data.id_siswa')
-        ->select('data_siswas.*','big_data.*')
+        $getDataStudent = DB::table('big_data')
+        ->leftJoin('data_siswas', 'big_data.id_siswa', '=', 'data_siswas.id')
+        ->where('big_data.id_bigData', $getScheduleTrainer->id_bigData)
+        ->select('big_data.*', 'data_siswas.*')
         ->get();
 
         if (!$getScheduleTrainer) {

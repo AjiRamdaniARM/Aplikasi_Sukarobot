@@ -11,7 +11,6 @@
                 </div>
             </div>
         @endif
-     
           <br>
         <div class="banner">
             <img class="rounded-lg lg:h-80  object-cover w-full" src="{{asset('assets/img/Coming.gif')}}" alt="image-banner" />
@@ -89,10 +88,8 @@
                         </table>
                     </div>
                     {{-- === akhir absensi siswa === --}}
-                   
                 </div>
                 {{-- === end component siswa === --}}
-
                 <div class="detail-inform w-full bg-[#FED2D9] rounded-lg border-2 border-[#FEAEAEFF] p-5 relative">
                     <h1 class="poppins-bold lg:text-2xl text-[#75081AFF]">Unggah Dokumentasi ke Google Drive auto atau manual</h1>
                     <button id="unggah" class="bg-[#FB9595FF] hover:scale-105 transtion-all hover:bg-[#F86B6BFF]  text-[#75081AFF] px-5 py-2 text-center mt-4 rounded-[24px]">Dokumentasi</button>

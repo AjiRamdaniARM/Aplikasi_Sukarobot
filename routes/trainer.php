@@ -9,7 +9,7 @@ use App\Http\Controllers\trainer\homeController;
 use App\Http\Controllers\trainer\jadwalMenu\JadwalController;
 use App\Http\Controllers\trainer\laporan\PdfController;
 use App\Http\Controllers\trainer\LaporanController as TrainerLaporanController;
-use App\Http\Controllers\trainer\LoginTrainerController;
+use App\Http\Controllers\trainer\LoginTrainerController;    
 use Illuminate\Support\Facades\Route;
 
 

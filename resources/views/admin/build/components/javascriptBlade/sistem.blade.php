@@ -1,23 +1,27 @@
 <script>
-    document.getElementById('filter-form').addEventListener('submit', function(e) {
-        const button = document.getElementById('filter-button');
+    function filterForm() {
+        return {
+            startDate: '',   // Model untuk start date
+            endDate: '',     // Model untuk end date
+            isLoading: false, // Untuk menentukan status loading tombol
 
-        // Ubah teks tombol dan tambahkan kelas loading
-        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;Loading...';
-        button.classList.add('loading');
+            // Fungsi untuk menangani pengiriman form
+            handleSubmit() {
+                this.isLoading = true; // Set status loading menjadi true
+                const form = document.getElementById('filter-form');
 
-        // Nonaktifkan tombol agar tidak bisa diklik lagi
-        button.disabled = true;
+                // Kirim form (menggunakan form action sesuai dengan route yang ada)
+                form.submit(); // Mengirimkan form ke server
 
-        // Simulasi pengiriman form untuk keperluan demo (hapus atau sesuaikan sesuai kebutuhan)
-        setTimeout(function() {
-            button.textContent = 'Filter';
-            button.classList.remove('loading');
-            button.disabled = false; // Mengaktifkan kembali tombol setelah selesai
-        }, 3000);
-        // Hapus ini saat menggunakan proses submit asli
-    });
+                // Di sini kita bisa menambahkan logika untuk menunggu respon atau animasi loading
+
+                // Setelah submit, proses bisa langsung ditangani oleh backend
+                // Tidak perlu simulasi timeout, karena pengiriman form akan mengarah ke route yang benar
+            }
+        }
+    }
 </script>
+
 <script>
     document.getElementById('custom-laporan-btn').addEventListener('click', function(event) {
         // Mencegah default action sementara

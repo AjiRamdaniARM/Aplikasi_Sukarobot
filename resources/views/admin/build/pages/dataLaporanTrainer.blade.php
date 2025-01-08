@@ -17,23 +17,22 @@
                                 <div class="relative flex flex-wrap  justify-between items-center mt-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border "
                                     style="padding: 20px">
                                     <h5>Report data filter feature</h5>
-
                                     {{-- === fitur filter data tanggal === --}}
-                                    <form id="filter-form" class="mb-4">
+                                    <form id="filter-form" action="{{route('laporan.trainer.admin')}}" class="mb-4" x-data="filterForm()" @submit.prevent="handleSubmit">
                                         @include('admin.build.components.javascriptBlade.sistem')
-                                        <div class="flex flex-wrap  items-center gap-4" style="gap:10px">
-                                            <a href="{{ route('laporan.custom') }}" class="button-custom"
-                                                id="custom-laporan-btn"> Custom
-                                                Laporan</a>
-                                            @include('admin.build.components.javascriptBlade.sistem')
-                                            <input type="date" id="start-date" name="start_date"
-                                                class="border rounded p-2" placeholder="Start Date" required>
-                                            <input type="date" id="end-date" name="end_date"
-                                                class="border rounded p-2" placeholder="End Date" required>
-                                            <button type="submit" id="filter-button"
-                                                class=" py-2 bg-blue-500 text-white rounded button-filter">Filter</button>
+                                        <div class="flex flex-wrap items-center gap-4" style="gap:10px">
+                                            <a href="{{ route('laporan.custom') }}" class="button-custom" id="custom-laporan-btn">Custom Laporan</a>
+                                            <input type="date" id="start-date" name="start_date" class="border rounded p-2" placeholder="Start Date" required x-model="startDate">
+                                            <input type="date" id="end-date" name="end_date" class="border rounded p-2" placeholder="End Date" required x-model="endDate">
+                                            <button type="submit" id="filter-button" class="py-2 bg-blue-500 text-white rounded button-filter"
+                                                    :disabled="isLoading" x-text="isLoading ? 'Loading...' : 'Filter'">
+                                                <span x-show="isLoading" class="fas fa-spinner fa-spin"></span>
+                                                <span x-show="!isLoading">Filter</span>
+                                            </button>
                                         </div>
                                     </form>
+                                    
+                                    {{-- === end fitur filter data tanggal === --}}
                                 </div>
                             </div>
                         </div>
@@ -128,6 +127,7 @@
 
                 </div>
 
+                {{-- === component footer === --}}
                 <footer class="pt-4">
                     <div class="w-full px-6 mx-auto">
                         <div class="flex flex-wrap items-center -mx-3 lg:justify-between">
@@ -170,6 +170,7 @@
                         </div>
                     </div>
                 </footer>
+                {{-- === end component footer === --}}
             </div>
 
         </main>

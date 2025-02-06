@@ -1,14 +1,14 @@
-@php
+ @php
 $jdTidakHadir = DB::table('schedules')
     ->where('id_trainer', Auth::guard('trainer')->id())
     ->where('ket', 'Tidak Aktif')
     ->whereNull('ab_trainer')
     ->exists();
 @endphp
-@if ($getScheduleTrainer !== null && $getScheduleTrainer->isNotEmpty() && $jdTidakHadir)
+@if ($getScheduleTrainer !== null && $getScheduleTrainer->isEmpty())
     @foreach ($getScheduleTrainer->take(3) as $jadwal)
-        @if($jadwal->ket === 'Tidak Aktif')
-            <div data-aos="fade-down" class="card-h  transition-all p-6 rounded-[24px] bg-[#FED2D9] border-2 border-[#A3072B]">
+    @if ($jadwal->ket === 'Tidak Aktif' && $jadwal->ab_trainer) 
+            <div data-aos="fade-down" class="card-h transition-all p-6 rounded-[24px] bg-[#FED2D9] border-2 border-[#A3072B]">
                 <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
                     <div class="k_right flex flex-col">
                         <span class="poppins-regular">
@@ -40,10 +40,10 @@ $jdTidakHadir = DB::table('schedules')
             </div>    
         @endif
     @endforeach
-@else
+@else 
     <div data-aos="fade-down" class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#FED2D9] border-2 border-[#A3072B] ">
         <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">
-            <h1 class="text-[#313E5E] poppins">Belum Ada Jadwal Yang Tidak Aktif / Belum Aktif 😎😎</h1>
+            <h1 class="text-[#313E5E] poppins">Masih dalam tahap pengembangan</h1>
         </div>
     </div>
-@endif
+@endif 

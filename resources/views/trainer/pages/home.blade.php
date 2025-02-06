@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    {{-- == card jadwal == --}}http://127.0.0.1:8000/daftar
+    {{-- == card jadwal == --}}
     <div class="container mx-auto py-5 lg:py-1">
         <div class="box-card w-full rounded-[24px] text-start ">
             <div class="body  py-10">

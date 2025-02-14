@@ -206,7 +206,12 @@ class ScheduleController extends Controller
     {
         try {
             $getDataSchedule = Schedules::where('id', $id_schedules)->firstOrFail();
-            $getDataSchedule->ket = $request->input('status');
+            if($request->status === 'Aktif' ) {
+                $getDataSchedule->ket = $request->input('status');
+            } else if ($request->status === 'Tidak Aktif') {
+                $getDataSchedule->ket = $request->input('status');
+                $getDataSchedule->ab_trainer = null;
+            }
             $getDataSchedule->created_at = Carbon::now();
             $getDataSchedule->updated_at = Carbon::now();
             $getDataSchedule->save();
@@ -306,24 +311,6 @@ class ScheduleController extends Controller
         }
         $uniqueId = $this->generateUniqueId($getDataTrainer->nama);
 
-        // Validasi input jika diperlukan
-        // $validatedData = $request->validate([
-        //     'id_trainer' => 'required',
-        //     'id_alat' => 'required',
-        //     'id_kelas' => 'required',
-        //     'id_sekolah' => 'required',
-        //     'id_level' => 'required',
-        //     'id_program' => 'required',
-        //     'hari' => 'required',
-        //     'jm_awal' => 'required',
-        //     'jm_akhir' => 'required',
-        //     'pj_eskul' => 'required',
-        //     'ket' => 'required',
-        //     'dj_akhir' => 'required',
-        //     'tanggal_jd' => 'required',
-        //     'api_maps' => 'required',
-        // ]);
-
         // Hasil validasi masuk ke tabel schedule
         $schedule = Schedules::findOrFail($id_schedule);
         if ($schedule === null) {
@@ -335,7 +322,7 @@ class ScheduleController extends Controller
             'id_kelas' => $request->id_kelas,
             'id_sekolah' => $request->id_sekolah,
             'id_level' => $request->id_level,
-            'id_program' => $request->id_program,
+            'id_program' => $request->id_program, 
             'hari' => $request->hari,
             'jm_awal' => $request->jm_awal,
             'jm_akhir' => $request->jm_akhir,

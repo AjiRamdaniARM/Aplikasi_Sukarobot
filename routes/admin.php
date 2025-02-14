@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\DataTrainerController;
+use App\Http\Controllers\admin\googleDriveController;
 use App\Http\Controllers\admin\LaporanTrainer;
 use App\Http\Controllers\api\nodeWaApi;
 use App\Http\Controllers\bigDataController;
@@ -89,10 +90,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/schedule/replaceStatus/{id_schedules}', [ScheduleController::class, 'status'])->name('schedule.status');
     Route::get('/schedule/deleteSchedule/{id_schedules}', [ScheduleController::class, 'delete'])->name('schedule.delete');
 
+
+    // Route Google Drive Menu
+    Route::get('/GoogleDrive', [googleDriveController::class, 'index'])->name('menu.googleDrive');
+    Route::post('/GoogleDrive/post', [googleDriveController::class, 'post'])->name('menu.googleDrive.post');
+    // Route Edit Google Drive
+    Route::delete('/GoogleDrive/delete/{id}', [googleDriveController::class, 'delete'])->name('menu.googleDrive.delete');
+    // Route edited google drive
+    Route::post('/GoogleDrive/edited/{id}', [googleDriveController::class, 'edited'])->name('menu.googleDrive.edited');
+
     // fitur superAdmin
     Route::get('/dataStaff', [StaffController::class, 'index'])->name('dataStaff.index');
     Route::post('/superadmin/update/{id}', [StaffController::class, 'update'])->name('superadmin.update');
-    Route::post('/superadmin/delete/{id}', [StaffController::class, 'delete'])->name('superadmin.delete');
 
     // route profile admin
     Route::get('/profileAdmin', [profile::class, 'index'])->name('profileAdmin.index');

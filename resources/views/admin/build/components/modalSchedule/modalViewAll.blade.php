@@ -89,7 +89,7 @@
         <div class="voucher-code-container-admin">
             <h6 class="voucher-code-title-admin">Select Levels</h6>
             <select name="status" id="ket" class="voucher-input px-3" required>
-                <option class="uppercase" style="background-color: red" value="{{ $schedule->id_trainer }}" selected>
+                <option class="uppercase" style="background-color: red" value="{{ $schedule->ket }}" selected>
                     {{ $schedule->ket }} (dipilih)
                 </option>
                 <option value="Aktif">Aktif</option>

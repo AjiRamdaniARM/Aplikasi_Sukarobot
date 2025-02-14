@@ -178,6 +178,20 @@
                   </a>
               </li>
 
+               {{-- === menu Google Drive Dokumentasi Trainer === --}}
+               <li class="mt-0.5 w-full">
+                <a class="{{ request()->routeIs('menu.googleDrive') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
+                    href="{{ route('menu.googleDrive') }}">
+                    <div
+                        class="{{ request()->routeIs('menu.googleDrive') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' : 'shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' }}">
+                        <svg width="12px" height="12px" viewBox="0 0 24 24" fill="{{ request()->routeIs('menu.googleDrive`') ? '#ffffff' : '#000000' }}" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.57437 2C7.86303 2 7.20523 2.37782 6.84681 2.99226L0.450743 13.9569C0.0657947 14.6169 0.0904195 15.4384 0.5142 16.0741L3.87108 21.1094C4.24201 21.6658 4.86647 22 5.53518 22H18.4648C19.1335 22 19.758 21.6658 20.1289 21.1094L23.4858 16.0741C23.9096 15.4384 23.9342 14.6169 23.5492 13.9569L17.1532 2.99226C16.7948 2.37782 16.137 2 15.4256 2H8.57437ZM9.80424 4H15.4256L21.259 14H16.0542L9.80424 4ZM13.6957 14L11.9088 11.1409L10.241 14H13.6957ZM9.07436 16L6.74103 20H18.4648L21.1315 16H9.07436ZM10.7112 9.22473L4.94342 19.1124L2.1783 14.9647L8.02952 4.93403L10.7112 9.22473Z" fill="{{ request()->routeIs('menu.googleDrive') ? '#ffffff' : '#000000' }}"/>
+                        </svg>
+                    </div>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Google Drive</span>
+                </a>
+            </li>
+
               <li class="mt-0.5 w-full">
                   <a class="{{ request()->routeIs('laporan.trainer.admin') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
                       href="{{ route('laporan.trainer.admin')}}">

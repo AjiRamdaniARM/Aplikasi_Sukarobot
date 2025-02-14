@@ -108,7 +108,7 @@
                 </div>
                
                 <iframe class="w-full h-full rounded-lg border border-[#000000]"
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12080.73732861526!2d-74.0059418!3d40.7127847!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM40zMDA2JzEwLjAiTiA3NMKwMjUnMzcuNyJX!5e0!3m2!1sen!2sus!4v1648482801994!5m2!1sen!2sus"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.7309654116775!2d106.93068827475706!3d-6.92272989307696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68378a889fa131%3A0x255807915403ab50!2sSUKAROBOT%20ACADEMY!5e0!3m2!1sid!2sid!4v1739155666407!5m2!1sid!2sid"
                 frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
                 </iframe>
             </div>  

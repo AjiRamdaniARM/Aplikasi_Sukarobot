@@ -87,18 +87,22 @@
     <form action="{{ url('/schedule/replaceStatus/' . $schedule->id_schedules) }}" method="POST">
         @csrf
         <div class="voucher-code-container-admin">
-            <h6 class="voucher-code-title-admin">Select Levels</h6>
+            <h6 class="voucher-code-title-admin">Pilih Status nya</h6>
             <select name="status" id="ket" class="voucher-input px-3" required>
-                <option class="uppercase" style="background-color: red" value="{{ $schedule->ket }}" selected>
+                <option class="uppercase" style="background-color: red"  selected>
                     {{ $schedule->ket }} (dipilih)
                 </option>
                 <option value="Aktif">Aktif</option>
                 <option value="Tidak Aktif">Tidak Aktif</option>
             </select>
         </div>
-        <button type="submit" class="voucher-button-admin">Replace Trainer</button>
-    </form>
 
+        <div class="voucher-code-container-admin">
+            <h6 class="voucher-code-title-admin">Update jam deadline</h6>
+            <input name="dj_akhir" id="dj_akhir" type="number" class="voucher-input px-3" value="{{ $schedule->dj_akhir }}"  required />
+        </div>
+        <button type="submit" class="voucher-button-admin">Ayo Mulai</button>
+    </form>
 
     <button onclick="window.modalReplaceStatus{{ $schedule->id_schedules }}.close();" aria-label="close"
         class="x">❌</button>

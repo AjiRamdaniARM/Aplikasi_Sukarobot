@@ -205,12 +205,15 @@ class ScheduleController extends Controller
     public function status(Request $request, $id_schedules)
     {
         try {
-            $getDataSchedule = Schedules::where('id', $id_schedules)->firstOrFail();
+            $getDataSchedule = Schedules::where('id', $id_schedules)->first();
             if($request->status === 'Aktif' ) {
                 $getDataSchedule->ket = $request->input('status');
+                $getDataSchedule->dj_akhir = $request->input('dj_akhir');
+                $getDataSchedule->ab_trainer = null;
             } else if ($request->status === 'Tidak Aktif') {
                 $getDataSchedule->ket = $request->input('status');
-                $getDataSchedule->ab_trainer = null;
+                $getDataSchedule->dj_akhir = 0;
+                $getDataSchedule->ab_trainer = 'Tidak Hadir';
             }
             $getDataSchedule->created_at = Carbon::now();
             $getDataSchedule->updated_at = Carbon::now();
@@ -332,6 +335,7 @@ class ScheduleController extends Controller
             'dj_akhir' => $request->dj_akhir,
             'tanggal_jd' => $request->tanggal_jd,
             'api_maps' => $request->api_maps,
+            'ab_trainer' => null
         ]);
 
         // Ambil data siswa yang ada di database
@@ -351,6 +355,6 @@ class ScheduleController extends Controller
             }
         }
 
-        return redirect()->back()->with('message', 'You have successfully updated the trainer schedule');
+        return redirect()->route('schedule.index')->with('message', 'You have successfully updated the trainer schedule');
     }
 }

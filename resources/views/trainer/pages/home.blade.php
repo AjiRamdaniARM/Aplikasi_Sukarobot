@@ -68,7 +68,7 @@
                         {{-- === card belum absen === --}}
 
                         {{-- === card sudah absen === --}}
-                        <div data-aos="fade-down"  class="text-[#798AA3] flex justify-between"><span>Sudah Absen</span> <a href="{{ route('laporan.menu') }}" class="text-blue-500">Lihat Lainnya</a> </div>
+                        <div data-aos="fade-down"  class="text-[#798AA3] flex justify-between"><span>Sudah Absen</span><a href="{{ route('laporan.menu') }}" class="text-blue-500">Lihat Lainnya</a> </div>
                         @include('trainer.pages.component_home.alreadyAbsensi_card')
                         {{-- === card sudah absen === --}}
 

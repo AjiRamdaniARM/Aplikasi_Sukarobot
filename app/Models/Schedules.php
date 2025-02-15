@@ -26,6 +26,7 @@ class Schedules extends Model
         'dj_akhir',
         'tanggal_jd',
         'api_maps',
+        'ab_trainer'
     ];
 
     

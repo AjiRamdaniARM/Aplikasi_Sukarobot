@@ -118,14 +118,49 @@
                           class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                           <div
                               class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                              <div class="flex items-center justify-start">
-                                  <h6>Schedule List</h6>
+                              <div class="flex items-center justify-between ">
+                                  <h6>Jadwal Mengajar Trainer</h6>
                                   &nbsp;&nbsp;
-                                  <button onclick="window.location.href='{{ route('schedule.create') }}'"
+
+                                    <button id="loadingCreateJadwal" onclick="window.location.href='{{ route('schedule.create') }}'" class="button-custom-1">
+                                     Tambah  
+                                    </button>
+
+                                <script>
+                                   document.getElementById("loadingCreateJadwal").addEventListener("click", function () {
+                                    let button = this;
+                                    let originalText = button.innerHTML;
+                                    let url = button.getAttribute("data-url");
+
+                                    // Ubah teks tombol menjadi "Loading..." dan tambahkan efek loading
+                                    button.innerHTML = '<i class="fa fa-circle-o-notch fa-spin"></i> Loading...';
+                                    button.disabled = true;
+
+                                    // Simulasi request (gunakan fetch atau AJAX jika perlu)
+                                    fetch(url)
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            // Kembalikan tombol ke keadaan semula setelah request berhasil
+                                            button.innerHTML = originalText;
+                                            button.disabled = false;
+
+                                            // Lakukan sesuatu dengan data response jika diperlukan
+                                            console.log(data);
+                                        })
+                                        .catch(error => {
+                                            console.error("Error:", error);
+                                            button.innerHTML = originalText;
+                                            button.disabled = false;
+                                        });
+                                });
+
+                                </script>
+                                
+                                  {{-- <button onclick="window.location.href='{{ route('schedule.create') }}'"
                                       class="bg-gradient-to-tl from-blue-600 to-cyan-400 font-bold text-white p-1 rounded hover:scale-102"
                                       style="transition:all;">
                                       Create Schedule
-                                  </button>
+                                  </button> --}}
                               </div>
                               <div class="mt-4 px-1">
                                   {{ $getDataSchedule->links() }}
@@ -139,16 +174,16 @@
                                           <tr>
                                               <th
                                                   class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                  Trainer</th>
+                                                  Nama Trainer</th>
                                               <th
                                                   class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                  Teacher time</th>
+                                                  Waktu manegajar</th>
                                               <th
                                                   class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                  Teaching schedule date</th>
+                                                  Tanggal Mengajar</th>
                                               <th
                                                   class="px-6 py-3 pl-2 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                  Class Academy </th>
+                                                  Kelas Mengajar </th>
                                               <th
                                                   class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap">
                                               </th>

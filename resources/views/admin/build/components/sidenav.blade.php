@@ -17,7 +17,7 @@
               {{-- === menu dashboard === --}}
               <li class="mt-0.5 w-full">
                   <a class="{{ request()->routeIs('dashboard') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
-                      href="{{ route('dashboard') }}">
+                      onclick="alert('Fitur Dalam Prosess Perbaikan')">
                       <div
                           class="{{ request()->routeIs('dashboard') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' : 'shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' }}">
                           <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1"
@@ -237,7 +237,7 @@
 
               <li class="mt-0.5 w-full">
                   <a class="{{ request()->routeIs('dataStaff.index') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
-                      href="{{ route('dataStaff.index') }}">
+                      onclick="alert('Halaman dalam perbaikan')">
                       <div
                           class="{{ request()->routeIs('dataStaff.index') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' : 'shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' }}">
                           <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
@@ -269,7 +269,7 @@
 
               <li class="mt-0.5 w-full">
                   <a class="{{ request()->routeIs('qr-code') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
-                      href="{{ route('wa-api') }}">
+                      onclick="alert('Halaman dalam perbaikan')">
                       <div
                           class="{{ request()->routeIs('qr-code') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' : 'shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' }}">
                           <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
@@ -336,7 +336,7 @@
 
               <li class="mt-0.5 w-full">
                   <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                      href="{{ route('profileAdmin.index') }}">
+                      onclick="alert('Halaman dalam perbaikan')">
                       <div
                           class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                           <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"

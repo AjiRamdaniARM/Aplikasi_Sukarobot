@@ -174,6 +174,7 @@ class LaporanTrainer extends Controller
         $selectedFields = $request->input('fields');
     
         $query = DB::table('schedules')
+            ->where('ab_trainer', 'Hadir')
             ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
             ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
             ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')

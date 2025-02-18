@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\trainer\drive;
 
 use App\Http\Controllers\Controller;
+use App\Models\GoogleDrive;
 use App\Models\Schedules;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,8 @@ class uploadDriveController extends Controller
 {
     public function index($id)
     {
-        return view('trainer.pages.google_drive.index', compact('id'));
+        $googleDrive = GoogleDrive::all();
+        return view('trainer.pages.google_drive.index', compact('id', 'googleDrive'));
     }
 
     public function DriveUploaded(Request $request, $id)

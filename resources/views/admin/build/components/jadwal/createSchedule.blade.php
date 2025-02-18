@@ -278,10 +278,30 @@
                 </div>
 
                 <br>
-                <button type="submit"
-                    class="bg-gradient-to-tl text-center from-blue-600 to-cyan-400 font-bold text-white w-full  rounded hover:scale-102"
-                    style="height: 50px;">Create
-                    Schedule</button>
+                <button id="buttonSubmitLoading" type="submit"
+                    class="bg-gradient-to-tl text-center from-blue-600 to-cyan-400 font-bold text-white w-full hover:scale-102 rounded "
+                    style="height: 50px;">Buat Jadwal</button>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                        let form = document.querySelector("form"); // Gantilah jika form memiliki ID spesifik
+                        let button = document.getElementById("buttonSubmitLoading");
+
+                        form.addEventListener("submit", function () {
+                            let originalText = button.innerHTML;
+
+                            // Ubah teks tombol menjadi "Loading..." dan tambahkan efek loading
+                            button.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
+                            button.disabled = true;
+
+                            // Tunggu submit selesai
+                            setTimeout(() => {
+                                button.innerHTML = originalText;
+                                button.disabled = false;
+                            }, 5000); // Opsional, jika ingin mengembalikan teks setelah beberapa waktu (bisa dihapus)
+                        });
+                    });
+
+                    </script>
                 </form>
             </div>
             </div>

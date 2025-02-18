@@ -10,29 +10,29 @@
             {{ date('H:i', strtotime($schedule->jm_akhir)) }} | {{ $schedule->kelas }} <span></span></h6>
     </div>
     <div class="voucher-code-container-admin">
-        <h6 class="voucher-code-title-admin">Replace the Trainer</h6>
+        <h6 class="voucher-code-title-admin">Ubah Trainer</h6>
         <button onclick="window.modalReplace{{ $schedule->id_schedules }}.showModal();" class="voucher-input text-white "
-            style="background-color: #904913">Replace Data</button>
+            style="background-color: #904913">Ubah Trainer</button>
     </div>
 
     <div class="voucher-code-container-admin">
-        <h6 class="voucher-code-title-admin">Status Schedule</h6>
+        <h6 class="voucher-code-title-admin">Status Jadwal</h6>
         <button class="voucher-input text-white"
             onclick="window.modalReplaceStatus{{ $schedule->id_schedules }}.showModal();"
-            style="background-color: #901313">Status Data</button>
+            style="background-color: #901313">Status Jadwal</button>
     </div>
     <div class="voucher-code-container-admin">
-        <h6 class="voucher-code-title-admin">Edit Data</h6>
+        <h6 class="voucher-code-title-admin">Ubah Data</h6>
         <button class="voucher-input text-white"
             onclick="window.location.href='{{ url('/schedule/edit/' . $schedule->id_schedules) }}'"
-            style="background-color: #904913">Edit Data</button>
+            style="background-color: #904913">Ubah Data</button>
     </div>
     <form action="{{ url('/schedule/deleteSchedule/' . $schedule->id_schedules) }}" method="GET">
         @csrf
         <div class="voucher-code-container-admin" data-id_schedules="{{ $schedule->id }}">
-            <h6 class="voucher-code-title-admin">Delete Data</h6>
+            <h6 class="voucher-code-title-admin">Hapus Data</h6>
             <button type="submit" class="voucher-input text-white delete-button"
-                style="background-color: #901313">Delete
+                style="background-color: #901313">Hapus
                 Data</button>
         </div>
     </form>
@@ -55,7 +55,7 @@
     <form action="{{ url('/schedule/replaceTrainer/' . $schedule->id_schedules) }}" method="POST">
         @csrf
         <div class="voucher-code-container-admin">
-            <h6 class="voucher-code-title-admin">Select Levels</h6>
+            <h6 class="voucher-code-title-admin">Pilih Trainer</h6>
             <select name="id_trainer" id="trainer" class="voucher-input px-3" required>
                 <option class="uppercase" style="background-color: red" value="{{ $schedule->id_trainer }}" selected>
                     {{ $schedule->nama }} (dipilih)
@@ -65,7 +65,7 @@
                 @endforeach
             </select>
         </div>
-        <button type="submit" class="voucher-button-admin">Replace Trainer</button>
+        <button type="submit" class="voucher-button-admin">Ubah Trainer</button>
     </form>
 
     <button onclick="window.modalReplace{{ $schedule->id_schedules }}.close();" aria-label="close"

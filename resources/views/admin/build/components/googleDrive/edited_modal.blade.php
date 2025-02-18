@@ -1,4 +1,4 @@
-<dialog id="modalDriveEdited">
+<dialog id="modalDriveEdited{{$drive->id}}">
     <h2 class="poppins-bold">Edited Folder Drive</h2>
     <form action="{{ route('menu.googleDrive.edited',['id' => $drive->id ] )}}" method="POST">
       @csrf
@@ -16,7 +16,7 @@
       </div>
       <button type="submit" class="voucher-button-admin">Create</button>
     </form>
-      <button  aria-label="close" onclick="window.modalDriveEdited.close();" class="x">❌</button>
+      <button  aria-label="close" onclick="window.modalDriveEdited{{$drive->id}}.close();" class="x">❌</button>
   </dialog>
   
   <style>

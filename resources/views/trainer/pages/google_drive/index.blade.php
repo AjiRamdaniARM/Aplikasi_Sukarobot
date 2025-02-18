@@ -38,7 +38,6 @@
                       </div>
                       </div>
                       <div id="preview-container" class="flex flex-wrap gap-4 mt-4"></div>
-
                       <script>
                         document.getElementById('upload-form').addEventListener("submit", function() {
                           const unggahBtn = document.getElementById('unggah-image');
@@ -110,19 +109,22 @@
               </tr>
           </thead>
           <tbody class="divide-y divide-gray-100">
+            @foreach ($googleDrive as $drive )
               <tr class="text-gray-500">
-                  <th class="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">
-                    <div class="content-svg flex items-center gap-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m9 13.5 3 3m0 0 3-3m-3 3v-6m1.06-4.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
-                      </svg>
-                      DokumentasiTrainer
-                    </div> 
-                   </th>
-                  <td class="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4">
-                    <a href="">
-                      Akses Folder Drive</a></td>
+                <th class="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">
+                  <div class="content-svg flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m9 13.5 3 3m0 0 3-3m-3 3v-6m1.06-4.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
+                    </svg>
+                    {{ $drive->name_folder}}
+                  </div> 
+                </th>
+                <td class="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4">
+                  <a href="{{ $drive->link_folder}}" class="text-blue-500">
+                    Akses Drive</a></td>
               </tr>
+            @endforeach
+             
           </tbody>
       </table>
   </div>

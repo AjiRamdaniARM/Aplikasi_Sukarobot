@@ -20,11 +20,11 @@
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-first-name">
-                                    Days
+                                    Hari
                                 </label>
                                 <select name="hari" id="days" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="">Select Days</option>
+                                    <option value="">Pilih Hari</option>
                                     <option value="Senin">Senin</option>
                                     <option value="Selasa">Selasa</option>
                                     <option value="Rabu">Rabu</option>
@@ -44,7 +44,7 @@
                                 </label>
                                 <select name="id_trainer" id="trainer" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="">Select Trainers</option>
+                                    <option value="">Pilih Trainer</option>
                                     @foreach ($getDataTrainer as $trainer)
                                         <option value="{{ $trainer->id }}">{{ $trainer->nama }}</option>
                                     @endforeach
@@ -59,11 +59,11 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    Class Academy
+                                    Kelas Pembelajaran
                                 </label>
                                 <select name="id_kelas" id="class" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="">Select Class</option>
+                                    <option value="">Pilih Kelas</option>
                                     @foreach ($getDataClass as $class)
                                         <option value="{{ $class->id }}">{{ $class->kelas }}</option>
                                     @endforeach
@@ -75,11 +75,11 @@
                             <div class="w-full md:w-1/2 px-3" style="display: none;">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    school
+                                    Sekolah
                                 </label>
                                 <select name="id_sekolah" id="school"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="">Select School</option>
+                                    <option value="">Pilih Sekolah</option>
                                     @foreach ($getDataSchool as $school)
                                         <option value="{{ $school->id_sekolah }}">{{ $school->sekolah }}</option>
                                     @endforeach
@@ -95,11 +95,11 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    Program academy
+                                    Program Pembelajaran
                                 </label>
                                 <select name="id_program" id="program" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="">Select Program</option>
+                                    <option value="">Pilih Program</option>
                                     @foreach ($getDataProgram as $program)
                                         <option value="{{ $program->id }}">{{ $program->program }}</option>
                                     @endforeach
@@ -110,11 +110,11 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    Level academy
+                                    Level Pembelajaran
                                 </label>
                                 <select name="id_level" id="level" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="">Select Level</option>
+                                    <option value="">Pilih Level</option>
                                     @foreach ($getDataLevel as $level)
                                         <option value="{{ $level->id }}">{{ $level->levels }}</option>
                                     @endforeach
@@ -129,12 +129,12 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    TOOLS
+                                    Alat
                                 </label>
                                 <select name="id_alat" id="alat" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="">Select Tools</option>
-                                    <option value="">No Tools</option>
+                                    <option value="">Pilih Alat</option>
+                                    <option value="">Tidak Ada Alat</option>
                                     @foreach ($getDataTools as $tools)
                                         <option value="{{ $tools->id }}">{{ $tools->alat }}</option>
                                     @endforeach
@@ -147,11 +147,11 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    Pj Club
+                                    Pj Eskul
                                 </label>
                                 <select name="pj_eskul" id="trainer" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="">Select Pj Club</option>
+                                    <option value="">Pilih Pj Eskul</option>
                                     @foreach ($getDataTrainer as $trainer)
                                         <option value="{{ $trainer->nama }}">{{ $trainer->nama }}</option>
                                     @endforeach
@@ -168,7 +168,7 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    first hour teaching
+                                    Awal Jam Mengajar
                                 </label>
                                 <input type="time" name="jm_awal" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -180,7 +180,7 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    final attendance deadline
+                                    Deadline Absensi Trainer
                                 </label>
                                 <input type="number" placeholder="cth: 2 ( jam )" name="dj_akhir" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -196,14 +196,29 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    teaching schedule date
+                                    Tanggal Mengajar Trainer
                                 </label>
                                 <input type="date" name="tanggal_jd" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             </div>
 
+       
+                                {{-- === input  api google maps ===  --}}
+                                <div class="w-full md:w-1/2 px-3"  >
+                                    <label class="block uppercase
+                                    tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name"
+                                    style="color: rgb(192, 109, 2)">
+                                    api google maps ( optional)
+                                    </label>
+                                    <input type="text" name="api_maps"
+                                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                        placeholder="link google maps">
+                                </div>
+    
+               
+
                             {{-- === input early attendance deadline ===  --}}
-                            <div class="w-full md:w-1/2 px-3">
+                            {{-- <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 "
                                     for="grid-last-name" style="color: red">
                                     early attendance deadline ( fitur disabled)
@@ -211,7 +226,7 @@
                                 <input type="timestamp"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     disabled>
-                            </div>
+                            </div> --}}
                             {{-- === fitur disabled === --}}
 
 
@@ -224,7 +239,7 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    final hour of teaching
+                                    Akhir Jam Mengajar
                                 </label>
                                 <input type="time" name="jm_akhir" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -234,30 +249,14 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    Status Schedule
+                                    Status Jadwal
                                 </label>
                                 <select name="ket" id="status" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="">Select Status</option>
+                                    <option value="">Pilih Status</option>
                                     <option value="Aktif">Aktif</option>
                                     <option value="Tidak Aktif">Tidak Aktif</option>
                                 </select>
-                            </div>
-
-                        </div>
-
-
-                        <div class="flex flex-wrap  px-3 -mx-3 mb-6">
-                            {{-- === input  api google maps ===  --}}
-                            <div class="w-full  >
-                                <label class="block uppercase
-                                tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name"
-                                style="color: rgb(192, 109, 2)">
-                                api google maps ( optional)
-                                </label>
-                                <input type="text" name="api_maps"
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    placeholder="link google maps">
                             </div>
 
                         </div>

@@ -257,7 +257,6 @@ class LaporanTrainer extends Controller
         $filename = 'Custom_laporan.xlsx';
         $tempFilePath = storage_path('app/public/' . $filename);
         $writer->save($tempFilePath);
-    
         return response()->download($tempFilePath)->deleteFileAfterSend(true);
     }
     

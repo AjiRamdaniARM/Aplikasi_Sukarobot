@@ -207,7 +207,6 @@ class SistemKidsCoontroller extends Controller
                 $dataFile = $request->file('file');
                 $fileName = 'pasFoto_'.$request->nama_lengkap.'.'.$dataFile->getClientOriginalExtension();
                 $dataFile->move(public_path('/assets/data/dataAnak/img'), $fileName);
-
                 $validateDataKids = new DataSiswa();
                 $validateDataKids->id_kelas = $request->id_kelas;
                 $validateDataKids->nama_lengkap = $request->nama_lengkap;
@@ -217,17 +216,16 @@ class SistemKidsCoontroller extends Controller
                 $validateDataKids->kelas = $request->kelas;
                 $validateDataKids->nama_ortu = $request->nama_ortu;
                 $validateDataKids->work_ortu = $request->work_ortu;
-                $validateDataKids->alamat = $request->alamat;
+                $validateDataKids->alamat = $request->alamat; 
                 $validateDataKids->telephone = $request->telephone;
                 $validateDataKids->file = $fileName;
                 $validateDataKids->save();
-
             } else {
                 return response()->json(['error' => 'Tidak ada data pas foto']);
             }
         }
 
-        // jikah sudah masuk lempar ke halaman selanjutnya
+        // jika sudah masuk lempar ke halaman selanjutnya
         return redirect()
             ->back()
             ->with('success', 'child data has been registered');
@@ -281,7 +279,7 @@ class SistemKidsCoontroller extends Controller
             // Move new file to the specified location
             $file->move($filePath, $fileName);
             $getData->file = $fileName;
-        }
+        } 
 
         // Save updated student data
         $getData->save();

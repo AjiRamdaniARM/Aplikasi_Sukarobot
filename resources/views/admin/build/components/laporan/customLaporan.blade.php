@@ -1,8 +1,5 @@
 <x-app-layout>
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-
     <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
         @include('admin.build.components.laporan.modalFiturFilter')
         @include('admin.build.components.laporan.modalTemplateExcel')

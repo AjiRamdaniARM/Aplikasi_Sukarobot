@@ -5,6 +5,8 @@
         <table class="min-w-full bg-white shadow-md rounded-lg">
             <thead>
                 <tr class="bg-[#0E2C75] text-white rounded-2xl">
+
+                    <th class="py-4 px-6 text-left text-sm font-semibold uppercase">No</th>
                     <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Private / Sekolah</th>
                     <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Level</th>
                     <th class="py-4 px-6 text-left text-sm font-semibold uppercase">Hari</th>
@@ -17,18 +19,25 @@
                 {{-- === component modal === --}}
                     @include('trainer.pages.laporanTrainer.partials.modalDetail')
                 {{-- === end component modal === --}}
-                    <tr class="border-b hover:bg-gray-100 @if ($loop->iteration % 2 == 0) bg-gray-50 @endif">
+                    <tr class="border-b hover:bg-gray-100 @if ($key->kelas_name == 'Club') bg-[#696969FF]/50 @endif">
                         <td class="py-4 px-6 text-gray-700">
                             {{ ($query->currentPage() - 1) * $query->perPage() + $loop->iteration }}
                         </td>
                         <td class="py-4 px-6 text-gray-700">
-                            {{ $key->kelas_name ?? 'Tidak Ada Data' }}
+                            @if ($key->kelas_name == 'Club')
+                                {{ $key->school_name ?? 'Tidak Ada Data' }}
+                            @else
+                                {{ $key->kelas_name ?? 'Tidak Ada Data' }}
+                            @endif
                         </td>
                         <td class="py-4 px-6 text-gray-700">
                             {{ $key->level_name ?? 'Tidak Ada Data' }}
                         </td>
                         <td class="py-4 px-6 text-gray-700">
                             <span class="bg-yellow-400 py-2 px-5 rounded-lg">{{ $key->hari ?? '-' }}</span>
+                        </td>
+                        <td class="py-4 px-6 text-gray-700">
+                            {{ \Carbon\Carbon::parse($key->tanggal_jd)->locale('id')->translatedFormat('d F Y') ?? 'Tidak Ada Data' }}
                         </td>
                         <td class="py-4 px-6 hover:text-blue-400 transition-all hover:scale-105 text-gray-700">
                             <button onclick="document.getElementById('modal-laporan-detail-{{ $key->id_schedules }}').showModal();" class="bg-none">

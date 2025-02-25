@@ -292,3 +292,12 @@ background-color: gray;
 .hover-button:hover {
   background-color: gray !important;
 }
+
+
+/* style css class color logo sukarobot */
+.color-bs {
+  background-color: #045A70;
+}
+.color-os {
+  background-color: #DE7528;
+}

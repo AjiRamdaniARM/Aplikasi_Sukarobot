@@ -21,7 +21,7 @@
             {{-- === card 1 === --}}
             <div class="p-6 rounded-[24px] bg-[#FBDC5C] border-2 border-[#CE7100] text-center">
                 <div class="t_one text-lg font-semibold text-[#455068] text-[18px]">
-                    Total Penghasilan
+                    Total Penghasilan 
                 </div>
                 <div class="t_two  font-bold mt-2 text-[#602400] text-[30px]">
                    Rp.{{ number_format($penghasilan, 0, ',', '.') }}

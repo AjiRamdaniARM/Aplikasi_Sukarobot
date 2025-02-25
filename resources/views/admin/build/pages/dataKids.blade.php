@@ -24,9 +24,6 @@
                         {{ session('error') }}
                     </div>
                 @endif
-
-
-
                 <!-- content -->
                 <div class="flex flex-wrap -mx-3">
                     <div class="max-w-full px-3 lg:w-full lg:flex-none">
@@ -50,11 +47,11 @@
                                                         Create Schools
                                                     </button>
                                                     &nbsp;
-                                                    <button id="submit-button" type="submit"
+                                                    {{-- <button id="submit-button" type="submit"
                                                         class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
                                                         <i class="fas fa-plus">
                                                         </i>&nbsp;&nbsp;Create
-                                                        Data</button>
+                                                        Data</button> --}}
                                                     &nbsp;
                                                     <a href="{{ url('/datakids/allExport') }}"
                                                         class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
@@ -71,165 +68,139 @@
                                             </div>
                                         </div>
                                         <div class="flex flex-col p-4" style="gap:10px">
-                                            <div class="flex flex-wrap -mx-3 ">
-                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-yellow-800 border border-solid shadow-none rounded-xl w-full border-black bg-clip-border py-4"
-                                                        name="nama_lengkap" value="{{ old('nama_lengkap') }}"
-                                                        type="text" required placeholder="Full Name" />
-                                                    @error('nama_lengkap')
-                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
-                                                            role="alert">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
-                                                        name="tl" value="{{ old('tl') }}" required
-                                                        type="text" placeholder="Place Of Birth" />
-                                                    @error('tl')
-                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
-                                                            role="alert">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-
-
-                                            </div>
-                                            <div class="flex flex-wrap -mx-3 ">
-                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none ">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
-                                                        name="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
-                                                        type="date" required placeholder="Date Of Birth" />
-                                                </div>
-
-
-                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <select
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
-                                                        name="sekolah" id="">
-                                                        <option value="">Select Schools</option>
-                                                        @foreach ($getSelect as $get)
-                                                            <option value="{{ $get->id_sekolah }}">
-                                                                {{ $get->sekolah }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    {{-- <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
-                                                        name="sekolah" value="{{ old('sekolah') }}" type="text"
-                                                        required placeholder="School" />
-                                                    @error('sekolah')
-                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
-                                                            role="alert">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror --}}
-                                                </div>
-
-
-                                            </div>
-                                            <div class="flex flex-wrap -mx-3 ">
-                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none ">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
-                                                        name="kelas" value="{{ old('kelas') }}" type="text"
-                                                        required placeholder="Class" />
-                                                    @error('kelas')
-                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
-                                                            role="alert">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
-                                                        name="nama_ortu" value="{{ old('nama_ortu') }}" type="text"
-                                                        required placeholder="Parent's Name" />
-                                                    @error('nama_ortu')
-                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
-                                                            role="alert">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-
-
-                                            </div>
-                                            <div class="flex flex-wrap -mx-3 ">
-                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none ">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
-                                                        name="telephone" value="{{ old('telephone') }}" type="number"
-                                                        required placeholder="Number Handphone" />
-                                                    @error('telephone')
-                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
-                                                            role="alert">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
-                                                        name="work_ortu" value="{{ old('work_ortu') }}"
-                                                        type="text" required placeholder="Parent's Occupation" />
-                                                    @error('work_ortu')
-                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
-                                                            role="alert">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-
-
                                             <div class="flex flex-wrap -mx-3">
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <select
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
-                                                        name="id_kelas" id="">
-                                                        <option value="">Select Class</option>
-                                                        @foreach ($getDataClass as $get)
-                                                            <option value="{{ $get->id }}">
-                                                                {{ $get->kelas }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    {{-- <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100 bg-clip-border"
-                                                        name="sekolah" value="{{ old('sekolah') }}" type="text"
-                                                        required placeholder="School" />
-                                                    @error('sekolah')
-                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
-                                                            role="alert">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror --}}
-                                                </div>
-                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
-                                                    <input
-                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100  bg-clip-border"
-                                                        name="alamat" value="{{ old('alamat') }}" type="text"
-                                                        required placeholder="Address" />
-                                                    @error('alamat')
-                                                        <div class="alert alert-danger" style="padding: 10px; color:red"
-                                                            role="alert">
+                                                    <label for="nama_lengkap" class="block mb-2 text-sm font-medium text-gray-700">Nama Lengkap</label>
+                                                    <input id="nama_lengkap"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-yellow-800 border border-solid shadow-none rounded-xl w-full border-black bg-clip-border py-4"
+                                                        name="nama_lengkap" value="{{ old('nama_lengkap') }}" type="text" required placeholder="Full Name" />
+                                                    @error('nama_lengkap')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red" role="alert">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
-                                                &nbsp;
-
+                                        
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <label for="tl" class="block mb-2 text-sm font-medium text-gray-700">Tempat Lahir</label>
+                                                    <input id="tl"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
+                                                        name="tl" value="{{ old('tl') }}" required type="text" placeholder="Place Of Birth" />
+                                                    @error('tl')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
                                             </div>
-                                            <div class="max-w-full px-3 mb-6 md:mb-0  md:flex-none">
-                                                <input
-                                                    class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full  py-4 border-slate-100  bg-clip-border"
+                                        
+                                            <div class="flex flex-wrap -mx-3">
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <label for="tanggal_lahir" class="block mb-2 text-sm font-medium text-gray-700">Tanggal Lahir</label>
+                                                    <input id="tanggal_lahir"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
+                                                        name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" type="date" required />
+                                                </div>
+                                        
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <label for="sekolah" class="block mb-2 text-sm font-medium text-gray-700">Pilih Sekolah</label>
+                                                    <select id="sekolah"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
+                                                        name="sekolah">
+                                                        <option value="">Pilih Sekolah</option>
+                                                        @foreach ($getSelect as $get)
+                                                            <option value="{{ $get->id_sekolah }}">{{ $get->sekolah }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="flex flex-wrap -mx-3">
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <label for="kelas" class="block mb-2 text-sm font-medium text-gray-700">Kelas</label>
+                                                    <input id="kelas"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
+                                                        name="kelas" value="{{ old('kelas') }}" type="text" required placeholder="Class" />
+                                                    @error('kelas')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                        
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <label for="nama_ortu" class="block mb-2 text-sm font-medium text-gray-700">Nama Orang Tua</label>
+                                                    <input id="nama_ortu"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
+                                                        name="nama_ortu" value="{{ old('nama_ortu') }}" type="text" required placeholder="Parent's Name" />
+                                                    @error('nama_ortu')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="flex flex-wrap -mx-3">
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <label for="telephone" class="block mb-2 text-sm font-medium text-gray-700">Nomor Telephone</label>
+                                                    <input id="telephone"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
+                                                        name="telephone" value="{{ old('telephone') }}" type="number" required placeholder="Number Handphone" />
+                                                    @error('telephone')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                        
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <label for="work_ortu" class="block mb-2 text-sm font-medium text-gray-700">Pekerjaan Orang Tua</label>
+                                                    <input id="work_ortu"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
+                                                        name="work_ortu" value="{{ old('work_ortu') }}" type="text" required placeholder="Parent's Occupation" />
+                                                    @error('work_ortu')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="flex flex-wrap -mx-3">
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <label for="id_kelas" class="block mb-2 text-sm font-medium text-gray-700"> Pilih Kelas</label>
+                                                    <select id="id_kelas"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
+                                                        name="id_kelas">
+                                                        <option value="">Pilih Kelas</option>
+                                                        @foreach ($getDataClass as $get)
+                                                            <option value="{{ $get->id }}">{{ $get->kelas }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                        
+                                                <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
+                                                    <label for="alamat" class="block mb-2 text-sm font-medium text-gray-700">Alamat</label>
+                                                    <input id="alamat"
+                                                        class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
+                                                        name="alamat" value="{{ old('alamat') }}" type="text" required placeholder="Address" />
+                                                    @error('alamat')
+                                                        <div class="alert alert-danger" style="padding: 10px; color:red" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="max-w-full mb-1 md:mb-0 md:flex-none">
+                                                <label for="file" class="block mb-2 text-sm font-medium text-gray-700">Upload Pas Poto</label>
+                                                <input id="file"
+                                                    class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
                                                     name="file" type="file" required />
                                             </div>
+                                        
+                                            <button id="submit-button" type="submit" style="margin-top: 2px;" class="bg-gradient-to-tl from-gray-900 to-slate-800 rounded-lg py-3 text-white poppins-regular text-semibold hover-button">Simpan Data Anak</button>
                                         </div>
                                     </form>
 

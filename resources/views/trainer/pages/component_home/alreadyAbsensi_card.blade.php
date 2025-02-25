@@ -6,7 +6,7 @@ $jdSudahAbsen = DB::table('schedules')
     ->exists();
 @endphp
 @if ($getScheduleTrainer !== null && !$getScheduleTrainer->isEmpty() && $jdSudahAbsen)
-    @foreach ($getScheduleTrainer->take(3) as $jadwal)
+    @foreach ($getScheduleTrainer->take(3) as $jadwal)  
         @if ($jadwal->ab_trainer === 'Hadir')
             <div data-aos="fade-down" class="card-h hover:scale-105 transition-all p-6 rounded-[24px] bg-[#D0F8CBFF] border-2 border-[#00CE07FF]">
                 <div class="content flex flex-col lg:flex-row md:flex-row justify-between lg:gap-0 md:gap-0 gap-2">

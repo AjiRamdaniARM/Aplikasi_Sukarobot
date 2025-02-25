@@ -11,7 +11,6 @@
       <h3 class="main-title">Team</h3>
     </div>
     
-
       <!-- places -->
       <div id="place-cards" class="grid">
         <!-- item-1 -->
@@ -30,7 +29,7 @@
             </div>
           </a>
         </div>
-<br>
+      <br>
         <!-- item-2 -->
         <div class="place-card mix recommendation popular">
           <a href="vacation-details.html">
@@ -46,7 +45,7 @@
             </div>
           </a>
         </div>
-<br>
+      <br>
         <!-- item-3 -->
         <div class="place-card mix frequent recommendation">
           <a href="vacation-details.html">
@@ -62,7 +61,7 @@
             </div>
           </a>
         </div>
-<br>
+      <br>
         <!-- item-4 -->
         <div class="place-card mix recommendation frequent">
           <a href="vacation-details.html">
@@ -78,7 +77,7 @@
             </div>
           </a>
         </div>
-<br>
+      <br>
         <!-- item-5 -->
         <div class="place-card mix recommendation popular">
           <a href="vacation-details.html">
@@ -94,7 +93,7 @@
             </div>
           </a>
         </div>
-<br>
+      <br>
         <!-- item-6 -->
         <div class="place-card mix frequent popular">
           <a href="vacation-details.html">
@@ -110,7 +109,7 @@
             </div>
           </a>
         </div>
-<br>        
+      <br>        
         <!-- item-7 -->
         <div class="place-card mix frequent popular">
           <a href="vacation-details.html">
@@ -126,7 +125,7 @@
             </div>
           </a>
         </div>
-<br>       
+      <br>       
         <!-- item-8 -->
         <div class="place-card mix frequent popular">
           <a href="vacation-details.html">
@@ -142,7 +141,7 @@
             </div>
           </a>
         </div>
-<br>       
+      <br>       
         <!-- item-8 -->
         <div class="place-card mix frequent popular">
           <a href="vacation-details.html">
@@ -158,7 +157,7 @@
             </div>
           </a>
         </div>
-<br>        
+      <br>        
         <!-- item-8 -->
         <div class="place-card mix frequent popular">
           <a href="vacation-details.html">

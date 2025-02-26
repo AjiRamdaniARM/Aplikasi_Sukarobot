@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-gray-50 text-slate-500">
         @include('admin.build.components.sidenav')
         @include('modalSekolah')
@@ -73,7 +72,7 @@
                                                     <label for="nama_lengkap" class="block mb-2 text-sm font-medium text-gray-700">Nama Lengkap</label>
                                                     <input id="nama_lengkap"
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-yellow-800 border border-solid shadow-none rounded-xl w-full border-black bg-clip-border py-4"
-                                                        name="nama_lengkap" value="{{ old('nama_lengkap') }}" type="text" required placeholder="Full Name" />
+                                                        name="nama_lengkap" value="{{ old('nama_lengkap') }}" type="text" required placeholder="Nama Lengkap" />
                                                     @error('nama_lengkap')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red" role="alert">
                                                             {{ $message }}
@@ -85,7 +84,7 @@
                                                     <label for="tl" class="block mb-2 text-sm font-medium text-gray-700">Tempat Lahir</label>
                                                     <input id="tl"
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
-                                                        name="tl" value="{{ old('tl') }}" required type="text" placeholder="Place Of Birth" />
+                                                        name="tl" value="{{ old('tl') }}" required type="text" placeholder="Tempat Lahir" />
                                                     @error('tl')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red" role="alert">
                                                             {{ $message }}
@@ -132,7 +131,7 @@
                                                     <label for="nama_ortu" class="block mb-2 text-sm font-medium text-gray-700">Nama Orang Tua</label>
                                                     <input id="nama_ortu"
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
-                                                        name="nama_ortu" value="{{ old('nama_ortu') }}" type="text" required placeholder="Parent's Name" />
+                                                        name="nama_ortu" value="{{ old('nama_ortu') }}" type="text" required placeholder="Nama Orang Tua" />
                                                     @error('nama_ortu')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red" role="alert">
                                                             {{ $message }}
@@ -146,7 +145,7 @@
                                                     <label for="telephone" class="block mb-2 text-sm font-medium text-gray-700">Nomor Telephone</label>
                                                     <input id="telephone"
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl py-4 w-full border-slate-100 bg-clip-border"
-                                                        name="telephone" value="{{ old('telephone') }}" type="number" required placeholder="Number Handphone" />
+                                                        name="telephone" value="{{ old('telephone') }}" type="number" required placeholder="Nomor Telephone" />
                                                     @error('telephone')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red" role="alert">
                                                             {{ $message }}
@@ -158,7 +157,7 @@
                                                     <label for="work_ortu" class="block mb-2 text-sm font-medium text-gray-700">Pekerjaan Orang Tua</label>
                                                     <input id="work_ortu"
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
-                                                        name="work_ortu" value="{{ old('work_ortu') }}" type="text" required placeholder="Parent's Occupation" />
+                                                        name="work_ortu" value="{{ old('work_ortu') }}" type="text" required placeholder="Pekerjaan Orang Tua" />
                                                     @error('work_ortu')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red" role="alert">
                                                             {{ $message }}
@@ -184,7 +183,7 @@
                                                     <label for="alamat" class="block mb-2 text-sm font-medium text-gray-700">Alamat</label>
                                                     <input id="alamat"
                                                         class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
-                                                        name="alamat" value="{{ old('alamat') }}" type="text" required placeholder="Address" />
+                                                        name="alamat" value="{{ old('alamat') }}" type="text" required placeholder="Alamat" />
                                                     @error('alamat')
                                                         <div class="alert alert-danger" style="padding: 10px; color:red" role="alert">
                                                             {{ $message }}
@@ -200,10 +199,16 @@
                                                     name="file" type="file" required />
                                             </div>
                                         
-                                            <button id="submit-button" type="submit" style="margin-top: 2px;" class="bg-gradient-to-tl from-gray-900 to-slate-800 rounded-lg py-3 text-white poppins-regular text-semibold hover-button">Simpan Data Anak</button>
+                                            <button id="button-loading-submit" type="submit" style="margin-top: 2px;" class="bg-gradient-to-tl from-gray-900 to-slate-800 rounded-lg py-3 text-white poppins-regular text-semibold hover-button">Simpan Data Anak</button>
+                                            <script>
+                                                document.getElementById('dataForm').addEventListener('submit', function(event) {
+                                                    let button = document.getElementById("button-loading-submit");
+                                                    button.innerText = "Loading...";
+                                                    button.disabled = true; 
+                                                })
+                                            </script>
                                         </div>
                                     </form>
-
                                 </div>
                             </div>
                         </div>

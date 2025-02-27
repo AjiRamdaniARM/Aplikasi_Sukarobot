@@ -30,7 +30,7 @@
                             <div class="max-w-full px-3 mb-4 lg:mb-0 lg:w-full lg:flex-none">
                                 <div
                                     class="relative flex flex-col min-w-0 mt-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-                                    <form id="dataForm" action="{{ route('admin.kids') }}" method="POST"
+                                    <form id="dataFormKids" action="{{ route('admin.kids') }}" method="POST"
                                         class="text-black" enctype="multipart/form-data">
                                         @csrf
                                         <div
@@ -198,10 +198,9 @@
                                                     class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl w-full py-4 border-slate-100 bg-clip-border"
                                                     name="file" type="file" required />
                                             </div>
-                                        
                                             <button id="button-loading-submit" type="submit" style="margin-top: 2px;" class="bg-gradient-to-tl from-gray-900 to-slate-800 rounded-lg py-3 text-white poppins-regular text-semibold hover-button">Simpan Data Anak</button>
                                             <script>
-                                                document.getElementById('dataForm').addEventListener('submit', function(event) {
+                                                document.getElementById('dataFormKids').addEventListener('submit', function(event) {
                                                     let button = document.getElementById("button-loading-submit");
                                                     button.innerText = "Loading...";
                                                     button.disabled = true; 
@@ -218,15 +217,10 @@
                     <div class="w-full max-w-full px-3 mt-6  md:flex-none">
                         <div
                             class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
-                            <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
-                                <h6 class="mb-0">All Data Kids</h6>
-                                {{-- <a href="{{ url('users/export/') }}"
-                                    style="
-                                background-color:green;
-                                padding: 3px;
-                                color:white;
-                                ">Export
-                                    Data</a> --}}
+                            <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 flex lg:justify-between justify-center rounded-t-2xl flex-wrap items-center gap-10">
+                                <h6 class="mb-0 ">All Data Kids</h6>
+                                <br>
+                                @include('admin.build.components.dataKids.fiturSearch')
                             </div>
                             <div class="flex-auto p-4 pt-6">
                                 @if (empty($getDataKids))

@@ -12,23 +12,50 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class SistemKidsCoontroller extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $getDataSchool = DataSekolah::orderBy('created_at', 'DESC')->paginate(10);
         $getSelect = DataSekolah::orderBy('created_at', 'DESC')->get();
-
         $getDataClass = DataKelas::all();
 
+        // get data and konversi ke count
         $getDataCountAll = DataSiswa::count();
         $getDataCountClub = DataSiswa::where('id_kelas', 1)->count();
         $getDataCountPrivate = DataSiswa::where('id_kelas', 2)->count();
 
-        $getDataKids = DB::table('data_siswas')
-            ->join('data_sekolahs', 'data_siswas.id_sekolah', '=', 'data_sekolahs.id_sekolah')
-            ->select('data_siswas.*', 'data_sekolahs.*', 'data_siswas.alamat as alamat_anak')
-            ->orderBy('data_siswas.nama_lengkap', 'asc')->paginate(10);
+    // Get data siswa dari filter card 
+    $getRequestSiswaFilter = $request->input('class');
 
-        return view('admin.build.pages.dataKids', compact('getDataKids', 'getSelect', 'getDataSchool', 'getDataClass', 'getDataCountAll','getDataCountClub','getDataCountPrivate'));
+    // Ambil data pencarian dari input
+    $getResponseSiswa = $request->input('keyword');
+
+    // Query dengan where sebelum orWhere
+    $getDataKids = DB::table('data_siswas')
+    ->join('data_sekolahs', 'data_siswas.id_sekolah', '=', 'data_sekolahs.id_sekolah')
+    ->where(function ($query) use ($getResponseSiswa, $getRequestSiswaFilter) {
+        $query->where('data_siswas.nama_lengkap', 'LIKE', "%{$getResponseSiswa}%")
+              ->orWhere('data_siswas.status_siswa', 'LIKE', "%{$getResponseSiswa}%")
+              ->orWhere('data_sekolahs.sekolah', 'LIKE', "%{$getResponseSiswa}%")
+              ->orWhere('data_siswas.id_kelas', 'LIKE', "%{$getResponseSiswa}%");
+        // Cek apakah variabel filter tambahan ada isinya
+        if (!empty($getRequestSiswaFilter)) {
+            // Misalnya kita filter juga berdasarkan kolom 'data_siswas.id_kelas'
+            $query->orWhere('data_siswas.id_kelas', 'LIKE', "%{$getRequestSiswaFilter}%");
+        }
+    })
+    ->select('data_siswas.*', 'data_sekolahs.*', 'data_siswas.alamat as alamat_anak')
+    ->orderBy('data_siswas.nama_lengkap', 'asc')
+    ->paginate(10);
+
+    return view('admin.build.pages.dataKids', compact(
+        'getDataKids', 
+        'getSelect', 
+        'getDataSchool', 
+        'getDataClass', 
+        'getDataCountAll',
+        'getDataCountClub',
+        'getDataCountPrivate'
+    ));
     }
 
     // validasi data anak dari form pendaftaran ( Hosting ) 19 / 07 / 2024

@@ -135,7 +135,7 @@ class ScheduleController extends Controller
 
         // === send email schedule trainer == //
         if($getDataTrainer->email == null) {
-            return response()->json(['success' => false, 'message' => 'Email tidak ada']);
+            return redirect()->route('schedule.index')->with('message', 'Email pada akun trainer tidak ada,Tapi jadwal masih terdata');
         } else {
             $details = [
                 'name' => $getDataTrainer->nama,
@@ -184,7 +184,7 @@ class ScheduleController extends Controller
 
         if($getDataTrainer->telephone == null) {
 
-            return response()->json(['success' => false, 'message' => 'Telephone tidak ada']);
+            return redirect()->back()->with('message', 'Nomor Handphone Pada trainer tidak ada');
 
         } else {
 
@@ -219,7 +219,7 @@ class ScheduleController extends Controller
             $getDataSchedule->updated_at = Carbon::now();
             $getDataSchedule->save();
 
-            return redirect()->back()->with('message', 'Status change has been successful');
+            return redirect()->back()->with('success', 'Successtus change has been successful');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             // Handle the case where the schedule is not found
             return redirect()->back()->with('error', 'Schedule not found');
@@ -241,10 +241,8 @@ class ScheduleController extends Controller
             // Hapus data di tabel Schedules
             $getDataSchedule->delete();
 
-            return redirect()->back()->with('message', 'Data has been deleted');
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            // Tangani jika schedule tidak ditemukan
-            return redirect()->back()->with('error', 'Schedule not found');
+            return redirect()->back()->with('success', 'Data has been deleted');
+
         } catch (\Exception $e) {
             // Tangani kemungkinan exception lainnya
             return redirect()->back()->with('error', 'An error occurred');

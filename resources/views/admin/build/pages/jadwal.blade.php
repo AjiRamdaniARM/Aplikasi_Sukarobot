@@ -8,7 +8,6 @@
   @endif
    <meta name="csrf-token" content="{{ csrf_token() }}">
   <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
-      @include('admin.build.components.popUpTrainer')
       {{-- sidenav --}}
       @include('admin.build.components.sidenav')
       {{-- sidenav --}}
@@ -17,14 +16,25 @@
           @include('admin.build.components.navbar')
           <!-- end Navbar -->
           <div class="w-full px-6 py-6 mx-auto">
-
+                {{-- alert validasi data anak input  --}}
+                @if (session('success'))
+                    <div class="alert alert-success text-center text-black font-bold" role="alert"
+                        style="background-color: rgb(166, 255, 166); padding:3px">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-success text-center text-white font-bold" role="alert"
+                        style="background-color: rgb(255, 45, 22); padding:3px">
+                        {{ session('error') }}
+                    </div>
+                @endif
               <div class="flex flex-wrap my-6 -mx-3">
                   <!-- card 1 -->
 
-                  <div class="w-full max-w-full px-3 mt-0 mb-6 md:mb-0 md:w-1/2 md:flex-none lg:w-2/3 lg:flex-none">
-                      <img src="{{ asset('assets/img/bannerJadwal.png') }}" class="w-full rounded-lg" alt="">
-                  </div>
-
+                <div class="w-full max-w-full px-3 mt-0 mb-6 md:mb-0 md:w-1/2 md:flex-none lg:w-2/3 lg:flex-none">
+                    <img src="{{ asset('assets/img/bannerJadwal.png') }}" class="w-full rounded-lg" alt="">
+                </div>
                   <!-- card 2 -->
 
                   <div class="w-full max-w-full px-3 md:w-1/2 md:flex-none lg:w-1/3 lg:flex-none">

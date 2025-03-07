@@ -70,7 +70,6 @@ Route::middleware('check.trainer.auth')->group(function () {
     // === route logout user trainer === //
     Route::post('/logout', [LoginTrainerController::class, 'destroy'])->name('logout');
 
-
     // === route export PDF === ///
     Route::get('PDF', [PdfController::class, 'exportPDF'])->name('exportPDF');
     Route::post('/exportProsess', [PDFController::class, 'exportPost'])->name('export.post');

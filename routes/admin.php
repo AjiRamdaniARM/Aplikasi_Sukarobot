@@ -130,7 +130,10 @@ Route::middleware('auth')->group(function () {
 });
 
 // dataKidsRoute
-Route::get('/daftar', [FormulirController::class, 'index'])->name('formulir.index');
+// Route::get('/daftar', [FormulirController::class, 'index'])->name('formulir.index');
+Route::get('/daftar', function() {
+    return view('maintenance.index');
+})->name('formulir.index');
 Route::get('/formulirPendaftaran/selesai', [FormulirController::class, 'done'])->name('formulir.done');
 
 Route::get('/trainerForm', [FormulirController::class, 'trainer'])->name('trainer.form');

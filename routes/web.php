@@ -9,7 +9,10 @@ use App\Http\Controllers\trainer\subotAcademy\auth;
 // });
 
 // === auth login === //
-Route::get('/', [auth::class, 'index'])->name('auth.trainer');
+Route::get('/', function() {
+    return view('maintenance.index');
+})->name('auth.trainer');
+Route::get('/ujicoba', [auth::class, 'index'])->name('auth.trainer');
 
 // register hidden
 Route::get('/registerPrivate', [RegisterController::class, 'index'])->name('registerprivate');

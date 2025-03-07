@@ -1,7 +1,7 @@
 <?php
 namespace App\Exports;
 
-use App\Models\DataTrainer;
+use App\Models\dataTrainer;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithStyles;
@@ -15,7 +15,7 @@ class DataTrainerExport implements FromView, WithStyles, WithEvents
 
     public function view() : View
     {
-        $this->trainers = DataTrainer::all();
+        $this->trainers = dataTrainer::all();
         return view('admin.build.exports.DataTrainerExports', [
             'trainers' => $this->trainers
         ]);

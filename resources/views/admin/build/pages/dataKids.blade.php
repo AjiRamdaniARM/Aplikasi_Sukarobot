@@ -9,7 +9,6 @@
             <div class="w-full px-6 py-6 mx-auto">
                 @include('admin.build.components.dataKids.cardAlldata')
                 <br />
-
                 {{-- alert validasi data anak input  --}}
                 @if (session('success'))
                     <div class="alert alert-success text-center text-black font-bold" role="alert"
@@ -23,7 +22,7 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                <!-- content -->
+                {{-- component input data siswa  --}}
                 <div class="flex flex-wrap -mx-3">
                     <div class="max-w-full px-3 lg:w-full lg:flex-none">
                         <div class="flex flex-wrap -mx-3">
@@ -37,32 +36,24 @@
                                             class="p-4 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
                                             <div class="flex flex-wrap -mx-3">
                                                 <div class="flex items-center flex-none max-w-full px-3">
-                                                    <h6 class="mb-0">Add New Child Data</h6>
+                                                    <h6 class="mb-0">Tambah data anak baru</h6>
                                                 </div>
                                                 <div class="  max-w-full px-3 text-right"
                                                     style="display:flex; flex-wrap:wrap; gap:1px">
                                                     <button type="button" onclick="window.dialogAdmin.showModal()"
                                                         class="inline-block px-6  py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
-                                                        Create Schools
+                                                         Tambah Sekolah
                                                     </button>
-                                                    &nbsp;
-                                                    {{-- <button id="submit-button" type="submit"
-                                                        class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
-                                                        <i class="fas fa-plus">
-                                                        </i>&nbsp;&nbsp;Create
-                                                        Data</button> --}}
                                                     &nbsp;
                                                     <a href="{{ url('/datakids/allExport') }}"
                                                         class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
-                                                        <i class="fas fa-plus">
-                                                        </i>&nbsp;&nbsp;Export
+                                                        Export
                                                         Data</a>
                                                     &nbsp;
                                                     <a href="{{ route('formulir.index') }}"
                                                         class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
-                                                        <i class="fas fa-plus">
-                                                        </i>&nbsp;&nbsp;Survei
-                                                        Data</a>
+                                                        Formulir
+                                                        Pendaftaran</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -77,7 +68,7 @@
                                                         <div class="alert alert-danger" style="padding: 10px; color:red" role="alert">
                                                             {{ $message }}
                                                         </div>
-                                                    @enderror
+                                                    @enderror    
                                                 </div>
                                         
                                                 <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
@@ -213,24 +204,26 @@
                         </div>
                     </div>
                 </div>
+                {{-- akhir component data anak --}}
+
+                {{-- component table semua data anak --}}
                 <div class="flex flex-wrap -mx-3">
                     <div class="w-full max-w-full px-3 mt-6  md:flex-none">
                         <div
                             class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
                             <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 flex lg:justify-between justify-center rounded-t-2xl flex-wrap items-center gap-10">
-                                <h6 class="mb-0 ">All Data Kids</h6>
+                                <h6 class="mb-0 ">Semua data anak</h6>
                                 <br>
                                 @include('admin.build.components.dataKids.fiturSearch')
                             </div>
                             <div class="flex-auto p-4 pt-6">
                                 @if (empty($getDataKids))
-                                    <div class="text-black">no child data for now</div>
+                                    <div class="text-black">Tidak ada data anak untuk sekarang</div>
                                 @else
                                     <ul class="flex flex-col pl-0 mb-0 rounded-lg">
                                         @foreach ($getDataKids as $getDataKid)
                                             <li
                                                 class="relative flex p-6 mb-2 border-0 rounded-t-inherit rounded-xl bg-gray-50">
-
                                                 <div class="flex" style="gap:20px">
                                                     <img src="{{ asset('assets/data/dataAnak/img/' . $getDataKid->file) }}"
                                                         alt="child"
@@ -239,7 +232,7 @@
                                                         <h6 class="mb-4 leading-normal text-sm">
                                                             {{ $getDataKid->nama_lengkap }}
                                                         </h6>
-                                                        <span class="mb-2 leading-tight text-xs">School: <span
+                                                        <span class="mb-2 leading-tight text-xs">Sekolah: <span
                                                                 class="font-semibold text-slate-700 sm:ml-2">{{ $getDataKid->sekolah }}</span></span>
                                                     </div>
                                                 </div>

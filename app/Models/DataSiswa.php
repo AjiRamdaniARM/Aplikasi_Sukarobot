@@ -32,4 +32,8 @@ class DataSiswa extends Model
    public function getCreatedAtFormattedAtribute() {
     return $this->created_at->format('Y-m-d H:i:s');
    }
+   public function kelas()
+   {
+       return $this->belongsTo(DataKelas::class, 'id_kelas');
+   }
 } 

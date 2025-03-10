@@ -7,8 +7,6 @@
             @include('admin.build.components.navbar')
 
             <div class="w-full px-6 py-6 mx-auto">
-                @include('admin.build.components.dataKids.cardAlldata')
-                <br />
                 {{-- alert validasi data anak input  --}}
                 @if (session('success'))
                     <div class="alert alert-success text-center text-black font-bold" role="alert"
@@ -205,6 +203,8 @@
                     </div>
                 </div>
                 {{-- akhir component data anak --}}
+                <br>
+                @include('admin.build.components.dataKids.cardAlldata')
 
                 {{-- component table semua data anak --}}
                 <div class="flex flex-wrap -mx-3">

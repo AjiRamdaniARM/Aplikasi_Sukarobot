@@ -12,4 +12,8 @@ class DataKelas extends Model
     protected $fillable = [
         'kelas',
     ];
+    public function siswa()
+    {
+        return $this->belongsTo(DataSiswa::class, 'id');
+    }
 }

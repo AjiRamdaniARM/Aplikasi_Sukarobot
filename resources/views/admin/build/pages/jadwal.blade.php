@@ -115,8 +115,6 @@
                                       });
                                   </script>
                               @endforeach
-
-
                           </div>
                       </div>
                   </div>

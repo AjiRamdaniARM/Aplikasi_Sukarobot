@@ -99,6 +99,11 @@ Route::middleware('auth')->group(function () {
     // Route edited google drive
     Route::post('/GoogleDrive/edited/{id}', [googleDriveController::class, 'edited'])->name('menu.googleDrive.edited');
 
+    // route data siswa trial
+    Route::get('/dataTrial',function(){
+        return view('admin.build.pages.dataTrials');
+    })->name('menu.siswaTrial');
+
     // fitur superAdmin
     Route::get('/dataStaff', [StaffController::class, 'index'])->name('dataStaff.index');
     Route::post('/superadmin/update/{id}', [StaffController::class, 'update'])->name('superadmin.update');

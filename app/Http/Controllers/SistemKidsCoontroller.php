@@ -20,8 +20,8 @@ class SistemKidsCoontroller extends Controller
         $getClassProgram = DataKelas::withCount('siswa')->get();
         // get data and konversi ke count
         $getDataCountAll = DataSiswa::count();
-        // Ambil data pencarian dari input
-        $getResponseSiswa = $request->input('keyword');
+    // Ambil data pencarian dari input
+    $getResponseSiswa = $request->input('keyword');
 
     // Query dengan where sebelum orWhere
     $getDataKids = DB::table('data_siswas')
@@ -49,7 +49,6 @@ class SistemKidsCoontroller extends Controller
     // validasi data anak dari form pendaftaran ( Hosting ) 19 / 07 / 2024
     public function store(Request $request)
     {
-
         // validasi hasil input dan berikan meesage
         $request->validate([
             'nama_lengkap' => 'required|max:255|min:3',

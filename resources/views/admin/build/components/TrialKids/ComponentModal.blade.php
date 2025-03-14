@@ -34,7 +34,7 @@
                     <div class="flex flex-row -mx-3">
                         <div class="flex-none w-2/3 max-w-full px-3">
                             <div>
-                                <p class="mb-0 font-sans text-sm font-semibold leading-normal">  Siswa Trial Lanjut</p>
+                                <p class="mb-0 font-sans text-sm font-semibold leading-normal">Siswa Trial Lanjut</p>
                                 <h5 class="mb-0 font-bold">
                                     12
                                     <span class="text-sm leading-normal font-weight-bolder text-lime-500">Siswa</span>

@@ -34,6 +34,27 @@
     <link rel="stylesheet" href="{{ asset('assets/css/animasiTailwindcss.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/fontGlobal.css') }}">
+    <style>
+        .flex-responsive {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Tablet (lebar 768px - 1024px) */
+        @media screen and (max-width: 1024px) {
+            .flex-responsive {
+               flex-direction: row;
+            }
+        }
+
+                /* Mobile (lebar di bawah 768px) */
+        @media screen and (max-width: 768px) {
+            .flex-responsive {
+                flex-direction: column;
+            }
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>

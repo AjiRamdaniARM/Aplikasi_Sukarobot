@@ -25,10 +25,7 @@ class="items-center justify-center w-full mb-0 align-top border-gray-200 text-sl
             Pilihan Kelas </th>
             <th
             class="px-6 py-3 pl-2 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-            Aksi Fungsi</th>
-            <th
-            class="px-6 py-3 pl-2 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-            Aksi Crud</th>
+            Aksi</th>
 
     </tr>
 </thead>
@@ -106,28 +103,6 @@ class="items-center justify-center w-full mb-0 align-top border-gray-200 text-sl
                 </div>
             </div>
         </td>
-        {{-- === table button aprove === --}}
-        <td
-            class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-            <div class="flex px-4 mx-auto">
-                <div class="my-auto">
-                   {{-- === component button aprove === --}}
-                   <button style="
-                   background-color: rgb(175, 255, 175);
-                   padding-left: 10px;
-                   padding-right:10px;
-                   color:black;
-                   ">Lanjut</button>
-                   <button  style="
-                   background-color: rgb(255, 175, 175);
-                   padding-left: 10px;
-                   padding-right:10px;
-                   color:black;
-                   ">Tidak Lanjut</button>
-                   {{-- === end component button approve --}}
-                </div>
-            </div>
-        </td>
         {{-- ==== table button crud === --}}
         <td
         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -146,6 +121,14 @@ class="items-center justify-center w-full mb-0 align-top border-gray-200 text-sl
                padding-right:10px;
                color:black;
                ">Delete</button>
+                    {{-- === component button aprove === --}}
+                    <button style="
+                    background-color: rgb(175, 255, 175);
+                    padding-left: 10px;
+                    padding-right:10px;
+                    color:black;
+                    ">Lanjut</button>
+                    {{-- === end component button approve --}}
                {{-- === end component button crud --}}
             </div>
         </div>

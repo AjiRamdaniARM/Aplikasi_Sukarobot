@@ -17,6 +17,6 @@ class DataSekolah extends Model
 
     public function siswa()
     {
-        return $this->hasMany(DataSiswa::class, 'id_sekolah');
+        return $this->hasMany(DataSiswa::class, 'id_sekolah', 'id');
     }
 }

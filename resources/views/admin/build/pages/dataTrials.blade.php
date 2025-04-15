@@ -9,21 +9,23 @@
             {{-- === component card === --}}
             @include('admin.build.components.TrialKids.ComponentModal')
             <br>
-            <div class="container flex-responsive">
-                {{-- === compnent fitur pencarian table ==== --}}
-                @include('admin.build.components.TrialKids.ComponentSearch')
-                {{-- === component fitur button aksi === --}}
-                @include('admin.build.components.TrialKids.ComponentButtonLt')
-                {{-- === component fitur button aksi === --}}
-                @include('admin.build.components.TrialKids.ComponentExportButton')
-            </div>
-            <br>
-            {{-- == table data trials === --}}
-            <div class="flex-auto px-0 pt-0 pb-2">
-                <div class="p-0 overflow-x-auto">
-                    @include('admin.build.components.TrialKids.ComponentTable')
+           
+                <div class="container flex-responsive">
+                    {{-- === compnent fitur pencarian table ==== --}}
+                    @include('admin.build.components.TrialKids.ComponentSearch')
+                    {{-- === component fitur button aksi === --}}
+                    @include('admin.build.components.TrialKids.ComponentButtonLt')
+                    {{-- === component fitur button aksi === --}}
+                    @include('admin.build.components.TrialKids.ComponentExportButton')
                 </div>
-            </div>
+                <br>
+                {{-- == table data trials === --}}
+                <div class="flex-auto px-0 pt-0 pb-2">
+                    <div class="p-0 overflow-x-auto">
+                        @include('admin.build.components.TrialKids.ComponentTable')
+                    </div>
+                </div>
+            </form>
         </main>
     </body>
 

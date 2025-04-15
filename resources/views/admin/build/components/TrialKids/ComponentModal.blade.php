@@ -9,7 +9,7 @@
                             <div>
                                 <p class="mb-0 font-sans text-sm font-semibold leading-normal"> Data Siswa Trial</p>
                                 <h5 class="mb-0 font-bold">
-                                    12
+                                    {{$countDataSiswaTrial}}
                                     <span class="text-sm leading-normal font-weight-bolder text-lime-500">Siswa</span>
                                 </h5>
                             </div>
@@ -36,7 +36,7 @@
                             <div>
                                 <p class="mb-0 font-sans text-sm font-semibold leading-normal">Siswa Trial Lanjut</p>
                                 <h5 class="mb-0 font-bold">
-                                    12
+                                    {{$countDataSiswaTrialn}}
                                     <span class="text-sm leading-normal font-weight-bolder text-lime-500">Siswa</span>
                                 </h5>
                             </div>
@@ -61,9 +61,9 @@
                     <div class="flex flex-row -mx-3">
                         <div class="flex-none w-2/3 max-w-full px-3">
                             <div>
-                                <p class="mb-0 font-sans text-sm font-semibold leading-normal">  Siswa Trial Tidak Lanjut</p>
+                                <p class="mb-0 font-sans text-sm font-semibold leading-normal">Masih Trial</p>
                                 <h5 class="mb-0 font-bold">
-                                    12
+                                    {{ $countDataSiswaTriall }}
                                     <span class="text-sm leading-normal font-weight-bolder text-lime-500">Siswa</span>
                                 </h5>
                             </div>

@@ -7,7 +7,6 @@ use App\Http\Controllers\admin\LaporanTrainer;
 use App\Http\Controllers\api\nodeWaApi;
 use App\Http\Controllers\bigDataController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\form\FormulirController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\profileAdmin\profile;
 use App\Http\Controllers\ScheduleController;
@@ -43,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dataKids', [SistemKidsCoontroller::class, 'index'])->name('index.kids');
     Route::get('/datakids/delete/{nama_lengkap}', [SistemKidsCoontroller::class, 'delete'])->name('delete.kids');
     Route::post('/datakids/edit/{nama_lengkap}', [SistemKidsCoontroller::class, 'edit'])->name('edit.kids');
-    Route::post('/datakids/loading', [SistemKidsCoontroller::class, 'store'])->name('input.kids');
+    // Route::post('/datakids/loading', [SistemKidsCoontroller::class, 'store'])->name('input.kids');
     Route::post('/datakids/loading/admin', [SistemKidsCoontroller::class, 'storeAdmin'])->name('admin.kids');
 
     // === datakidsroute === //
@@ -140,14 +139,3 @@ Route::middleware('auth')->group(function () {
     Route::get('/waApi', [nodeWaApi::class, 'ViewWaApi'])->name('wa-api');
     Route::post('/send-message', [nodeWaApi::class, 'sendMessage'])->name('sendMessage');
 });
-
-// === dataKidsRoute === //
-// Route::get('/daftar', [FormulirController::class, 'index'])->name('formulir.index');
-Route::get('/daftar', function() {
-    return view('maintenance.index');
-})->name('formulir.index');
-Route::get('/formulirPendaftaran/selesai', [FormulirController::class, 'done'])->name('formulir.done');
-
-Route::get('/trainerForm', [FormulirController::class, 'trainer'])->name('trainer.form');
-Route::get('/selesai', [FormulirController::class, 'trainerDone'])->name('done.form');
-Route::post('/trainerForm/prosses', [FormulirController::class, 'postTrainerData'])->name('trainer.post');

@@ -4,7 +4,7 @@ class="items-center justify-center w-full mb-0 align-top border-gray-200 text-sl
     <tr>
         <th
             class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-            Nama Lengkap Anak</th>
+            <input type="checkbox" id="selectAll" onclick="toggleAllStudents(this)"> Nama Lengkap Anak</th>
         <th
             class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
             Usia Anak</th>
@@ -41,11 +41,14 @@ class="items-center justify-center w-full mb-0 align-top border-gray-200 text-sl
             <div class="flex px-4 mx-auto">
                 <div class="my-auto">
                     <h6 class="mb-0 text-sm leading-normal">
-                        @if ($siswaTrial->status === 'aktif')
-                        @else
-                            <input type="checkbox" id="check" name="check">
+                        @if ($siswaTrial->status === 'trial')
+                            <input type="checkbox" 
+                                   class="student-checkbox" 
+                                   name="siswa_id[]" 
+                                   value="{{ $siswaTrial->id_trials }}"
+                                   onchange="updateSelectedStudents(this)">
                         @endif
-                      &nbsp; {{$siswaTrial->nama_siswa}}
+                        &nbsp; {{$siswaTrial->nama_siswa}}
                     </h6>
                 </div>
             </div>

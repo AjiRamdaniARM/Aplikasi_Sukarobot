@@ -244,6 +244,15 @@ class SistemTrialController extends Controller
             // === proses mengubah status siswa === //
             $siswaTrial->status = 'aktif';
             $siswaTrial->save();
+
+            $getSiswaAktif = new DataSiswa();
+            $getSiswaAktif -> insert([
+                'nama_siswa' => $siswaTrial->nama_siswa,
+                'usia_anak' => $siswaTrial->usia_anak,
+                'nama_ortu' => $siswaTrial->nama_ortu,
+                'no_hp' => $siswaTrial->no_hp,
+                'alamat' => $siswaTrial->alamat,
+            ]);
             // === proses mengembalikan pesan sukses === //
             return redirect()->back()->with('success', 'Status siswa berhasil diubah menjadi aktif');
         } catch (\Exception $e) {

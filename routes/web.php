@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\form\FormulirController;
 use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SistemTrialKids\SistemTrialController;
@@ -10,10 +11,10 @@ use App\Http\Controllers\trainer\subotAcademy\auth;
 // });
 
 // === auth login === //
-Route::get('/', function() {
-    return view('maintenance.index');
-})->name('auth.trainer');
-Route::get('/ujicoba', [auth::class, 'index'])->name('auth.trainer');
+// Route::get('/', function() {
+//     return view('maintenance.index');
+// })->name('auth.trainer');
+Route::get('/', [auth::class, 'index'])->name('auth.trainer');
 
 // register hidden
 Route::get('/registerPrivate', [RegisterController::class, 'index'])->name('registerprivate');
@@ -31,6 +32,14 @@ Route::get('/api/search-trial', [SistemTrialController::class, 'searchTrial'])->
 Route::get('/login/Admin', [LoginAdminController::class, 'index'])->name('loginAdmin');
 Route::post('/login/Admin', [LoginAdminController::class, 'store'])->name('loginAdmin');
 // Route::get('/login/Trainer', [LoginAdminController::class, 'index'])->name('loginTrainer');
+
+// === dataKidsRoute === //
+Route::get('/daftar', [FormulirController::class, 'index'])->name('formulir.index');
+Route::post('daftar/post',[FormulirController::class, 'store'])->name('formulir.post');
+Route::get('/formulirPendaftaran/selesai', [FormulirController::class, 'done'])->name('formulir.done');
+Route::get('/trainerForm', [FormulirController::class, 'trainer'])->name('trainer.form');
+Route::get('/selesai', [FormulirController::class, 'trainerDone'])->name('done.form');
+Route::post('/trainerForm/prosses', [FormulirController::class, 'postTrainerData'])->name('trainer.post');
 
 require __DIR__.'/admin.php';
 require __DIR__.'/trainer.php';

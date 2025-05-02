@@ -301,3 +301,22 @@ background-color: gray;
 .color-os {
   background-color: #DE7528;
 }
+
+.button-flex {
+  display: flex;
+}
+
+/* Responsive Tablet */
+@media (max-width: 768px) {
+  .button-flex {
+    display: flex;
+  }
+}
+
+/* Responsive Mobile */
+@media (max-width: 480px) {
+  .button-flex {
+    display: flex;
+    flex-direction: column;
+  }
+}

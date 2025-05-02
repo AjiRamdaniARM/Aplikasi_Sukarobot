@@ -11,6 +11,7 @@ use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\profileAdmin\profile;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SistemKidsCoontroller;
+use App\Http\Controllers\SistemTrialKids\ExportPdf;
 use App\Http\Controllers\SistemTrialKids\SistemTrialController;
 use App\Http\Controllers\superAdmin\StaffController;
 use Illuminate\Support\Facades\Route;
@@ -110,6 +111,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/menu/siswaTrial/update/{id}', [SistemTrialController::class, 'updateTrial'])->name('menu.siswaTrial.update');
     Route::post('/dataTrial/prossesNext/{id}', [SistemTrialController::class, 'next'])->name('menu.next.trial');
     Route::delete('/dataTrial/delete/{id}', [SistemTrialController::class, 'delete'])->name('menu.siswaTrial.delete');
+    Route::get('/export/trial', [ExportPdf::class, 'ExportPDFTrial'])->name('export.pdf.trial');
     
     // === fitur superAdmin === //
     Route::get('/dataStaff', [StaffController::class, 'index'])->name('dataStaff.index');
@@ -121,6 +123,7 @@ Route::middleware('auth')->group(function () {
     // === route laporan trainer admin === //
     Route::get('/laporanTrainerAdmin', [LaporanTrainer::class, 'index'])->name('laporan.trainer.admin');
     Route::get('/laporanTrainer/{id_schedules}', [LaporanTrainer::class, 'laporan'])->name('laporan.berkas');
+
     //  === route laporan excel === //
     Route::get('/laporanTrainer/Excel/{id_schedules}', [LaporanTrainer::class, 'excel'])->name('laporan.excel');
 

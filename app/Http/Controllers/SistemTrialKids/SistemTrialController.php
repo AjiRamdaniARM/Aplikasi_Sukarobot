@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SistemTrialKids;
 use App\Http\Controllers\Controller;
 use App\Models\DataProgram;
 use App\Models\DataSekolah;
+use App\Models\DataSiswa;
 use App\Models\DataTrial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -55,12 +56,6 @@ class SistemTrialController extends Controller
     public function lanjutTrialAll(Request $request) {
         try {
             $siswaIds = $request->input('siswa_id', []);
-            
-            // Log the received data for debugging
-            \Log::info('Received request data:', [
-                'siswa_id' => $siswaIds,
-                'request_all' => $request->all()
-            ]);
             
             if (empty($siswaIds)) {
                 return response()->json([

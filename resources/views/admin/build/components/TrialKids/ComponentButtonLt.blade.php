@@ -1,7 +1,9 @@
-<div class="container" style="display: flex">
+<div class="container button-flex">
     <button type="button" class="b_lannjut" onclick="submitForm()">Lanjut</button>
     &nbsp;&nbsp;
-    <button onclick="window.modal_export.showModal();" class="b_export">Export Data</button>
+    <button onclick="window.location.href='{{route('export.pdf.trial')}}'" class="b_export">Export Data</button>
+    &nbsp;&nbsp;
+    <button onclick="window.location.href='{{ route('registerTrial')}}'" class="b_formulir">Formulir Trial</button>
 </div>
 
 <style>
@@ -26,6 +28,16 @@
     }
     .b_export {
         background-color: rgb(255, 166, 77);
+        padding-left: 30px;
+        font-weight: 600;
+        padding-right: 30px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 10px;
+        color: black;
+    }
+    .b_formulir {
+        background-color: rgb(255, 77, 77);
         padding-left: 30px;
         font-weight: 600;
         padding-right: 30px;

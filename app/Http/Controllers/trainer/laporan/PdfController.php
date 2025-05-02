@@ -8,7 +8,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 
 class PdfController extends Controller
@@ -22,7 +21,6 @@ class PdfController extends Controller
         $pdf = Pdf::loadView('trainer/export/laporanT_ExportPDF', $data);
         return $pdf->stream('contoh.pdf');
     }
-
         public function exportPost(Request $request)
     {
             // Ambil input dari request

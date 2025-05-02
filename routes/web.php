@@ -22,7 +22,7 @@ Route::post('/registerPrivate/register', [ RegisterController::class, 'create'])
 
 
 // === route sistem trial === //
-Route::get('/registerTrial', [SistemTrialController::class, 'indexForm'])->name('registerTrial');
+Route::get('/DaftarTrial', [SistemTrialController::class, 'indexForm'])->name('registerTrial');
 Route::get('/previewTrial', [SistemTrialController::class, 'previewTrial'])->name('previewTrial');
 Route::get('/confirmationTrial', [SistemTrialController::class, 'confirmation'])->name('confirmationTrial');
 Route::post('/storeTrial', [SistemTrialController::class, 'storeTrial'])->name('store.trial');

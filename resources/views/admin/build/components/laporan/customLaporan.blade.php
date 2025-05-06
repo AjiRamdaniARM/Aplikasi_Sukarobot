@@ -3,6 +3,7 @@
     <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
         @include('admin.build.components.laporan.modalFiturFilter')
         @include('admin.build.components.laporan.modalTemplateExcel')
+        @include('admin.build.components.laporan.exportModalFiturPDF')
         @include('admin.build.components.laporan.exportModalFitur')
         @include('admin.build.components.popUpTrainer')
         {{-- sidenav --}}
@@ -56,17 +57,17 @@
                             <div
                                 class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
                                 <div class="flex flex-wrap items-center justify-start" style="gap:15px">
-                                    <h6>Laporan Trainer Custom</h6>
+                                    <h6>Laporan Pelatih Khusus</h6>
                                     &nbsp;&nbsp;&nbsp;
                                     <button onclick="window.modalFilter.showModal();"
                                         class="bg-gradient-to-tl from-gray-900 to-slate-800 font-bold text-white px-4 py-2 rounded hover:scale-102"
                                         style="transition:all;">
-                                        Super Filter
+                                        Tanggal
                                     </button>
                                     <button onclick="window.modalExport.showModal();"
                                         class="bg-gradient-to-tl from-red-600 to-slate-800 font-bold text-white px-4 py-2 rounded hover:scale-102"
                                         style="transition:all;">
-                                        Super Export
+                                        Laporan Excel
                                     </button>
 
                                     <button onclick="window.modalTemplateExcel.showModal();"
@@ -74,6 +75,13 @@
                                         style="transition:all;">
                                         Template Excel
                                     </button>
+
+                                    <button onclick="window.modalExportPDF.showModal();"
+                                    class="bg-gradient-to-tl from-red-600 to-slate-800 font-bold text-white px-4 py-2 rounded hover:scale-102"
+                                    style="transition:all;">
+                                    Ekspor Pdf
+                                    </button>
+
                                 </div>
                             </div>
                             <div class="flex-auto px-0 pt-0 pb-2">

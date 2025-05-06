@@ -1,7 +1,7 @@
 <div class="container button-flex">
     <button type="button" class="b_lannjut" onclick="submitForm()">Lanjut</button>
     &nbsp;&nbsp;
-    <button onclick="window.location.href='{{route('export.pdf.trial')}}'" class="b_export">Export Data</button>
+    <button onclick="window.modal_export.showModal();" class="b_export">Export Data</button>
     &nbsp;&nbsp;
     <button onclick="window.location.href='{{ route('registerTrial')}}'" class="b_formulir">Formulir Trial</button>
 </div>

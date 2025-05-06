@@ -72,7 +72,6 @@ class LaporanTrainer extends Controller
                 'data_levels.id as id_level',
                 'data_sekolahs.*',
                 'data_laporans.*'
-
                 // tambahkan kolom lainnya sesuai kebutuhan
             )
             ->first();
@@ -113,7 +112,6 @@ class LaporanTrainer extends Controller
     }
     public function excel($id_schedules)
     {
-
         return Excel::download(new LaporanExport($id_schedules), 'laporan_'.$id_schedules.'.xlsx');
     }
     public function customLaporan(Request $request) {
@@ -146,7 +144,6 @@ class LaporanTrainer extends Controller
             return $query->where('data_trainers.id', $trainerId);
         })
         ->get();
-
 
         $query = DB::table('schedules')
         ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')

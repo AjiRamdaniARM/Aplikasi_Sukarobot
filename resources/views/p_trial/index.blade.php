@@ -492,96 +492,97 @@
     </div>
   </header>
   
-  <main>
-    <div class="container">
-        <section class="description-container">
-            <h2 class="highlighted-text">Ayo Daftar Trial Class Sukarobot Academy!
-              <span>
-              </span>
-            </h2>
-            <p class="single-line-text">
-                Berikan kesempatan bagi anak Anda untuk mengeksplorasi dunia teknologi! Pada program ini peserta dapat memilih untuk mengikuti program: Robotic, Coding for Kids, Graphic Design, Digital Marketing, dan Web Programming. Daftar sekarang untuk mendapatkan kuota trial class!
-            </p>
-        </section>
-    </div>
-</main>
-<form action="{{ route('store.trial') }}" method="POST">
-    @csrf
-    <div class="form-group">
-        <label for="nama_siswa">Nama Anak<span style="color: red;">*</span></label>
-        <input type="text" id="nama_siswa" name="nama_siswa" value="{{ old('nama_siswa') }}" placeholder="Contoh: Aripin Sihabudin" required>
-        @error('nama_siswa')
-            <div style="background: rgb(255, 85, 85); color: white; padding: 5px;" class="text-red-500 text-sm mt-1">{{ $message }}</div>
-        @enderror
-    </div>
+    <main>
+        <div class="container">
+            <section class="description-container">
+                <h2 class="highlighted-text">Ayo Daftar Trial Class Sukarobot Academy!
+                <span>
+                </span>
+                </h2>
+                <p class="single-line-text">
+                    Berikan kesempatan bagi anak Anda untuk mengeksplorasi dunia teknologi! Pada program ini peserta dapat memilih untuk mengikuti program: Robotic, Coding for Kids, Graphic Design, Digital Marketing, dan Web Programming. Daftar sekarang untuk mendapatkan kuota trial class!
+                </p>
+            </section>
+        </div>
+    </main>
+    <form action="{{ route('store.trial') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="nama_siswa">Nama Anak<span style="color: red;">*</span></label>
+            <input type="text" id="nama_siswa" name="nama_siswa" value="{{ old('nama_siswa') }}" placeholder="Contoh: Aripin Sihabudin" required>
+            @error('nama_siswa')
+                <div style="background: rgb(255, 85, 85); color: white; padding: 5px;" class="text-red-500 text-sm mt-1">{{ $message }}</div>
+            @enderror
+        </div>
 
-    <div class="form-group">
-        <label for="usia_anak">Usia Anak<span style="color: red;">*</span></label>
-        <input type="number" id="usia_anak" name="usia_anak" value="{{ old('usia_anak') }}" placeholder="Contoh: 10 Tahun" required>
-        @error('usia_anak')
-            <div style="background: rgb(255, 85, 85); color: white; padding: 5px;" class="text-red-500 text-sm mt-1">{{ $message }}</div>
-        @enderror
-    </div>
+        <div class="form-group">
+            <label for="usia_anak">Usia Anak<span style="color: red;">*</span></label>
+            <input type="number" id="usia_anak" name="usia_anak" value="{{ old('usia_anak') }}" placeholder="Contoh: 10 Tahun" required>
+            @error('usia_anak')
+                <div style="background: rgb(255, 85, 85); color: white; padding: 5px;" class="text-red-500 text-sm mt-1">{{ $message }}</div>
+            @enderror
+        </div>
 
-    <div class="form-group">
-        <label for="sekolah">Sekolah <span style="color: red;">*</span></label>
-        <select id="sekolah" name="sekolah" required>
-            <option value="" disabled selected>Pilih Sekolah</option>
-            @foreach ($getDataSekolah as $sekolah )
-                <option value="{{ $sekolah->id_sekolah }}" {{ old('sekolah') == $sekolah->id_sekolah ? 'selected' : '' }}>
-                    {{ $sekolah->sekolah }}
-                </option>
-            @endforeach
-        </select>
-        @error('sekolah')
-            <div style="background: rgb(255, 85, 85); color: white; padding: 5px;" class="text-red-500 text-sm mt-1">{{ $message }}</div>
-        @enderror
-    </div>
+        <div class="form-group">
+            <label for="sekolah">Sekolah <span style="color: red;">*</span></label>
+            <select id="sekolah" name="sekolah" required>
+                <option value="" disabled selected>Pilih Sekolah</option>
+                @foreach ($getDataSekolah as $sekolah )
+                    <option value="{{ $sekolah->id_sekolah }}" {{ old('sekolah') == $sekolah->id_sekolah ? 'selected' : '' }}>
+                        {{ $sekolah->sekolah }}
+                    </option>
+                @endforeach
+            </select>
+            @error('sekolah')
+                <div style="background: rgb(255, 85, 85); color: white; padding: 5px;" class="text-red-500 text-sm mt-1">{{ $message }}</div>
+            @enderror
+            <button onclick="window.dialog_modal_sekolah.showModal();" style="background-color: #045A70">Tambah Sekolah</button>
+        </div>
 
-    <div class="form-group">
-        <label for="nama_ortu">Nama Orang Tua <span style="color: red;">*</span></label>
-        <input type="text" id="nama_ortu" name="nama_ortu" value="{{ old('nama_ortu') }}" placeholder="Contoh: Budi Santoso" required>
-        @error('nama_ortu')
-            <div style="background: rgb(255, 85, 85); color: white; padding: 5px;" class="text-red-500 text-sm mt-1">{{ $message }}</div>
-        @enderror
-    </div>
+        <div class="form-group">
+            <label for="nama_ortu">Nama Orang Tua <span style="color: red;">*</span></label>
+            <input type="text" id="nama_ortu" name="nama_ortu" value="{{ old('nama_ortu') }}" placeholder="Contoh: Budi Santoso" required>
+            @error('nama_ortu')
+                <div style="background: rgb(255, 85, 85); color: white; padding: 5px;" class="text-red-500 text-sm mt-1">{{ $message }}</div>
+            @enderror
+        </div>
 
-    <div class="form-group">
-        <label for="no_hp">No HP <span style="color: red;">*</span></label>
-        <input type="text" id="no_hp" name="no_hp" value="{{ old('no_hp') }}" placeholder="Contoh: 081234567890" required>
-        @error('no_hp')
-            <div style="background: rgb(255, 85, 85); color: white; padding: 5px;" class="text-red-500 text-sm mt-1">{{ $message }}</div>
-        @enderror
-    </div>
+        <div class="form-group">
+            <label for="no_hp">No HP <span style="color: red;">*</span></label>
+            <input type="text" id="no_hp" name="no_hp" value="{{ old('no_hp') }}" placeholder="Contoh: 081234567890" required>
+            @error('no_hp')
+                <div style="background: rgb(255, 85, 85); color: white; padding: 5px;" class="text-red-500 text-sm mt-1">{{ $message }}</div>
+            @enderror
+        </div>
 
-    <div class="form-group">
-        <label for="alamat">Alamat <span style="color: red;">*</span></label>
-        <textarea id="alamat" name="alamat" required placeholder="Contoh: Jl. Legok No.6, RT.4/RW.5, Sukaraja...">{{ old('alamat') }}</textarea>
-        @error('alamat')
-            <div style="background: rgb(255, 85, 85); color: white; padding: 5px;" class="text-red-500 text-sm mt-1">{{ $message }}</div>
-        @enderror
-    </div>
+        <div class="form-group">
+            <label for="alamat">Alamat <span style="color: red;">*</span></label>
+            <textarea id="alamat" name="alamat" required placeholder="Contoh: Jl. Legok No.6, RT.4/RW.5, Sukaraja...">{{ old('alamat') }}</textarea>
+            @error('alamat')
+                <div style="background: rgb(255, 85, 85); color: white; padding: 5px;" class="text-red-500 text-sm mt-1">{{ $message }}</div>
+            @enderror
+        </div>
 
-    <div class="form-group">
-        <label for="kelas">Program <span style="color: red;">*</span></label>
-        <select id="kelas" name="id_program" required>
-            <option value="" disabled selected>Silahkan Pilih Program</option>
-            @foreach ($getDataProgram as $program )
-                <option value="{{ $program->id }}" {{ old('kelas') == $program->program ? 'selected' : '' }}>
-                    {{ $program->program }}
-                </option>
-            @endforeach
-        </select>
-        @error('kelas')
-            <div style="background: rgb(255, 85, 85); color: white; padding: 5px;" style="background: rgb(255, 85, 85); color: white; padding: 5px;" class="text-red-500 text-sm mt-1">{{ $message }}</div>
-        @enderror
-    </div>
+        <div class="form-group">
+            <label for="kelas">Program <span style="color: red;">*</span></label>
+            <select id="kelas" name="id_program" required>
+                <option value="" disabled selected>Silahkan Pilih Program</option>
+                @foreach ($getDataProgram as $program )
+                    <option value="{{ $program->id }}" {{ old('kelas') == $program->program ? 'selected' : '' }}>
+                        {{ $program->program }}
+                    </option>
+                @endforeach
+            </select>
+            @error('kelas')
+                <div style="background: rgb(255, 85, 85); color: white; padding: 5px;" style="background: rgb(255, 85, 85); color: white; padding: 5px;" class="text-red-500 text-sm mt-1">{{ $message }}</div>
+            @enderror
+        </div>
 
-    <div class="button-container">
-        <button type="button" id="clear-form-button">Kosongkan Formulir</button>
-        <button type="submit">Selanjutnya</button>
-    </div>
-</form>
+        <div class="button-container">
+            <button type="button" id="clear-form-button">Kosongkan Formulir</button>
+            <button type="submit">Selanjutnya</button>
+        </div>
+    </form>
 
     </div>
   </main>
@@ -655,5 +656,5 @@
             });
         }
     });
-</script>
+  </script>
 </html>

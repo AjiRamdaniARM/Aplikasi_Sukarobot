@@ -3,6 +3,7 @@
 // === controller === //
 use App\Http\Controllers\admin\DataTrainerController;
 use App\Http\Controllers\admin\googleDriveController;
+use App\Http\Controllers\admin\LaporanPDFController;
 use App\Http\Controllers\admin\LaporanTrainer;
 use App\Http\Controllers\api\nodeWaApi;
 use App\Http\Controllers\bigDataController;
@@ -121,15 +122,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/profileAdmin', [profile::class, 'index'])->name('profileAdmin.index');
 
     // === route laporan trainer admin === //
-    Route::get('/laporanTrainerAdmin', [LaporanTrainer::class, 'index'])->name('laporan.trainer.admin');
+    // Route::get('/laporanTrainerAdmin', [LaporanTrainer::class, 'index'])->name('laporan.trainer.admin');
     Route::get('/laporanTrainer/{id_schedules}', [LaporanTrainer::class, 'laporan'])->name('laporan.berkas');
 
     //  === route laporan excel === //
     Route::get('/laporanTrainer/Excel/{id_schedules}', [LaporanTrainer::class, 'excel'])->name('laporan.excel');
 
     // === route custom laporan === //
-    Route::get('customLaporan', [LaporanTrainer::class, 'customLaporan'])->name('laporan.custom');
+    Route::get('laporanTrainerAdmin', [LaporanTrainer::class, 'customLaporan'])->name('laporan.custom');
     Route::post('ExportLaporanCustom', [LaporanTrainer::class, 'exportCustom'])->name('export.custom');
+    Route::post('ExportPDFLaporan', [LaporanPDFController::class, 'ExportPDFLaporan'])->name('admin.export.laporan.trainer');
     Route::post('ImportTemplate', [LaporanTrainer::class, 'ImportExcel'])->name('import.excel');
 
     // === privacyPin === //

@@ -9,7 +9,6 @@
             {{-- === component card === --}}
             @include('admin.build.components.TrialKids.ComponentModal')
             <br>
-           
                 <div class="flex-responsive">
                     {{-- === compnent fitur pencarian table ==== --}}
                     @include('admin.build.components.TrialKids.ComponentSearch')

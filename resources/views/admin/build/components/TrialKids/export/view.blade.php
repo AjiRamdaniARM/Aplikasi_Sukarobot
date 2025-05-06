@@ -100,7 +100,11 @@
         <div class="container">
             {{--== Tabel Jadwal Trainer == --}}
             <div class="table-container">
-               
+                @if($trial->isEmpty())
+                    <div class="text-center mt-10">
+                        <p class="text-gray-500 text-lg">Tidak ada data untuk bulan yang dipilih.</p>
+                    </div>
+                @else
                     <table border="1" style="width: 100%; border-collapse: collapse;">
                         <thead>
                             <tr>
@@ -127,7 +131,7 @@
                             @endforeach
                         </tbody>
                     </table>
-               
+               @endif
             </div>
         </div>
     </main>

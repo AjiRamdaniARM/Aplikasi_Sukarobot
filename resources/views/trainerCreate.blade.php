@@ -4,7 +4,6 @@
     @include('components.scriptCompoments')
     <div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
         <!-- Loading Screen -->
-        <!-- Loading Screen -->
         <div id="loadingScreen" class="hidden fixed inset-0 bg-white  flex items-center justify-center z-50">
             <div class="relative">
                 <div class="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>

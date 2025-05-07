@@ -23,7 +23,7 @@
                         <div
                             class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
                             <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
-                                <h6>All Trainer report</h6>
+                                <h6>Total Laporan Trainer</h6>
                             </div>
                             <div class="flex-auto p-4">
                                 <div
@@ -61,7 +61,7 @@
                                     &nbsp;&nbsp;&nbsp;
                                     <button onclick="window.modalFilter.showModal();"
                                         class="bg-gradient-to-tl from-gray-900 to-slate-800 font-bold text-white px-4 py-2 rounded hover:scale-102"
-                                        style="transition:all;">
+                                        style="transition:all;">    
                                         Tanggal
                                     </button>
                                     <button onclick="window.modalExport.showModal();"
@@ -95,17 +95,16 @@
                                                     Trainer</th>
                                                 <th
                                                     class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Class</th>
+                                                    Kelas</th>
                                                 <th
                                                     class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Schedule Date</th>
+                                                    Tanggal Jadwal</th>
                                                 <th
                                                     class="px-6 py-3 pl-2 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Attendance </th>
-                                                <th
-                                                    class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap">
-                                                    Aksi
-                                                </th>
+                                                    Absensi Trainer </th>
+                                                    <th
+                                                    class="px-6 py-3 pl-2 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                                                    Aksi lainnya </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -165,7 +164,20 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-
+                                            {{-- === output jika tidak ada data === --}}
+                                            @empty($schedule)
+                                                <tr>
+                                                    <td
+                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                        <div class="flex px-4 mx-auto">
+                                                            <div class="my-auto">
+                                                                <h6 class="mb-0 text-sm leading-normal">
+                                                                    Belum ada data absensi laporan</h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endempty
                                         </tbody>
 
                                     </table>

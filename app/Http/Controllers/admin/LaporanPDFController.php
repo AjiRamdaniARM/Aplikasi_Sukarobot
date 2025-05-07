@@ -35,6 +35,7 @@ class LaporanPDFController extends Controller
                 'schedules.id_bigData as id_big_data',
                 'schedules.created_at as created_at_jd',
                 'data_trainers.nama as trainer_name',
+                'data_trainers.ttd as ttd_trainer',
                 'data_kelas.kelas as kelas_name',
                 'data_alats.alat as nama_alat',
                 'data_programs.*',

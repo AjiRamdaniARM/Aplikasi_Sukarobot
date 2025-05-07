@@ -123,7 +123,6 @@
                     </thead>
                     <tbody>
                         {{-- Contoh data statis, sesuaikan dengan data dinamis jika ada --}}
-                        
                         <tr>
                             <td>{{ \Carbon\Carbon::parse($scheduleGroup['schedule']->tanggal_lp ?? null)->translatedFormat('d F Y') ?? '0' }}
                             </td>
@@ -131,7 +130,7 @@
                             <td>{{ $scheduleGroup['schedule']->materi ?? '-' }}</td>
                             <td>{{ $scheduleGroup['schedule']->catatan ?? '-' }}</td>
                             <td>
-                                <img width="100" src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('assets/trainer_data/ttd/Ttd_Aji Ramdani.jpg'))) }}" alt="">
+                                <img width="100" src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('assets/trainer_data/ttd/'.$scheduleGroup['schedule']->ttd_trainer))) }}" alt="">
                             </td>
                             
 

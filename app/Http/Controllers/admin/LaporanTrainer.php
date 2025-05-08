@@ -113,6 +113,7 @@ class LaporanTrainer extends Controller
     }
     public function customLaporan(Request $request) {
         // === get data trainer report === //
+        $monthInput = $request->input('month');
         $trainerId = $request->input('trainer_id');
         $startDate = $request->query('start_date');
         $endDate = $request->query('end_date');
@@ -166,8 +167,11 @@ class LaporanTrainer extends Controller
             )
             ->where('ab_trainer', 'Hadir')
             ->groupBy('data_trainers.id', 'data_trainers.nama')
-            ->orderBy('nama_trainer', 'ASC')
-            ->get();
+            ->orderBy('nama_trainer', 'ASC');
+            if(!empty($monthInput)) {
+                $query->whereRaw("DATE_FORMAT(data_laporans.created_at, '%Y-%m') = ?", [$monthInput]);
+            }
+           $query = $query->get();
     
         // === get trainer === //
         $getTrainer = dataTrainer::orderBy('nama', 'asc')->get();

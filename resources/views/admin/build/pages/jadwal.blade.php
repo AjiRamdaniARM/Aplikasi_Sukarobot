@@ -128,6 +128,9 @@
                               class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
                               <div class="flex items-center justify-between ">
                                   <h6>Jadwal Mengajar Trainer</h6>
+                                    <form action="{{ route('schedule.index')}}" method="get">
+                                        <input type="month" onchange="this.form.submit()" value="{{ request('month') }}" name="month" class="border p-2">
+                                    </form>
                                   &nbsp;&nbsp;
 
                                     <button id="loadingCreateJadwal" onclick="window.location.href='{{ route('schedule.create') }}'" class="button-custom-1">

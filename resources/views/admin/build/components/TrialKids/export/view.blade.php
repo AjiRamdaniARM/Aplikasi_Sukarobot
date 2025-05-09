@@ -108,25 +108,24 @@
                     <table border="1" style="width: 100%; border-collapse: collapse;">
                         <thead>
                             <tr>
-                                <th colspan="2" style="text-align: center;">No</th>
                                 <th colspan="2" style="text-align: center;">Nama Siswa</th>
-                                <th colspan="2" style="text-align: center;">Usia Siswa</th>
-                                <th colspan="2" style="text-align: center;">Nama Orang Tua</th>                         
+                                <th colspan="2" style="text-align: center;">Usia Siswa</th>                         
                                 <th colspan="2" style="text-align: center;">Nomor Telepon</th>
                                 <th colspan="2" style="text-align: center;">Pilihan Kelas</th>
+                                <th colspan="2" style="text-align: center;">Status Siswa</th>
                                 <th colspan="2" style="text-align: center;">Tanggal Trail</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($trial as $index => $data )
                                 <tr>
-                                    <td colspan="2" style="text-align: center;">{{ $index + 1}}</td>
+                                
                                     <td colspan="2" style="text-align: center;">{{ $data->nama_siswa}}</td>
                                     <td colspan="2" style="text-align: center;">{{ $data->usia_anak}} Tahun</td>
-                                    <td colspan="2" style="text-align: center;">{{ $data->nama_ortu}}</td>
                                     <td colspan="2" style="text-align: center;">{{ $data->no_hp}}</td>
                                     <td colspan="2" style="text-align: center;">{{ $data->program}}</td>
-                                    <td colspan="2" style="text-align: center;">{{ $data->created_at}}</td>
+                                    <td colspan="2" style="text-align: center;">{{ $data->status}}</td>
+                                    <td colspan="2" style="text-align: center;">{{ \Carbon\Carbon::parse($data->created_at)->format('d M Y') }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

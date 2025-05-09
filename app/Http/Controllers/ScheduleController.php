@@ -21,16 +21,20 @@ use Illuminate\Support\Facades\Mail;
 
 class ScheduleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $monthInput = $request->input('month');
         // === ambil data dari tabel schedules === //
         $getDataSchedule = DB::table('schedules')
             ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
             ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
             ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
             ->select('schedules.*', 'schedules.id as id_schedules', 'schedules.created_at as create', 'data_trainers.*', 'data_trainers.id as id_trainer', 'data_kelas.*', 'data_laporans.*', 'schedules.dj_akhir as deadline')
-            ->orderBy('create', 'DESC')
-            ->paginate(100);
+            ->orderBy('create', 'DESC');
+            if(!empty($monthInput)) {
+                $getDataSchedule->whereRaw("DATE_FORMAT(schedules.tanggal_jd, '%Y-%m') = ?", [$monthInput]);
+            }
+            $getDataSchedule = $getDataSchedule->paginate(100);
 
         $currentTime = now();
 

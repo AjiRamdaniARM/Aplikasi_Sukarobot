@@ -30,7 +30,7 @@ class ScheduleController extends Controller
             ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
             ->select('schedules.*', 'schedules.id as id_schedules', 'schedules.created_at as create', 'data_trainers.*', 'data_trainers.id as id_trainer', 'data_kelas.*', 'data_laporans.*', 'schedules.dj_akhir as deadline')
             ->orderBy('create', 'DESC')
-            ->paginate(10);
+            ->paginate(100);
 
         $currentTime = now();
 
@@ -215,6 +215,7 @@ class ScheduleController extends Controller
                 $getDataSchedule->dj_akhir = 0;
                 $getDataSchedule->ab_trainer = 'Tidak Hadir';
             }
+            $getDataSchedule->dj_akhir = $request->input('dj_akhir');
             $getDataSchedule->created_at = Carbon::now();
             $getDataSchedule->updated_at = Carbon::now();
             $getDataSchedule->save();
@@ -231,7 +232,6 @@ class ScheduleController extends Controller
 
     public function delete($id_schedules)
     {
-
         try {
             $getDataSchedule = Schedules::where('id', $id_schedules)->firstOrFail();
 
@@ -343,7 +343,6 @@ class ScheduleController extends Controller
         if (array_diff($selectedSiswa, $existingSiswa) || array_diff($existingSiswa, $selectedSiswa)) {
             // Hapus data siswa lama di tabel BigData
             BigData::where('id_bigData', $schedule->id_bigData)->delete();
-
             // Insert data siswa baru ke tabel BigData
             foreach ($selectedSiswa as $siswaId) {
                 BigData::create([

@@ -41,7 +41,7 @@
                       <div
                           class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
                           <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
-                              <h6>Timer Schedule</h6>
+                              <h6>Deadline Absensi</h6>
                           </div>
                           <div class="flex-auto p-4 "  style="overflow-y: scroll; height: 300px;">
                               @foreach ($getDataSchedule as $jadwal)

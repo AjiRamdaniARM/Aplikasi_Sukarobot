@@ -14,14 +14,12 @@
             @include('admin.build.components.navbar')
             <!-- end Navbar -->
             <div class="w-full px-6 py-6 mx-auto">
-
                 <div class="flex flex-wrap my-6 -mx-3">
                     <div class="w-full max-w-full px-3 mt-0 mb-6 md:mb-0 md:w-1/2 md:flex-none lg:w-2/3 lg:flex-none">
                         <img src="{{ asset('assets/img/bannerCustom.gif') }}" class="w-full rounded-lg" alt="">
                     </div>
                     <div class="w-full max-w-full px-3 md:w-1/2 md:flex-none lg:w-1/3 lg:flex-none">
                         <div class="relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid border-black/12.5 bg-white bg-clip-border shadow-soft-xl">
-                            
                             <!-- Header -->
                             <div class="flex items-center justify-between rounded-t-2xl border-b border-solid border-black/12.5 bg-white p-6 pb-0">
                                 <h6 class="text-base font-semibold text-slate-700">Total Laporan Trainer</h6>
@@ -35,7 +33,6 @@
                                     >
                                 </form>
                             </div>
-                    
                             <!-- Body -->
                             <div class="flex-auto p-4">
                                 <div class="relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
@@ -56,7 +53,6 @@
                                     @endforeach
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
                     
@@ -156,7 +152,6 @@
                                                                     {{ \Carbon\Carbon::parse($schedule->tanggal_lp)->translatedFormat('d F Y') }}
                                                                     -
                                                                     {{ \Carbon\Carbon::parse($schedule->jam_lp)->format('H:i') }}
-
                                                             </div>
                                                         </div>
                                                     </td>
@@ -169,7 +164,6 @@
                                                                     href="javascript:;">
                                                                     Detail
                                                                 </a>
-
                                                             </div>
                                                         </div>
                                                     </td>

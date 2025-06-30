@@ -1,9 +1,9 @@
 <div class="container button-flex">
-    <button type="button" class="b_lannjut" onclick="submitForm()">Lanjut</button>
+    <button type="button" class="b_lannjut" onclick="document.getElementById('modal_kelas_all').showModal();">Lanjut</button>
     &nbsp;&nbsp;
     <button onclick="window.modal_export.showModal();" class="b_export">Export Data</button>
     &nbsp;&nbsp;
-    <button onclick="window.location.href='{{ route('registerTrial')}}'" class="b_formulir">Formulir Trial</button>
+    <a target="_blank" href='{{ route('registerTrial')}}' class="b_formulir">Formulir Trial</a>
 </div>
 
 <style>
@@ -48,35 +48,3 @@
     }
 </style>
 
-<script>
-function submitForm() {
-    const form = document.querySelector('form');
-    const checkedBoxes = document.querySelectorAll('input[name="siswa_id[]"]:checked');
-    const siswaIds = Array.from(checkedBoxes).map(cb => cb.value);
-    
-    fetch('{{ route("menu.siswaTrial.lanjutAll") }}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-        },
-        body: JSON.stringify({
-            siswa_id: siswaIds
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Response:', data);
-        if (data.status === 'success') {
-            alert(data.message);
-            location.reload();
-        } else {
-            alert(data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Terjadi kesalahan saat memproses data');
-    });
-}
-</script>

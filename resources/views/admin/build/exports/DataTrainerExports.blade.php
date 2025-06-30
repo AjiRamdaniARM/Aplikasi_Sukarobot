@@ -6,7 +6,6 @@
             <th>Alamat</th>
             <th>Sekolah</th>
             <th>Telephone</th>
-
         </tr>
     </thead>
     <tbody>

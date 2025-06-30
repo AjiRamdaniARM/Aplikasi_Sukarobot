@@ -21,6 +21,7 @@ class ExportPdf extends Controller
             ->whereYear('data_trials.created_at', $year)
             ->whereMonth('data_trials.created_at', $month)
             ->get();
+            
         } else {
             $trials = DB::table('data_trials')
             ->join('data_programs', 'data_trials.id_program', '=', 'data_programs.id')

@@ -1,3 +1,4 @@
+{{-- === modal pilih kelas === --}}
 <div class="flex flex-wrap -mx-5 " style="gap: 10px">
     {{-- component card 1 --}}
     <div class="w-full max-w-full scale-custom px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
@@ -92,4 +93,8 @@
         transform: scale(1.05);
         transition: all;
     }
- </style>
+ </style>   
+
+  
+
+ 

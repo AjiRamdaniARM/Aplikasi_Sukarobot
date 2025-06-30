@@ -119,12 +119,16 @@
                         <tbody>
                             @foreach ($trial as $index => $data )
                                 <tr>
-                                
                                     <td colspan="2" style="text-align: center;">{{ $data->nama_siswa}}</td>
                                     <td colspan="2" style="text-align: center;">{{ $data->usia_anak}} Tahun</td>
                                     <td colspan="2" style="text-align: center;">{{ $data->no_hp}}</td>
                                     <td colspan="2" style="text-align: center;">{{ $data->program}}</td>
-                                    <td colspan="2" style="text-align: center;">{{ $data->status}}</td>
+                                    @if ($data->status == 'trial')
+                                        <td colspan="2" style="text-align: center; background-color: rgb(255, 105, 105);">{{ $data->status}}</td>
+                                    @else
+                                        <td colspan="2" style="text-align: center;background-color: rgb(104, 254, 87);"">{{ $data->status}}</td>
+                                    @endif
+                                   
                                     <td colspan="2" style="text-align: center;">{{ \Carbon\Carbon::parse($data->created_at)->format('d M Y') }}</td>
                                 </tr>
                             @endforeach

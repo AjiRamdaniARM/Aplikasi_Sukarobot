@@ -26,15 +26,16 @@ class SistemKidsCoontroller extends Controller
         // Query dengan where sebelum orWhere
         $getDataKids = DB::table('data_siswas')
             ->join('data_sekolahs', 'data_siswas.id_sekolah', '=', 'data_sekolahs.id_sekolah')
+            ->join('data_kelas', 'data_siswas.id_kelas', '=', 'data_kelas.id')
             ->where(function ($query) use ($getResponseSiswa) {
                 $query->where('data_siswas.nama_lengkap', 'LIKE', "%{$getResponseSiswa}%")
                     ->orWhere('data_siswas.status_siswa', 'LIKE', "%{$getResponseSiswa}%")
                     ->orWhere('data_sekolahs.sekolah', 'LIKE', "%{$getResponseSiswa}%")
                     ->orWhere('data_siswas.id_kelas', 'LIKE', "%{$getResponseSiswa}%");
             })
-            ->select('data_siswas.*', 'data_sekolahs.*', 'data_siswas.alamat as alamat_anak')
+            ->select('data_siswas.*','data_siswas.id as id_siswa', 'data_siswas.id_sekolah as sekolah_id','data_sekolahs.*', 'data_siswas.alamat as alamat_anak','data_kelas.kelas as nama_kelas')
             ->orderBy('data_siswas.nama_lengkap', 'asc')
-            ->paginate(10);
+            ->get();
 
         return view('admin.build.pages.dataKids', compact(
             'getDataKids', 
@@ -145,16 +146,13 @@ class SistemKidsCoontroller extends Controller
         } else {
             // Generate ID unik
             $uniqueId = $this->generateUniqueId($request->sekolah);
-
             // Simpan data sekolah baru ke database
             $inputSekolah = new DataSekolah();
             $inputSekolah->id_sekolah = $uniqueId;
             $inputSekolah->sekolah = $request->sekolah;
             $inputSekolah->save();
-
             return redirect()->back()->with('success', 'Sekolah berhasil didaftarkan');
         }
-
     }
 
     public function storeAdmin(Request $request)
@@ -246,60 +244,61 @@ class SistemKidsCoontroller extends Controller
 
     }
 
-    public function edit(Request $request, $nama_lengkap)
-    {
-        // Generate unique ID for the school
-        $uniqueId = $this->generateUniqueId($request->sekolah);
+   public function edit(Request $request, $id)
+{
+    // Validasi input
+    $request->validate([
+        'nama_lengkap' => 'required|string|max:255',
+        'tl' => 'required|string|max:100',
+        'tanggal_lahir' => 'required|date',
+        'nama_ortu' => 'required|string|max:255',
+        'work_ortu' => 'nullable|string|max:255',
+        'alamat' => 'nullable|string',
+        'telephone' => 'nullable|string|max:20',
+        'file' => 'nullable|image|max:2048', // Maks 2MB
+    ]);
 
-        // Find the student data
-        $getData = DataSiswa::where('nama_lengkap', $nama_lengkap)->firstOrFail();
+    // Ambil data siswa berdasarkan ID
+    $siswa = DataSiswa::findOrFail($id);
 
-        // Find the school data
-        $getSekolah = DataSekolah::where('id_sekolah', $request->id_sekolah)->firstOrFail();
+    // Update data dasar
+    $siswa->update([
+        'nama_lengkap' => $request->nama_lengkap,
+        'tl' => $request->tl,
+        'tanggal_lahir' => $request->tanggal_lahir,
+        'id_sekolah' => $request->id_sekolah,
+        'kelas' => $request->kelas,
+        'nama_ortu' => $request->nama_ortu,
+        'work_ortu' => $request->work_ortu,
+        'alamat' => $request->alamat,
+        'telephone' => $request->telephone,
+    ]);
 
-        // Update school data
-        $getSekolah->id_sekolah = $uniqueId;
-        $getSekolah->sekolah = $request->sekolah;
-        $getSekolah->save();
+    // Proses file jika ada
+    if ($request->hasFile('file')) {
+        $file = $request->file('file');
+        $fileName = 'pasFoto_' . preg_replace('/\s+/', '_', strtolower($request->nama_lengkap)) . '.' . $file->getClientOriginalExtension();
 
-        // Update student data
-        $getData->nama_lengkap = $request->nama_lengkap;
-        $getData->tl = $request->tl;
-        $getData->tanggal_lahir = $request->tanggal_lahir;
-        $getData->id_sekolah = $uniqueId;
-        $getData->kelas = $request->kelas;
-        $getData->nama_ortu = $request->nama_ortu;
-        $getData->work_ortu = $request->work_ortu;
-        $getData->alamat = $request->alamat;
-        $getData->telephone = $request->telephone;
+        $destinationPath = public_path('/assets/data/dataAnak/img');
 
-        // Check if a new file is uploaded
-        if ($request->hasFile('file')) {
-            // Get the new file
-            $file = $request->file('file');
-
-            // Create a new file name
-            $fileName = 'pasFoto_'.$request->nama_lengkap.'.'.$file->getClientOriginalExtension();
-
-            // Determine paths for old and new files
-            $filePath = public_path('/assets/data/dataAnak/img');
-            $oldPath = $filePath.'/'.$getData->file; // Use the old file name from the database
-
-            // Delete old file if it exists
+        // Hapus file lama jika ada
+        if (!empty($siswa->file)) {
+            $oldPath = $destinationPath . '/' . $siswa->file;
             if (file_exists($oldPath)) {
                 unlink($oldPath);
             }
+        }
 
-            // Move new file to the specified location
-            $file->move($filePath, $fileName);
-            $getData->file = $fileName;
-        } 
-
-        // Save updated student data
-        $getData->save();
-
-        return redirect()->back()->with('success', 'child data has been edited');
+        // Simpan file baru
+        $file->move($destinationPath, $fileName);
+        $siswa->file = $fileName;
+        $siswa->save(); // simpan perubahan file
     }
+
+    return redirect()->back()->with('success', 'Data siswa berhasil diperbarui.');
+}
+
+
 
     private function generateUniqueId($sekolah)
     {
@@ -321,13 +320,11 @@ class SistemKidsCoontroller extends Controller
     {
         $getRequest = DataSiswa::where('nama_lengkap', $nama_lengkap)->firstOrFail();
         $PasFoto = public_path('/assets/data/dataAnak/img');
-
         $PasFotos = $PasFoto.'/'.$getRequest->file;
         if (file_exists($PasFotos) && ! is_dir($PasFotos)) {
             unlink($PasFotos);
         }
         $getRequest->delete();
-
         return redirect()->back()->with('success', 'Data Kids data has been deleted');
     }
 
@@ -337,8 +334,9 @@ class SistemKidsCoontroller extends Controller
         // $getSiswa = DataSiswa::where('nama_lengkap', $nama_lengkap)->first();
         $getSiswa = DB::table('data_siswas')
             ->join('data_sekolahs', 'data_siswas.id_sekolah', '=', 'data_sekolahs.id_sekolah')
+            ->join('data_kelas', 'data_siswas.id_kelas', '=', 'data_kelas.id')
             ->where('data_siswas.nama_lengkap', '=', $nama_lengkap)
-            ->select('data_siswas.*', 'data_sekolahs.*', 'data_siswas.alamat as alamat_anak')
+            ->select('data_siswas.*', 'data_sekolahs.*', 'data_siswas.alamat as alamat_anak','data_kelas.kelas as nama_kelas')
             ->first();
 
         return view('admin.build.pages.privateKids', compact('getSiswa'));
@@ -348,4 +346,6 @@ class SistemKidsCoontroller extends Controller
     {
         return Excel::download(new DataSiswaExport(), 'DataSiswa_'.'.xlsx');
     }
+
+    
 }

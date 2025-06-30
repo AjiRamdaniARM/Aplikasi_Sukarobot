@@ -40,10 +40,9 @@ Route::middleware('auth')->group(function () {
 
     // === export route data trainer === //
     Route::get('dataTrainer/export', [DataTrainerController::class, 'export'])->name('trainer.export');
-    Route::post('/daftar/prosses/', [SistemKidsCoontroller::class, 'addSchool'])->name('add.school');
     Route::get('/dataKids', [SistemKidsCoontroller::class, 'index'])->name('index.kids');
-    Route::get('/datakids/delete/{nama_lengkap}', [SistemKidsCoontroller::class, 'delete'])->name('delete.kids');
-    Route::post('/datakids/edit/{nama_lengkap}', [SistemKidsCoontroller::class, 'edit'])->name('edit.kids');
+    Route::post('/datakids/delete/{nama_lengkap}', [SistemKidsCoontroller::class, 'delete'])->name('delete.kids');
+    Route::post('/dataKids/edit/{id}', [SistemKidsCoontroller::class, 'edit'])->name('edit.kids');
     // Route::post('/datakids/loading', [SistemKidsCoontroller::class, 'store'])->name('input.kids');
     Route::post('/datakids/loading/admin', [SistemKidsCoontroller::class, 'storeAdmin'])->name('admin.kids');
 

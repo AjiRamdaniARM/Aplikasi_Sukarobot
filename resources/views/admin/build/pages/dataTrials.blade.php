@@ -15,7 +15,7 @@
                     {{-- === component fitur button aksi === --}}
                     @include('admin.build.components.TrialKids.ComponentButtonLt')
                     {{-- === component fitur button aksi === --}}
-                    @include('admin.build.components.TrialKids.ComponentExportButton')
+                    @include('admin.build.components.TrialKids.ComponentsModal')
                 </div>
                 <br>
                 {{-- == table data trials === --}}

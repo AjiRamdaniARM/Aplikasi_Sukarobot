@@ -153,7 +153,8 @@ class="items-center justify-center w-full mb-0 align-top border-gray-200 text-sl
                             @method('DELETE')
                         </form>
                             {{-- === component button aprove === --}}
-                            <form action="{{ route('menu.siswaTrial.lanjut', ['id_trials' => $siswaTrial->id_trials]) }}" method="POST" style="display: inline;">
+                            <button type="button"  onclick="document.getElementById('modal_kelas{{ $siswaTrial->id_trials }}').showModal();" style="background-color:rgb(175, 255, 175); padding-left: 10px;padding-right:10px;color:black; ">Lanjut</button>
+                            {{-- <form action="{{ route('menu.siswaTrial.lanjut', ['id_trials' => $siswaTrial->id_trials]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 <button type="submit" style="
                                 background-color: rgb(175, 255, 175);
@@ -161,7 +162,7 @@ class="items-center justify-center w-full mb-0 align-top border-gray-200 text-sl
                                 padding-right:10px;
                                 color:black;
                                 ">Lanjut</button>
-                            </form>
+                            </form> --}}
                             {{-- === end component button approve --}}
                     {{-- === end component button crud --}}
                     </div>

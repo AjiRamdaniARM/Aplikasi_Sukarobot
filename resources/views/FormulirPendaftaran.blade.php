@@ -18,7 +18,7 @@
                                 <p class="text-sm text-gray-500 font-normal leading-relaxed">Yuk, daftarkan anak Anda di
                                     Sukarobot Academy!</p>
                             @endif
-
+ 
                         </div>
                     </div>
                     @include('components.loadingElement')
@@ -30,10 +30,10 @@
                                     <label class="leading-loose">Nama Lengkap <span class="text-red-600">*</span></label>
                                     <input type="text"
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                        placeholder="Cth: Aziz Ramadhan" name="nama_lengkap"
+                                        placeholder="Cth: Aziz Ram adhan" name="nama_lengkap"
                                         value="{{ old('nama_lengkap') }}" required>
                                     @error('nama_lengkap')
-                                        <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                        <div class="bg-red-100 mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                             role="alert">
                                             <strong class="font-bold">Kesalahan !! </strong>
                                             <span class="block sm:inline">{{ $message }}</span>
@@ -48,7 +48,7 @@
                                         placeholder="Cth: Sukabumi " name="tl" value="{{ old('tl') }}" required>
                                 </div>
                                 @error('tl')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                    <div class="bg-red-100  mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
@@ -62,7 +62,7 @@
                                         name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
                                 </div>
                                 @error('tanggal_lahir')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                    <div class="bg-red-100  mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
@@ -98,11 +98,6 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        {{-- <label class="leading-loose">Sekolah <span class="text-red-600">*</span></label>
-                                        <input type="text"
-                                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                            placeholder="Cth: Sukarobot Academy" name="sekolah" value="{{ old('sekolah') }}"
-                                            required> --}}
                                     </div>
                                     @if (session('success'))
                                         <button
@@ -118,7 +113,7 @@
                                 </div>
 
                                 @error('sekolah')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                    <div class="bg-red-100  mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
@@ -133,7 +128,7 @@
                                         placeholder="Cth: 3 SD" name="kelas" value="{{ old('kelas') }}" required>
                                 </div>
                                 @error('kelas')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                    <div class="bg-red-100  mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
@@ -148,7 +143,7 @@
                                         name="nama_ortu" required>
                                 </div>
                                 @error('nama_ortu')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                    <div class="bg-red-100  mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
@@ -167,7 +162,6 @@
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
-
                                     </div>
                                 @enderror
                                 <div class="flex flex-col">
@@ -178,7 +172,7 @@
                                         required>
                                 </div>
                                 @error('work_ortu')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                    <div class="bg-red-100  mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
@@ -193,7 +187,7 @@
                                         name="alamat" value="{{ old('alamat') }}" required>
                                 </div>
                                 @error('alamat')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                    <div class="bg-red-100 mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>

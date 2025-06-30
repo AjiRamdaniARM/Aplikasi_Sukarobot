@@ -21,7 +21,7 @@
                     </div>
                 @endif
                 {{-- component input data siswa  --}}
-                <div class="flex flex-wrap -mx-3">
+                {{-- <div class="flex flex-wrap -mx-3">
                     <div class="max-w-full px-3 lg:w-full lg:flex-none">
                         <div class="flex flex-wrap -mx-3">
                             <div class="max-w-full px-3 mb-4 lg:mb-0 lg:w-full lg:flex-none">
@@ -201,137 +201,107 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 {{-- akhir component data anak --}}
+                   <div
+                                            class="p-4 pb-0 mb-0 border-b-transparent">
+                                            <div class="flex flex-wrap -mx-3">
+                                                <div class="flex items-center flex-none max-w-full px-3">
+                                                    <h6 class="mb-0">Pendaataan Siswa</h6>
+                                                </div>
+                                                <div class="  max-w-full px-3 text-right"
+                                                    style="display:flex; flex-wrap:wrap; gap:1px">
+                                                    {{-- <button type="button" onclick="window.dialogAdmin.showModal()"
+                                                        class="inline-block px-6  py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
+                                                         Tambah Sekolah
+                                                    </button> --}}
+                                                    &nbsp;
+                                                    <a href="{{ url('/datakids/allExport') }}"
+                                                        class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
+                                                        Export
+                                                        Data</a>
+                                                    &nbsp;
+                                                    <a target="_blank" href="{{ route('formulir.index') }}"
+                                                        class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">
+                                                        Formulir
+                                                        Pendaftaran</a>
+                                                </div>
+                                            </div>
+                                        </div>
                 <br>
                 @include('admin.build.components.dataKids.cardAlldata')
-
                 {{-- component table semua data anak --}}
-                <div class="flex flex-wrap -mx-3">
-                    <div class="w-full max-w-full px-3 mt-6  md:flex-none">
-                        <div
-                            class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
-                            <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 flex lg:justify-between justify-center rounded-t-2xl flex-wrap items-center gap-10">
-                                <h6 class="mb-0 ">Semua data anak</h6>
-                                <br>
-                                @include('admin.build.components.dataKids.fiturSearch')
-                            </div>
-                            <div class="flex-auto p-4 pt-6">
-                                @if (empty($getDataKids))
-                                    <div class="text-black">Tidak ada data anak untuk sekarang</div>
-                                @else
-                                    <ul class="flex flex-col pl-0 mb-0 rounded-lg">
-                                        @foreach ($getDataKids as $getDataKid)
-                                            <li
-                                                class="relative flex p-6 mb-2 border-0 rounded-t-inherit rounded-xl bg-gray-50">
-                                                <div class="flex" style="gap:20px">
-                                                    <img src="{{ asset('assets/data/dataAnak/img/' . $getDataKid->file) }}"
+               <div class="flex flex-wrap -mx-3">
+                <div class="w-full max-w-full px-3 mt-6 md:flex-none">
+                    <div class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
+                        <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 flex lg:justify-between justify-center rounded-t-2xl flex-wrap items-center gap-10">
+                            <h6 class="mb-0">Semua data anak</h6>
+                            @include('admin.build.components.dataKids.fiturSearch')
+                        </div>
+                        <div class="flex-auto p-4 pt-6">
+                            @if ($getDataKids->isEmpty())
+                                <div class="text-black">Tidak ada data anak untuk sekarang</div>
+                            @else
+                                <div class="overflow-x-auto">
+                                    <table class="table-auto w-full text-left border-collapse border border-gray-200">
+                                        <thead class="bg-gray-100 text-gray-700 text-sm">
+                                            <tr>
+                                                <th class="p-4 border border-gray-200">No</th>
+                                                <th class="p-4 border border-gray-200">Pas Foto</th>
+                                                <th class="p-4 border border-gray-200">Nama Lengkap</th>
+                                                <th class="p-4 border border-gray-200">Sekolah</th>
+                                                <th class="p-4 border border-gray-200">kelas</th>
+                                                <th class="p-4 border border-gray-200 text-center">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($getDataKids as $index => $getDataKid)
+                                                <tr class="hover:bg-gray-50 text-sm">
+                                                    <td class="p-4 border border-gray-200">{{ $loop->iteration }}</td>
+                                                    <td class="p-4 border border-gray-200">
+                                                         <img src="{{ $getDataKid->file && file_exists(public_path('assets/data/dataAnak/img/' . $getDataKid->file)) 
+                                                                ? asset('assets/data/dataAnak/img/' . $getDataKid->file) 
+                                                                : asset('asset/profile.jpg') }}"
                                                         alt="child"
-                                                        style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%; margin: 0 auto;">
-                                                    <div class="flex flex-col">
-                                                        <h6 class="mb-4 leading-normal text-sm">
-                                                            {{ $getDataKid->nama_lengkap }}
-                                                        </h6>
-                                                        <span class="mb-2 leading-tight text-xs">Sekolah: <span
-                                                                class="font-semibold text-slate-700 sm:ml-2">{{ $getDataKid->sekolah }}</span></span>
-                                                    </div>
-                                                </div>
-                                                <div class="ml-auto text-right flex flex-wrap">
-                                                    <form
-                                                        action="{{ route('delete.kids', ['nama_lengkap' => $getDataKid->nama_lengkap]) }}"
-                                                        enctype="multipart/form-data">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                            class="relative z-10 inline-block px-4 py-3 mb-0 font-bold text-center text-transparent uppercase align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 bg-gradient-to-tl from-red-600 to-rose-400 hover:scale-102 active:opacity-85 bg-x-25 bg-clip-text">
-                                                            <i
-                                                                class="mr-2 far fa-trash-alt bg-150 bg-gradient-to-tl from-red-600 to-rose-400 bg-x-25 bg-clip-text"></i>Delete
-                                                        </button>
-                                                    </form>
-
-
-                                                    <a class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
-                                                        href="#popup/{{ $getDataKid->nama_lengkap }}"><i
-                                                            class="mr-2 fas fa-pencil-alt text-slate-700"
-                                                            aria-hidden="true"></i>Edit</a>
-                                                    @include('admin.build.components.dataKids.modalEdit')
-                                                    <a href="{{ url('/datakids/privateData/' . $getDataKid->nama_lengkap) }}"
-                                                        class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
-                                                        href="javascript:;"><svg class="w-5 text-[#344767]"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                        </svg>
-                                                        View</a>
-                                                </div>
-                                            </li>
-                                        @endforeach
-
-                                    </ul>
-                                    <div class="mt-4">
-                                        {{ $getDataKids->links() }}
-                                    </div>
-                                @endif
-
-                            </div>
+                                                        class="w-12 h-12 rounded-full object-cover mx-auto">
+                                                    </td>
+                                                    <td class="p-4 border border-gray-200">{{ $getDataKid->nama_lengkap }}</td>
+                                                    <td class="p-4 border border-gray-200">{{ $getDataKid->sekolah }}</td>
+                                                    <td class="p-4 border border-gray-200">{{ $getDataKid->nama_kelas }}</td>
+                                                    <td class="p-4 border border-gray-200 text-center space-x-2">
+                                                        <form
+                                                            action="{{ route('delete.kids', ['nama_lengkap' => $getDataKid->nama_lengkap]) }}"
+                                                            method="POST" class="inline">
+                                                            @csrf
+                                                           
+                                                            <button type="submit"
+                                                                class="text-red-600 hover:text-red-800 text-xs font-semibold">
+                                                                <i class="far fa-trash-alt"></i> Delete
+                                                            </button>
+                                                        </form>
+                                                        &nbsp;
+                                                        <a href="#popup/{{ $getDataKid->id_siswa }}"
+                                                            class="text-blue-600 hover:text-blue-800 text-xs font-semibold">
+                                                            <i class="fas fa-pencil-alt"></i> Edit
+                                                        </a>
+                                                        @include('admin.build.components.dataKids.modalEdit')
+                                                        &nbsp;
+                                                        <a href="{{ url('/datakids/privateData/' . $getDataKid->nama_lengkap) }}"
+                                                            class="text-green-600 hover:text-green-800 text-xs font-semibold">
+                                                            <i class="fas fa-eye"></i> View
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endif
                         </div>
                     </div>
-
-                    {{-- <div class="w-full max-w-full px-3 mt-6 md:w-5/12 md:flex-none">
-                        <div
-                            class="relative flex flex-col h-full min-w-0 mb-6 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
-                            <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
-                                <div class="flex flex-wrap -mx-3">
-                                    <div class="max-w-full px-3 md:w-1/2 md:flex-none">
-                                        <h6 class="mb-0">All School Data</h6>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="flex-auto p-4 pt-6">
-                                <ul class="flex flex-col pl-0 mb-0 rounded-lg">
-                                    @foreach ($getDataSchool as $sekolah)
-                                        <li
-                                            class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 rounded-t-inherit text-inherit rounded-xl">
-                                            <div class="flex items-center">
-                                                <button
-                                                    class="leading-pro ease-soft-in text-xs bg-150 w-6.35 h-6.35 p-1.2 rounded-3.5xl tracking-tight-soft bg-x-25 mr-4 mb-0 flex cursor-pointer items-center justify-center border border-solid border-lime-500 border-transparent bg-transparent text-center align-middle font-bold uppercase text-lime-500 transition-all hover:opacity-75"><i
-                                                        class="fas fa-arrow-up text-3xs"></i></button>
-                                                <div class="flex flex-col">
-                                                    <h6 class="mb-1 leading-normal text-sm text-slate-700">
-                                                        {{ $sekolah->sekolah }}</h6>
-                                                    @if ($sekolah->alamat == null)
-                                                        <span class="leading-tight text-xs">Data alamat belum ada
-                                                            !!</span>
-                                                    @else
-                                                        <span
-                                                            class="leading-tight text-xs">{{ $sekolah->alamat }}</span>
-                                                    @endif
-
-                                                </div>
-                                            </div>
-                                            <div class="flex flex-col items-center justify-center">
-                                                <button
-                                                    class="relative z-10 inline-block m-0 font-semibold leading-normal text-white rounded-lg text-sm animasi-scale-hover-105 transisi-all animasi-scale-focus-105"
-                                                    style="background-color: #FFAA00; padding: 5px;">
-                                                    Edit</button>
-                                            </div>
-                                        </li>
-                                    @endforeach
-
-                                </ul>
-                                <div class="mt-4">
-                                    {{ $getDataSchool->links() }}
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
-
                 </div>
+            </div>
+
 
             </div>
 

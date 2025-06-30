@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SistemTrialKids;
 
 use App\Http\Controllers\Controller;
+use App\Models\DataKelas;
 use App\Models\DataProgram;
 use App\Models\DataSekolah;
 use App\Models\DataSiswa;
@@ -37,10 +38,13 @@ class SistemTrialController extends Controller
         )
         ->orderBy('data_trials.created_at', 'desc')
         ->get();
+        
         $countDataSiswaTrial = DataTrial::count();
+        $getDataKelas = DataKelas::all();
+        $countDataSiswaTrial = DataTrial::where('status','trial')->count();
         $countDataSiswaTriall = DataTrial::where('status','trial')->count();
         $countDataSiswaTrialn = DataTrial::where('status','aktif')->count();
-        return view('admin.build.pages.dataTrials',compact('getDataSiswaTrial','countDataSiswaTrial','countDataSiswaTriall','countDataSiswaTrialn'));
+        return view('admin.build.pages.dataTrials',compact('getDataSiswaTrial','countDataSiswaTrial','countDataSiswaTriall','countDataSiswaTrialn','getDataKelas'));
     }
 
     public function indexForm() {
@@ -53,67 +57,6 @@ class SistemTrialController extends Controller
         return view('p_trial.preview');
     }
 
-    public function lanjutTrialAll(Request $request) {
-        try {
-            $siswaIds = $request->input('siswa_id', []);
-            
-            if (empty($siswaIds)) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Pilih minimal satu siswa',
-                    'debug' => [
-                        'received_data' => $request->all(),
-                        'siswa_ids' => $siswaIds
-                    ]
-                ], 400);
-            }
-
-            $updatedCount = 0;
-            $updatedData = [];
-            foreach ($siswaIds as $siswaId) {
-                $siswaTrial = DataTrial::where('id', $siswaId)->first();
-                if ($siswaTrial && $siswaTrial->status !== 'aktif') {
-                    $siswaTrial->status = 'aktif';
-                    $siswaTrial->save();
-                    $updatedCount++;
-                    $updatedData[] = [
-                        'id' => $siswaTrial->id,
-                        'nama_siswa' => $siswaTrial->nama_siswa,
-                        'status' => $siswaTrial->status
-                    ];
-                }
-            }
-
-            if ($updatedCount > 0) {
-                return response()->json([
-                    'status' => 'success',
-                    'message' => $updatedCount . ' siswa berhasil diubah statusnya menjadi aktif',
-                    'updated_count' => $updatedCount,
-                    'updated_data' => $updatedData
-                ], 200);
-            } else {
-                return response()->json([
-                    'status' => 'info',
-                    'message' => 'Tidak ada perubahan status siswa',
-                    'updated_count' => 0,
-                    'debug' => [
-                        'siswa_ids' => $siswaIds,
-                        'request_data' => $request->all()
-                    ]
-                ], 200);
-            }
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Gagal mengubah status siswa',
-                'error' => $e->getMessage(),
-                'debug' => [
-                    'file' => $e->getFile(),
-                    'line' => $e->getLine()
-                ]
-            ], 500);
-        }
-    }
 
     public function confirmation() {
         return view('p_trial.confirmation');
@@ -224,10 +167,11 @@ class SistemTrialController extends Controller
     }
 
     // === proses mengubah status siswa === //
-    public function lanjutTrial($id_trials)
+    public function lanjutTrial(Request $request,$id_trials)
     {
         // === proses mengubah status siswa === //
         try {
+            $getKelas = $request->input('kelas_siswa');
             // === proses mengambil data siswa === //
             $siswaTrial = DataTrial::where('id', $id_trials)->first();
             if (!$siswaTrial) {
@@ -240,14 +184,19 @@ class SistemTrialController extends Controller
             $siswaTrial->status = 'aktif';
             $siswaTrial->save();
 
-            $getSiswaAktif = new DataSiswa();
-            $getSiswaAktif -> insert([
-                'nama_siswa' => $siswaTrial->nama_siswa,
-                'usia_anak' => $siswaTrial->usia_anak,
-                'nama_ortu' => $siswaTrial->nama_ortu,
-                'no_hp' => $siswaTrial->no_hp,
-                'alamat' => $siswaTrial->alamat,
+            // === prosses input ke siswa aktif === //
+
+            DataSiswa::create([
+                'nama_lengkap' => $siswaTrial->nama_siswa,
+                'id_kelas' => $getKelas,
+                // 'usia_anak' => $siswaTrial->usia_anak, // Uncomment jika dibutuhkan
+                'nama_ortu'    => $siswaTrial->nama_ortu,
+                'telephone'    => $siswaTrial->no_hp,
+                'alamat'       => $siswaTrial->alamat,
+                'id_sekolah'   => $siswaTrial->id_sekolah
             ]);
+
+            
             // === proses mengembalikan pesan sukses === //
             return redirect()->back()->with('success', 'Status siswa berhasil diubah menjadi aktif');
         } catch (\Exception $e) {
@@ -259,6 +208,95 @@ class SistemTrialController extends Controller
             ], 500);
         }
     }
+
+   public function lanjutTrialAll(Request $request)
+{
+    try {
+        $siswaIds = $request->input('siswa_id', []);
+        $getKelas = $request->input('kelas_siswa');
+
+        if (empty($siswaIds)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Pilih minimal satu siswa',
+                'debug' => [
+                    'received_data' => $request->all(),
+                    'siswa_ids' => $siswaIds
+                ]
+            ], 400);
+        }
+
+        if (empty($getKelas)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Kelas siswa harus dipilih',
+                'debug' => [
+                    'received_data' => $request->all(),
+                ]
+            ], 400);
+        }
+
+        $updatedCount = 0;
+        $updatedData = [];
+
+        foreach ($siswaIds as $siswaId) {
+            $siswaTrial = DataTrial::find($siswaId);
+
+            if ($siswaTrial && $siswaTrial->status !== 'aktif') {
+                // Update status trial
+                $siswaTrial->status = 'aktif';
+                $siswaTrial->save();
+
+                // Simpan ke tabel DataSiswa
+                DataSiswa::create([
+                    'nama_lengkap' => $siswaTrial->nama_siswa,
+                    'id_kelas'     => $getKelas,
+                    // 'usia_anak' => $siswaTrial->usia_anak, // Uncomment jika ada kolom
+                    'nama_ortu'    => $siswaTrial->nama_ortu,
+                    'telephone'    => $siswaTrial->no_hp,
+                    'alamat'       => $siswaTrial->alamat,
+                    'id_sekolah'   => $siswaTrial->id_sekolah
+                ]);
+
+                $updatedCount++;
+                $updatedData[] = [
+                    'id' => $siswaTrial->id,
+                    'nama_siswa' => $siswaTrial->nama_siswa,
+                    'id_kelas' => $getKelas,
+                    'nama_ortu' => $siswaTrial->nama_ortu,
+                    'telephone' => $siswaTrial->no_hp,
+                    'alamat' => $siswaTrial->alamat,
+                    'id_sekolah' => $siswaTrial->id_sekolah,
+                    'status' => $siswaTrial->status
+                ];
+            }
+        }
+
+        if ($updatedCount > 0) {
+            return redirect()->back()->with('Success','Data Berhasil driubah');
+        } else {
+            return response()->json([
+                'status' => 'info',
+                'message' => 'Tidak ada perubahan status siswa',
+                'updated_count' => 0,
+                'debug' => [
+                    'siswa_ids' => $siswaIds,
+                    'request_data' => $request->all()
+                ]
+            ], 200);
+        }
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Gagal mengubah status siswa',
+            'error' => $e->getMessage(),
+            'debug' => [
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]
+        ], 500);
+    }
+}
 
     public function searchTrial(Request $request)
     {

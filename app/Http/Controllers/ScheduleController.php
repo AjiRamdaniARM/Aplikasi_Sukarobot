@@ -94,7 +94,6 @@ class ScheduleController extends Controller
 
     public function post(Request $request)
     {
-
         // Membuat kode unik id untuk relasi 2 tabel
         $getDataTrainer = DataTrainer::where('id', $request->input('id_trainer'))->first();
         $selectedSiswa = $request->input('id_siswa', []);

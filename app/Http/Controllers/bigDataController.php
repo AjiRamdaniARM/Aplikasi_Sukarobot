@@ -19,7 +19,8 @@ class bigDataController extends Controller
         // kondisi perhitungan data
         $getDataSekolahCount = DataSekolah::all()->count();
         $activeCount = DataSekolah::where('status', 'isactive')->count();
-        $activePercentage = ($activeCount / $getDataSekolahCount) * 100;
+       $activePercentage = $getDataSekolahCount ? ($activeCount / $getDataSekolahCount) * 100 : 0;
+
 
         $getDataProgram = DataProgram::all()->count();
         $getDataLevel = DataLevel::all()->count();

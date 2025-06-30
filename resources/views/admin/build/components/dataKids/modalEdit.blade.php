@@ -1,4 +1,4 @@
-    <div class="popup" id="popup/{{ $getDataKid->nama_lengkap }}">
+    <div class="popup" id="popup/{{ $getDataKid->id_siswa }}">
         <div class="popup__content">
             <div class="head flex" style="justify-items: start; align-items: center; gap: 15px">
                 <div class="block">
@@ -9,10 +9,9 @@
                 </div>
             </div>
             <br>
-            <form action="{{ url('/datakids/edit/' . $getDataKid->nama_lengkap) }}" method="POST"
+            <form action="{{ route('edit.kids', ['id' =>  $getDataKid->id_siswa]) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
-
                 <div class="grup-1 flex flex-wrap">
                     <label for="inp" class="inp">
                         <input id="inp" type="text" name="nama_lengkap" value="{{ $getDataKid->nama_lengkap }}"
@@ -20,7 +19,6 @@
                         <span class="label">Full Name Kids</span>
                         <span class="focus-bg"></span>
                     </label>
-
                     <label for="inp" class="inp">
                         <input id="inp" type="text" value="{{ $getDataKid->tl }}" name="tl"
                             placeholder="&nbsp;" />
@@ -35,19 +33,23 @@
                         <span class="focus-bg"></span>
                     </label>
 
-                    <label for="inp" class="inp">
-                        <input id="inp" value="{{ $getDataKid->sekolah }}" type="text" name="sekolah"
-                            placeholder="&nbsp;" required />
-                        <input id="inp" value="{{ $getDataKid->id_sekolah }}" type="text" hidden
-                            name="id_sekolah" placeholder="&nbsp;" required readonly />
-                        <span class="label">School Kids</span>
+                    <label for="sekolah" class="inp">
+                        <select id="sekolah" name="id_sekolah" required class="w-full bg-transparent outline-none border-0 px-2 py-2">
+                            <option disabled selected value="">Pilih Sekolah</option>
+                            @foreach($getSelect as $sekolah)
+                                <option value=" {{ $sekolah->id_sekolah}}" 
+                                    {{ $getDataKid->sekolah_id == $sekolah->id_sekolah ? 'selected' : '' }}>
+                                    {{ $sekolah->sekolah }}
+                                </option>
+                            @endforeach
+                        </select>
                         <span class="focus-bg"></span>
                     </label>
 
                     <label for="inp" class="inp">
                         <input id="inp" value="{{ $getDataKid->kelas }}" type="text" name="kelas"
                             placeholder="&nbsp;" required />
-                        <span class="label">Class Kids</span>
+                        <span class="label">Kelas Sekolah</span>
                         <span class="focus-bg"></span>
                     </label>
 

@@ -167,47 +167,43 @@ class SistemTrialController extends Controller
     }
 
     // === proses mengubah status siswa === //
-    public function lanjutTrial(Request $request,$id_trials)
-    {
-        // === proses mengubah status siswa === //
-        try {
-            $getKelas = $request->input('kelas_siswa');
-            // === proses mengambil data siswa === //
-            $siswaTrial = DataTrial::where('id', $id_trials)->first();
-            if (!$siswaTrial) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Data siswa tidak ditemukan'
-                ], 404);
-            }
-            // === proses mengubah status siswa === //
-            $siswaTrial->status = 'aktif';
-            $siswaTrial->save();
+   public function lanjutTrial(Request $request, $id_trials)
+{
+    try {
+        // Validasi input
+        $request->validate([
+            'kelas_siswa' => 'required|exists:data_kelas,id'
+        ]);
 
-            // === prosses input ke siswa aktif === //
+        // Ambil kelas dari input
+        $getKelas = $request->input('kelas_siswa');
 
-            DataSiswa::create([
-                'nama_lengkap' => $siswaTrial->nama_siswa,
-                'id_kelas' => $getKelas,
-                // 'usia_anak' => $siswaTrial->usia_anak, // Uncomment jika dibutuhkan
-                'nama_ortu'    => $siswaTrial->nama_ortu,
-                'telephone'    => $siswaTrial->no_hp,
-                'alamat'       => $siswaTrial->alamat,
-                'id_sekolah'   => $siswaTrial->id_sekolah
-            ]);
+        // Ambil data trial
+        $siswaTrial = DataTrial::findOrFail($id_trials);
 
-            
-            // === proses mengembalikan pesan sukses === //
-            return redirect()->back()->with('success', 'Status siswa berhasil diubah menjadi aktif');
-        } catch (\Exception $e) {
-            // === proses mengembalikan pesan error === //
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Gagal mengubah status siswa',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        // Simpan ke DataSiswa
+        DataSiswa::create([
+            'nama_lengkap' => $siswaTrial->nama_siswa,
+            'id_kelas'     => $getKelas,
+            'nama_ortu'    => $siswaTrial->nama_ortu,
+            'telephone'    => $siswaTrial->no_hp,
+            'alamat'       => $siswaTrial->alamat,
+            'id_sekolah'   => $siswaTrial->id_sekolah
+        ]);
+
+        // Hapus data trial
+        $siswaTrial->delete();
+
+        // Redirect sukses
+        return redirect()->back()->with('success', 'Status siswa berhasil diubah menjadi aktif.');
+        
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return redirect()->back()->withErrors($e->validator)->withInput();
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Gagal mengubah status siswa. ' . $e->getMessage());
     }
+}
+
 
    public function lanjutTrialAll(Request $request)
 {

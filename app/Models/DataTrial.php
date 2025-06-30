@@ -11,6 +11,7 @@ class DataTrial extends Model
     protected $fillable = [
         'id_program',
         'nama_siswa',
+        'usia_anak',
         'id_sekolah',
         'nama_ortu',
         'no_hp',

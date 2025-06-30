@@ -288,7 +288,7 @@
                                                         &nbsp;
                                                         <a href="{{ url('/datakids/privateData/' . $getDataKid->nama_lengkap) }}"
                                                             class="text-green-600 hover:text-green-800 text-xs font-semibold">
-                                                            <i class="fas fa-eye"></i> View
+                                                           View
                                                         </a>
                                                     </td>
                                                 </tr>

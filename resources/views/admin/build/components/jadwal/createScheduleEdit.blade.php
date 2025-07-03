@@ -19,7 +19,7 @@
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-first-name">
-                                    Days
+                                    Hari
                                 </label>
                                 <select name="hari" id="days" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -40,7 +40,7 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    Trainers
+                                    Trainer
                                 </label>
                                 <select name="id_trainer" id="trainer" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -59,7 +59,7 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    Class Academy
+                                    Kelas Akademi
                                 </label>
                                 <select name="id_kelas" id="class" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -75,14 +75,23 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    TOOLS
+                                    ALAT
                                 </label>
                                 <select name="id_alat" id="alat" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="{{ $getDataSchedule->id_alat }}"
-                                        style="background-color: red ; color:white">
-                                        {{ $getDataSchedule->nama_alat }} (
-                                        Dipilih )</option>
+                                    @if ($getDataSchedule->id_alat == null)
+                                        <option value="{{ $getDataSchedule->id_alat }}"
+                                            style="background-color: red ; color:white">
+                                            No Tools (
+                                            Dipilih )
+                                        </option>
+                                    @else
+                                        <option value="{{ $getDataSchedule->id_alat }}"
+                                            style="background-color: red ; color:white">
+                                            {{ $getDataSchedule->nama_alat }} (
+                                            Dipilih )
+                                        </option>
+                                    @endif
                                     @foreach ($getDataTools as $tools)
                                         <option value="{{ $tools->id }}">{{ $tools->alat }}</option>
                                     @endforeach
@@ -94,7 +103,7 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    first hour teaching
+                                    Jam Mengajar Pertama
                                 </label>
                                 <input type="time" value="{{ $getDataSchedule->jm_awal }}" name="jm_awal" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -102,7 +111,7 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    final hour of teaching
+                                    Jam Mengajar Terakhir
                                 </label>
                                 <input type="time" value="{{ $getDataSchedule->jm_akhir }}" name="jm_akhir" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -112,7 +121,7 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    Pj Club
+                                    Pj Eskul
                                 </label>
                                 <select name="pj_eskul" id="trainer" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -127,7 +136,7 @@
                             </div>
 
                             {{-- fitur disabled --}}
-                            <div class="w-full md:w-1/2 px-3">
+                            {{-- <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 "
                                     for="grid-last-name" style="color: red">
                                     early attendance deadline ( fitur disabled)
@@ -135,16 +144,32 @@
                                 <input type="timestamp"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     disabled>
-                            </div>
+                            </div> --}}
                             {{-- fitur disabled --}}
+
+                            <div class="w-full md:w-1/2 px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    for="grid-last-name">
+                                    Tingkat Akademi
+                                </label>
+                                <select name="id_level" id="level" required
+                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="{{ $getDataSchedule->id_level }}"
+                                        style="background-color: red ; color:white">
+                                        {{ $getDataSchedule->levels }} (
+                                        Dipilih )</option>
+                                    @foreach ($getDataLevel as $level)
+                                        <option value="{{ $level->id }}">{{ $level->levels }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full md:w-1/2 px-3">
-
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    final attendance deadline
+                                    Deadline Absensi Trainer
                                 </label>
                                 <input type="number" value="{{ $getDataSchedule->dj_akhir }}" name="dj_akhir" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -152,20 +177,18 @@
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    teaching schedule date
+                                    Tanggal Mengajar
                                 </label>
                                 <input type="date" value="{{ $getDataSchedule->tanggal_jd }}" name="tanggal_jd"
                                     required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             </div>
-
-
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    Status Schedule
+                                    Status Jadwal
                                 </label>
                                 <select name="ket" id="status" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -187,14 +210,12 @@
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     placeholder="link google maps">
                             </div>
-
-
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    Program academy
+                                    Program Akademi
                                 </label>
                                 <select name="id_program" id="program" required
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -207,29 +228,14 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="w-full md:w-1/2 px-3">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                    for="grid-last-name">
-                                    Level academy
-                                </label>
-                                <select name="id_level" id="level" required
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                    <option value="{{ $getDataSchedule->id_level }}"
-                                        style="background-color: red ; color:white">
-                                        {{ $getDataSchedule->levels }} (
-                                        Dipilih )</option>
-                                    @foreach ($getDataLevel as $level)
-                                        <option value="{{ $tools->id }}">{{ $level->levels }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                          
                         </div>
 
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full  px-3" style="display: none;">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-last-name">
-                                    school
+                                    Sekolah
                                 </label>
                                 <select name="id_sekolah" id="school"
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -245,8 +251,8 @@
                         <table class="w-full leading-normal">
                             <thead>
                                 <tr>
-                                    <th class="px-4 py-2">Registered students</th>
-                                    <th class="px-4 py-2">Date of Birth</th>
+                                    <th class="px-4 py-2">Daftar Siswa</th>
+                                    <th class="px-4 py-2">Tanggal Lahir</th>
                                 </tr>
                             </thead>
 
@@ -257,14 +263,14 @@
                                     <tr>
                                         <td class="border px-4 py-2">{{ $siswa->nama_lengkap }}</td>
                                         <td class="border px-4 py-2 text-center">
-                                            {{ $siswa->tanggal_lahir }}
+                                            {{ \Carbon\Carbon::parse($siswa->tanggal_lahir)->translatedFormat('d F Y') }}
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <br>
-                        <h6 class="text-center">If no student data is changed then ignore the student checkbox !! 👌🙏
+                        <h6 class="text-center">Jika tidak ada data siswa yang diubah, maka abaikan kotak centang siswa !! 👌🙏
                         </h6>
                         <div style="= width:100%; padding-bottom:3px; background-color:orange; border-radius:10px">
                         </div>
@@ -272,8 +278,8 @@
                         <table class="w-full leading-normal">
                             <thead>
                                 <tr>
-                                    <th class="px-4 py-2">Student Name</th>
-                                    <th class="px-4 py-2">Select</th>
+                                    <th class="px-4 py-2">Nama Siswa</th>
+                                    <th class="px-4 py-2">Pilih</th>
                                 </tr>
                             </thead>
 
@@ -287,8 +293,8 @@
                 <br>
                 <button type="submit"
                     class="bg-gradient-to-tl text-center from-blue-600 to-cyan-400 font-bold text-white w-full  rounded hover:scale-102"
-                    style="height: 50px;">Edited
-                    Schedule</button>
+                    style="height: 50px;">Edit
+                    Jadwal</button>
                 </form>
             </div>
             </div>

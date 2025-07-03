@@ -1,12 +1,13 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">    
 <dialog id="modalFilter">
     <h2 class="poppins-bold">Super Filter</h2>
     <form method="GET" action="{{ route('laporan.custom') }}" id="filterDataLaporan">
         @csrf
         <div class="voucher-code-container-admin">
-            <h6 class="voucher-code-title-admin">Select Trainer</h6>
+            <h6 class="voucher-code-title-admin">Ubah Trainer</h6>
             <select name="trainer_id" class="voucher-input px-4" id="" required>
-                <option value="">Select Trainer</option>
-                <option value="all">All Trainer</option>
+                <option value="">Ubah Trainer</option>
+                <option value="all">Semua Trainer</option>
                 @foreach ($getTrainer as $trainer)
                     <option value="{{ $trainer->id }}">{{ $trainer->nama }}</option>
                 @endforeach

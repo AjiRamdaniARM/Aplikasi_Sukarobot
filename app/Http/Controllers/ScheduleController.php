@@ -21,16 +21,20 @@ use Illuminate\Support\Facades\Mail;
 
 class ScheduleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $monthInput = $request->input('month');
         // === ambil data dari tabel schedules === //
         $getDataSchedule = DB::table('schedules')
             ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
             ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
             ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
             ->select('schedules.*', 'schedules.id as id_schedules', 'schedules.created_at as create', 'data_trainers.*', 'data_trainers.id as id_trainer', 'data_kelas.*', 'data_laporans.*', 'schedules.dj_akhir as deadline')
-            ->orderBy('create', 'DESC')
-            ->paginate(10);
+            ->orderBy('create', 'DESC');
+            if(!empty($monthInput)) {
+                $getDataSchedule->whereRaw("DATE_FORMAT(schedules.tanggal_jd, '%Y-%m') = ?", [$monthInput]);
+            }
+            $getDataSchedule = $getDataSchedule->paginate(100);
 
         $currentTime = now();
 
@@ -59,16 +63,18 @@ class ScheduleController extends Controller
     public function updateStatus($id_schedule)
     {
         try {
-            // Cari jadwal berdasarkan ID
             $getSchedules = Schedules::findOrFail($id_schedule);
+            $getSchedules->dj_akhir = 0;
+            $getSchedules->ket = $getSchedules->ab_trainer === 'Hadir' ? 'Aktif' : 'Tidak Aktif';
 
-            // Perbarui status menjadi 'Tidak Aktif'
-            $getSchedules->ket = 'Tidak Aktif';
+            if ($getSchedules->ab_trainer !== 'Hadir') {
+                $getSchedules->ab_trainer = 'Tidak Hadir';
+            }
+
             $getSchedules->save();
 
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
-            // Tangani error jika data tidak ditemukan
             return response()->json(['success' => false, 'message' => 'Schedule not found.'], 404);
         }
     }
@@ -88,7 +94,6 @@ class ScheduleController extends Controller
 
     public function post(Request $request)
     {
-
         // Membuat kode unik id untuk relasi 2 tabel
         $getDataTrainer = DataTrainer::where('id', $request->input('id_trainer'))->first();
         $selectedSiswa = $request->input('id_siswa', []);
@@ -133,7 +138,7 @@ class ScheduleController extends Controller
 
         // === send email schedule trainer == //
         if($getDataTrainer->email == null) {
-            return response()->json(['success' => false, 'message' => 'Email tidak ada']);
+            return redirect()->route('schedule.index')->with('message', 'Email pada akun trainer tidak ada,Tapi jadwal masih terdata');
         } else {
             $details = [
                 'name' => $getDataTrainer->nama,
@@ -182,7 +187,7 @@ class ScheduleController extends Controller
 
         if($getDataTrainer->telephone == null) {
 
-            return response()->json(['success' => false, 'message' => 'Telephone tidak ada']);
+            return redirect()->back()->with('message', 'Nomor Handphone Pada trainer tidak ada');
 
         } else {
 
@@ -203,13 +208,22 @@ class ScheduleController extends Controller
     public function status(Request $request, $id_schedules)
     {
         try {
-            $getDataSchedule = Schedules::where('id', $id_schedules)->firstOrFail();
-            $getDataSchedule->ket = $request->input('status');
+            $getDataSchedule = Schedules::where('id', $id_schedules)->first();
+            if($request->status === 'Aktif' ) {
+                $getDataSchedule->ket = $request->input('status');
+                $getDataSchedule->dj_akhir = $request->input('dj_akhir');
+                $getDataSchedule->ab_trainer = null;
+            } else if ($request->status === 'Tidak Aktif') {
+                $getDataSchedule->ket = $request->input('status');
+                $getDataSchedule->dj_akhir = 0;
+                $getDataSchedule->ab_trainer = 'Tidak Hadir';
+            }
+            $getDataSchedule->dj_akhir = $request->input('dj_akhir');
             $getDataSchedule->created_at = Carbon::now();
             $getDataSchedule->updated_at = Carbon::now();
             $getDataSchedule->save();
 
-            return redirect()->back()->with('message', 'Status change has been successful');
+            return redirect()->back()->with('success', 'Successtus change has been successful');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             // Handle the case where the schedule is not found
             return redirect()->back()->with('error', 'Schedule not found');
@@ -221,7 +235,6 @@ class ScheduleController extends Controller
 
     public function delete($id_schedules)
     {
-
         try {
             $getDataSchedule = Schedules::where('id', $id_schedules)->firstOrFail();
 
@@ -231,10 +244,8 @@ class ScheduleController extends Controller
             // Hapus data di tabel Schedules
             $getDataSchedule->delete();
 
-            return redirect()->back()->with('message', 'Data has been deleted');
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            // Tangani jika schedule tidak ditemukan
-            return redirect()->back()->with('error', 'Schedule not found');
+            return redirect()->back()->with('success', 'Data has been deleted');
+
         } catch (\Exception $e) {
             // Tangani kemungkinan exception lainnya
             return redirect()->back()->with('error', 'An error occurred');
@@ -304,24 +315,6 @@ class ScheduleController extends Controller
         }
         $uniqueId = $this->generateUniqueId($getDataTrainer->nama);
 
-        // Validasi input jika diperlukan
-        // $validatedData = $request->validate([
-        //     'id_trainer' => 'required',
-        //     'id_alat' => 'required',
-        //     'id_kelas' => 'required',
-        //     'id_sekolah' => 'required',
-        //     'id_level' => 'required',
-        //     'id_program' => 'required',
-        //     'hari' => 'required',
-        //     'jm_awal' => 'required',
-        //     'jm_akhir' => 'required',
-        //     'pj_eskul' => 'required',
-        //     'ket' => 'required',
-        //     'dj_akhir' => 'required',
-        //     'tanggal_jd' => 'required',
-        //     'api_maps' => 'required',
-        // ]);
-
         // Hasil validasi masuk ke tabel schedule
         $schedule = Schedules::findOrFail($id_schedule);
         if ($schedule === null) {
@@ -333,7 +326,7 @@ class ScheduleController extends Controller
             'id_kelas' => $request->id_kelas,
             'id_sekolah' => $request->id_sekolah,
             'id_level' => $request->id_level,
-            'id_program' => $request->id_program,
+            'id_program' => $request->id_program, 
             'hari' => $request->hari,
             'jm_awal' => $request->jm_awal,
             'jm_akhir' => $request->jm_akhir,
@@ -343,6 +336,7 @@ class ScheduleController extends Controller
             'dj_akhir' => $request->dj_akhir,
             'tanggal_jd' => $request->tanggal_jd,
             'api_maps' => $request->api_maps,
+            'ab_trainer' => null
         ]);
 
         // Ambil data siswa yang ada di database
@@ -352,7 +346,6 @@ class ScheduleController extends Controller
         if (array_diff($selectedSiswa, $existingSiswa) || array_diff($existingSiswa, $selectedSiswa)) {
             // Hapus data siswa lama di tabel BigData
             BigData::where('id_bigData', $schedule->id_bigData)->delete();
-
             // Insert data siswa baru ke tabel BigData
             foreach ($selectedSiswa as $siswaId) {
                 BigData::create([
@@ -362,6 +355,6 @@ class ScheduleController extends Controller
             }
         }
 
-        return redirect()->back()->with('message', 'You have successfully updated the trainer schedule');
+        return redirect()->route('schedule.index')->with('message', 'You have successfully updated the trainer schedule');
     }
 }

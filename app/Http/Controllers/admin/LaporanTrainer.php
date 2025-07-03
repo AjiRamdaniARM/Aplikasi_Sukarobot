@@ -17,7 +17,6 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromArray;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use Twilio\Rest\Client;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class LaporanTrainer extends Controller
@@ -26,7 +25,6 @@ class LaporanTrainer extends Controller
     {
         $startDate = $request->query('start_date');
         $endDate = $request->query('end_date');
-
         $query = DB::table('schedules')
             ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
             ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
@@ -36,12 +34,10 @@ class LaporanTrainer extends Controller
             ->where('ab_trainer', 'Hadir')
             ->orderBy('create', 'DESC');
 
-        if ($startDate && $endDate) {
-            $query->whereBetween('schedules.tanggal_jd', [$startDate, $endDate]);
-        }
-
+            if (!empty($startDate) && !empty($endDate)) {
+                $query->whereBetween('schedules.tanggal_jd', [$startDate, $endDate]);
+            }
         $schedules = $query->get();
-
         return view('admin.build.pages.dataLaporanTrainer', compact('schedules'));
     }
 
@@ -73,8 +69,7 @@ class LaporanTrainer extends Controller
                 'data_levels.id as id_level',
                 'data_sekolahs.*',
                 'data_laporans.*'
-
-                // ===  tambahkan kolom lainnya sesuai kebutuhan === //
+                // tambahkan kolom lainnya sesuai kebutuhan
             )
             ->first();
 
@@ -114,182 +109,169 @@ class LaporanTrainer extends Controller
     }
     public function excel($id_schedules)
     {
-
         return Excel::download(new LaporanExport($id_schedules), 'laporan_'.$id_schedules.'.xlsx');
     }
     public function customLaporan(Request $request) {
         // === get data trainer report === //
+        $monthInput = $request->input('month');
         $trainerId = $request->input('trainer_id');
-        $startDate = Carbon::parse($request->query('start_date'))->format('Y-m-d');
-        $endDate = Carbon::parse($request->query('end_date'))->format('Y-m-d');
-
+        $startDate = $request->query('start_date');
+        $endDate = $request->query('end_date');
+    
+        // Konversi tanggal hanya jika ada input
+        if (!empty($startDate) && !empty($endDate)) {
+            $startDate = Carbon::parse($startDate)->format('Y-m-d');
+            $endDate = Carbon::parse($endDate)->format('Y-m-d');
+        }
+    
         $schedules = DB::table('schedules')
-        ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
-        ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
-        ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
-        ->leftJoin('data_programs', 'schedules.id_program', '=', 'data_programs.id')
-        ->select(
-            'schedules.*',
-            'schedules.id as id_schedules',
-            'data_trainers.*',
-            'data_trainers.id as id_trainer',
-            'data_kelas.*',
-            'data_laporans.*',
-            'data_trainers.nama as nama_trainer',
-            'data_programs.*',
-            'data_programs.id as id_program'
-        )
-        ->whereBetween('schedules.tanggal_jd', [$startDate, $endDate]) // === Filter tanggal === //
-        // === Cek apakah user memilih 'all' atau trainer tertentu === //
-        ->when($trainerId != 'all', function ($query) use ($trainerId) {
-            return $query->where('data_trainers.id', $trainerId);
-        })
-        ->get();
-
-
+            ->where('ab_trainer', 'Hadir')
+            ->where('ket', 'Aktif')
+            ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
+            ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
+            ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
+            ->leftJoin('data_programs', 'schedules.id_program', '=', 'data_programs.id')
+            ->select(
+                'schedules.*',
+                'schedules.id as id_schedules',
+                'data_trainers.*',
+                'data_trainers.id as id_trainer',
+                'data_kelas.*',
+                'data_laporans.*',
+                'data_trainers.nama as nama_trainer',
+                'data_programs.*',
+                'data_programs.id as id_program'
+            );
+    
+        // Hanya filter jika input tersedia
+        if (!empty($startDate) && !empty($endDate)) {
+            $schedules->whereBetween('schedules.tanggal_jd', [$startDate, $endDate]);
+        }
+    
+        if (!empty($trainerId) && $trainerId !== 'all') {
+            $schedules->where('data_trainers.id', $trainerId);
+        }
+    
+        $schedules = $schedules->get();
+    
+        // === summary laporan === //
         $query = DB::table('schedules')
-        ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
-        ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
-        ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
-        ->leftJoin('data_programs', 'schedules.id_program', '=', 'data_programs.id')
-        ->select(
-            'data_trainers.id as id_trainer',
-            'data_trainers.nama as nama_trainer',
-            DB::raw('COUNT(data_laporans.id) as total_laporan')
-        )
-        ->where('ab_trainer', 'Hadir')
-        ->groupBy('data_trainers.id', 'data_trainers.nama')
-        ->orderBy('nama_trainer', 'ASC')
-        ->get();
+            ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
+            ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
+            ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
+            ->leftJoin('data_programs', 'schedules.id_program', '=', 'data_programs.id')
+            ->select(
+                'data_trainers.id as id_trainer',
+                'data_trainers.nama as nama_trainer',
+                DB::raw('COUNT(data_laporans.id) as total_laporan')
+            )
+            ->where('ab_trainer', 'Hadir')
+            ->groupBy('data_trainers.id', 'data_trainers.nama')
+            ->orderBy('nama_trainer', 'ASC');
+            if(!empty($monthInput)) {
+                $query->whereRaw("DATE_FORMAT(data_laporans.created_at, '%Y-%m') = ?", [$monthInput]);
+            }
+           $query = $query->get();
+    
         // === get trainer === //
         $getTrainer = dataTrainer::orderBy('nama', 'asc')->get();
-        return view('admin.build.components.laporan.customLaporan', compact('query','getTrainer','schedules'));
+    
+        return view('admin.build.components.laporan.customLaporan', compact('query', 'getTrainer', 'schedules'));
     }
-    public function exportCustom(Request $request)
-{
-    $trainerId = $request->input('trainer_id');
-    $startDate = $request->input('start_date');
-    $endDate = $request->input('end_date');
-    $selectedFields = $request->input('fields');
-    $query = DB::table('schedules')
-        ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
-        ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
-        ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
-        ->leftJoin('data_programs', 'schedules.id_program', '=', 'data_programs.id')
-        ->leftJoin('data_levels', 'schedules.id_level', '=', 'data_levels.id')
-        ->leftJoin('data_alats', 'schedules.id_alat', '=', 'data_alats.id')
-        ->leftJoin('data_materis', 'data_laporans.id_materi', '=', 'data_materis.id')
-        ->leftJoin('big_data', 'schedules.id_bigData', '=', 'big_data.id_bigData')
-        ->leftJoin('data_siswas', 'big_data.id_siswa', '=', 'data_siswas.id')
-        ->select(array_merge(
-            $selectedFields,
-            ['data_siswas.nama_lengkap'],
-            ['big_data.absensi_anak']
-        ))
-        ->whereBetween('schedules.tanggal_jd', [$startDate, $endDate]);
-
-    if ($trainerId !== 'all' && !empty($trainerId)) {
-        $query->where('schedules.id_trainer', $trainerId);
+        public function exportCustom(Request $request)
+    {
+        $trainerId = $request->input('trainer_id');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $selectedFields = $request->input('fields');
+    
+        $query = DB::table('schedules')
+            ->where('ab_trainer', 'Hadir')
+            ->leftJoin('data_trainers', 'schedules.id_trainer', '=', 'data_trainers.id')
+            ->leftJoin('data_laporans', 'data_laporans.id_jadwal', '=', 'schedules.id')
+            ->leftJoin('data_kelas', 'schedules.id_kelas', '=', 'data_kelas.id')
+            ->leftJoin('data_programs', 'schedules.id_program', '=', 'data_programs.id')
+            ->leftJoin('data_levels', 'schedules.id_level', '=', 'data_levels.id')
+            ->leftJoin('data_alats', 'schedules.id_alat', '=', 'data_alats.id')
+            ->leftJoin('data_materis', 'data_laporans.id_materi', '=', 'data_materis.id')
+            ->select(
+                'schedules.*',
+                'schedules.id as id_schedules',
+                'schedules.id_bigData as id_big_data',
+                'schedules.created_at as created_at_jd',
+                'data_trainers.nama as trainer_name',
+                'data_trainers.id as id_trainer',
+                'data_kelas.kelas as kelas_name',
+                'data_kelas.id as id_kelas',
+                'data_alats.alat as nama_alat',
+                'data_alats.id as id_alat',
+                'data_programs.*',
+                'data_laporans.*',
+                'data_programs.id as id_program',
+                'data_levels.*',
+                'data_materis.*',
+                'data_levels.id as id_level',
+            )
+            ->whereBetween('schedules.tanggal_jd', [$startDate, $endDate]);
+    
+        if ($trainerId !== 'all' && !empty($trainerId)) {
+            $query->where('schedules.id_trainer', $trainerId);
+        }
+     
+        $scheduleIds = $query->pluck('id_big_data');
+        $dataSiswaw = DB::table('big_data')
+            ->join('data_siswas', 'big_data.id_siswa', '=', 'data_siswas.id')
+            ->whereIn('big_data.id_bigData', $scheduleIds)
+            ->select('big_data.id_bigData', 'data_siswas.nama_lengkap', 'big_data.absensi_anak')
+            ->get()
+            ->groupBy('id_bigData');
+    
+        $results = $query->get()->map(function ($schedule) use ($dataSiswaw) {
+            return [
+                'schedule' => $schedule,
+                'students' => $dataSiswaw[$schedule->id_big_data] ?? [],
+            ];
+        });
+    
+        $templatePath = public_path('assets/template/template001.xlsx');
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templatePath);
+        $sheet = $spreadsheet->getActiveSheet();
+    
+        $row = 10;
+        foreach ($results as $data) {
+            $schedule = $data['schedule'];
+            $students = $data['students'];
+    
+            $sheet->setCellValue('A' . $row, $schedule->trainer_name ?? '');
+            $sheet->setCellValue('B' . $row, $schedule->hari ?? '');
+            $sheet->setCellValue('C' . $row, $schedule->kelas_name ?? '');
+            $sheet->setCellValue('D' . $row, $schedule->program ?? '');
+            $sheet->setCellValue('E' . $row, $schedule->levels ?? '');
+            $sheet->setCellValue('F' . $row, $schedule->nama_alat ?? '');
+            $sheet->setCellValue('G' . $row, $schedule->pj_eskul ?? '');
+            $sheet->setCellValue('H' . $row, $schedule->jm_awal ?? '');
+            $sheet->setCellValue('I' . $row, $schedule->jm_akhir ?? '');
+            $sheet->setCellValue('J' . $row, $schedule->tanggal_jd ?? '');
+            $sheet->setCellValue('K' . $row, $schedule->catatan ?? '');
+            $sheet->setCellValue('L' . $row, $schedule->tanggal_lp ?? '');
+            $sheet->setCellValue('M' . $row, $schedule->jam_lp ?? '');
+            $sheet->setCellValue('N' . $row, $schedule->materi ?? '');
+    
+            foreach ($students as $student) {
+                $sheet->setCellValue('O' . $row, $student->nama_lengkap ?? '');
+                $sheet->setCellValue('P' . $row, $student->absensi_anak ?? '');
+                $row++;
+            }
+            $row++;
+        }
+    
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        $filename = 'Custom_laporan.xlsx';
+        $tempFilePath = storage_path('app/public/' . $filename);
+        $writer->save($tempFilePath);
+        return response()->download($tempFilePath)->deleteFileAfterSend(true);
     }
-
-    $results = $query->get();
-
-    $templatePath = public_path('assets/template/template001.xlsx');
-    $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templatePath);
-    $sheet = $spreadsheet->getActiveSheet();
-
-    $row = 10;
-    foreach ($results as $data) {
-        // == data nama traine mengajar == //
-        if(isset($data->nama)) {
-            $sheet->setCellValue('A' . $row, $data->nama);
-        }
-
-        // == data hari mengajar == //
-        if(isset($data->hari)) {
-            $sheet->setCellValue('B' . $row, $data->hari);
-        }
-
-        // == data kelas mengajar == //
-        if (isset($data->kelas)) {
-            $sheet->setCellValue('C' . $row, $data->kelas);
-        }
-
-        // == data program mengajar == //
-        if (isset($data->program)) {
-            $sheet->setCellValue('D' . $row, $data->program);
-        }
-
-        // == data level mengajar == //
-        if (isset($data->levels)) {
-            $sheet->setCellValue('E' . $row, $data->levels);
-        }
-
-        // == data alat mengajar == //
-        if (isset($data->alat)) {
-            $sheet->setCellValue('F' . $row, $data->alat);
-        }
-
-        // == data pj eskul mengajar == //
-        if (isset($data->pj_eskul)) {
-            $sheet->setCellValue('G' . $row, $data->pj_eskul);
-        }
-
-        // == data jam awal mengajar == //
-        if (isset($data->jm_awal)) {
-            $sheet->setCellValue('H' . $row, $data->jm_awal);
-        }
-
-        // == data jam akhir mengajar == //
-        if (isset($data->jm_akhir)) {
-            $sheet->setCellValue('I' . $row, $data->jm_akhir);
-        }
-
-        // == data tanggal jadwal mengajar == //
-        if (isset($data->tanggal_jd)) {
-            $sheet->setCellValue('J' . $row, $data->tanggal_jd);
-        }
-
-        // == data catatan mengajar == //
-        if (isset($data->catatan)) {
-            $sheet->setCellValue('K' . $row, $data->catatan);
-        }
-
-        // == data tanggal absen mengajar == //
-        if (isset($data->tanggal_lp)) {
-            $sheet->setCellValue('L' . $row, $data->tanggal_lp);
-        }
-
-        // == data jam absen mengajar == //
-        if (isset($data->jam_lp)) {
-            $sheet->setCellValue('M' . $row, $data->jam_lp);
-        }
-
-        // == data materi mengajar == //
-        if (isset($data->materi)) {
-            $sheet->setCellValue('N' . $row, $data->materi);
-        }
-
-        // == data siswa mengajar == //
-        if (isset($data->nama_lengkap)) {
-            $sheet->setCellValue('O' . $row, $data->nama_lengkap);
-        }
-
-        // == data absensi anak mengajar == //
-        if (isset($data->absensi_anak)) {
-            $sheet->setCellValue('P' . $row, $data->absensi_anak);
-        }
-
-
-        $row++;
-    }
-    $writer = new Xlsx($spreadsheet);
-    $filename = 'Custom_laporan.xlsx';
-    $tempFilePath = storage_path('app/public/' . $filename);
-    $writer->save($tempFilePath);
-
-    return response()->download($tempFilePath)->deleteFileAfterSend(true);
-}
+    
 public function importExcel(Request $request)
 {
     $request->validate([
@@ -308,10 +290,8 @@ public function importExcel(Request $request)
         ]);
 
     }
-
     return response()->json(['error' => 'No file uploaded.'], 400);
 }
-
 
 
 }

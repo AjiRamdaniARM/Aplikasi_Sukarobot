@@ -1,24 +1,45 @@
 <?php
 
 use App\Http\Controllers\trainer\Absensi;
+use App\Http\Controllers\trainer\akun\AkunController;
+use App\Http\Controllers\trainer\forgotPasswordController;
+use App\Http\Controllers\trainer\laporan\laporanController;
+use App\Http\Controllers\trainer\drive\uploadDriveController;
 use App\Http\Controllers\trainer\homeController;
+use App\Http\Controllers\trainer\jadwalMenu\JadwalController;
+use App\Http\Controllers\trainer\laporan\PdfController;
 use App\Http\Controllers\trainer\LaporanController as TrainerLaporanController;
-use App\Http\Controllers\trainer\LoginTrainerController;
+use App\Http\Controllers\trainer\LoginTrainerController;    
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
 Route::middleware('check.trainer.auth')->group(function () {
     Route::get('/home', [homeController::class, 'home'])->name('home');
+    
+    // === route absen === //
     Route::get('/home/absen/{id_schedules}', [homeController::class, 'absen'])->name('absen');
+    Route::get('/home/absen/', [homeController::class, 'test'])->name('absenTest');
+    Route::get('/absenSiswa', [Absensi::class, 'absensiSiswa'])->name('ab_siswa');
+
+    // === session upload drive === //
+    Route::get('/drive/{id}', [uploadDriveController::class, 'index'])->name('drive');
+    Route::post('/drive/{id}/uploaded', [uploadDriveController::class, 'DriveUploaded'])->name('drive.upload');
+
+    // === route akun profile === //
+    Route::get('/akun', [AkunController::class, 'index'])->name('akun');
+    Route::get('/edit', [AkunController::class, 'edited'])->name('akun.edited');
+    Route::post('/edit/prossess/{id}', [AkunController::class, 'prosess'])->name('akun.post');
+    Route::post('/edit/profile/{id}', [AkunController::class, 'uploadProfile'])->name('trainer.upload');
+
+    // === route jadwal trainer === //
+    Route::get('/jadwalTrainer/{date?}', [JadwalController::class, 'index'])->name('jadwal.menu');
+    Route::post('/filterDateJadwal', [JadwalController::class, 'filterDate'])->name('filter.jadwal');
+    
+    // === route laporan trainer === //
+    Route::get('/laporanTrainer', [laporanController::class, 'index'])->name('laporan.menu');
+    Route::post('/filterDataLaporan', [laporanController::class, 'filterDateLaporan'])->name('laporan.filterData');
+    Route::get('/fetchSiswa', [laporanController::class, 'fetchSiswa']);
+
     Route::get('/laporantrainer/{id_schedules}', [TrainerLaporanController::class, 'laporantrainer'])->name('laporantrainer');
     Route::get('/jadwalhari', [LoginTrainerController::class, 'jadwalhari'])->name('jadwalhari');
     Route::get('/notifications', [LoginTrainerController::class, 'notifications'])->name('notifications');
@@ -37,15 +58,29 @@ Route::middleware('check.trainer.auth')->group(function () {
     Route::get('/useredit', [LoginTrainerController::class, 'useredit'])->name('useredit');
     Route::get('/historyabsen', [LoginTrainerController::class, 'historyabsen'])->name('historyabsen');
     Route::get('/riwayattrainer', [LoginTrainerController::class, 'riwayattrainer'])->name('riwayattrainer');
+
+    // === backup route === //
     Route::post('/laporantrainer/porsses/{id_schedules}', [Absensi::class, 'UpDrive']);
 
-    // absensi siswa route
+    // === absensi siswa route === //
     Route::post('/absensiswa/prossess/{id}', [Absensi::class, 'absensi'])->name('absensiSiswa.update');
-    // route post laporan
+    // === route post laporan === //
     Route::post('/laporantrainer/prossess/{id_schedules}', [TrainerLaporanController::class, 'postLaporan'])->name('absensiSiswa.update');
 
-    // route logout user trainer
+    // === route logout user trainer === //
     Route::post('/logout', [LoginTrainerController::class, 'destroy'])->name('logout');
+
+    // === route export PDF === ///
+    Route::get('PDF', [PdfController::class, 'exportPDF'])->name('exportPDF');
+    Route::post('/exportProsess', [PDFController::class, 'exportPost'])->name('export.post');
+   
 });
+
+
+ // === forgot password === //
+ Route::get('/forgot-password', [forgotPasswordController::class, 'index'])->name('verifikasi_password');
+ Route::get('/edited-password', [forgotPasswordController::class, 'forgotIndex'])->name('editedPassword');
+
+
 Route::get('/LoginTrainer', [LoginTrainerController::class, 'index'])->name('login.trainer');
 Route::post('/login-trainer/prosses', [LoginTrainerController::class, 'loginTrainer'])->name('login.prosses');

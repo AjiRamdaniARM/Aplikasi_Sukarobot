@@ -222,3 +222,101 @@ background-color: gray;
 .button_custom_trainer:hover {
   background-color: #6f6f6f;
 }
+
+
+/* style component background menu google drive */
+.bg-drive-menu {
+  width: 100%;
+  height: 100%;
+}
+
+/* Untuk layar dengan lebar minimal 600px (tablet) */
+@media (min-width: 600px) {
+  .bg-drive-menu {
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+    height: 27em;
+  }
+  
+}
+
+/* Untuk layar dengan lebar minimal 900px (desktop) */
+@media (min-width: 900px) {
+  .bg-drive-menu {
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+    height: 27em;
+  }
+  
+}
+
+/* Untuk layar dengan lebar minimal 1200px (desktop besar) */
+@media (min-width: 1200px) {
+  .bg-drive-menu {
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+    height: 27em;
+  }
+  
+}
+
+/* animasi scale css */
+.scale-105:hover {
+  transform: scale(1.2);
+  transition: all;
+}
+
+.animasi-color-default:hover {
+  color: #FFB200;
+  transition: all;
+}
+
+/* component asset button custom */
+.button-custom-1 {
+  background-color: #ffd0006a;
+  color: black;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  font-weight: semibold;
+  border-radius: 5px;
+}
+.button-custom-1:hover {
+  transition: all 0 seconds;
+  transform: scale(1.1);
+}
+.hover-button:hover {
+  background-color: gray !important;
+}
+
+
+/* style css class color logo sukarobot */
+.color-bs {
+  background-color: #045A70;
+}
+.color-os {
+  background-color: #DE7528;
+}
+
+.button-flex {
+  display: flex;
+}
+
+/* Responsive Tablet */
+@media (max-width: 768px) {
+  .button-flex {
+    display: flex;
+  }
+}
+
+/* Responsive Mobile */
+@media (max-width: 480px) {
+  .button-flex {
+    display: flex;
+    flex-direction: column;
+  }
+}

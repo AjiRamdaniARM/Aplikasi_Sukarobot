@@ -17,4 +17,9 @@ class DataProgram extends Model
     {
         return $this->belongsTo(DataLevel::class, 'id_programs');
     }
+
+    public function dataTrials()
+    {
+        return $this->hasMany(DataTrial::class, 'id_program');
+    }
 }

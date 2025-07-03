@@ -12,4 +12,16 @@ class DataKelas extends Model
     protected $fillable = [
         'kelas',
     ];
+
+    // Satu kelas memiliki banyak siswa
+    public function siswa()
+    {
+        return $this->hasMany(DataSiswa::class, 'id_kelas');
+    }
+
+    // Hitung jumlah siswa di kelas ini
+    public function jumlahSiswa()
+    {
+        return $this->siswa()->count();
+    }
 }

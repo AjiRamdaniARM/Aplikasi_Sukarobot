@@ -17,23 +17,22 @@
                                 <div class="relative flex flex-wrap  justify-between items-center mt-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border "
                                     style="padding: 20px">
                                     <h5>Report data filter feature</h5>
-
                                     {{-- === fitur filter data tanggal === --}}
-                                    <form id="filter-form" class="mb-4">
+                                    <form id="filter-form" action="{{route('laporan.trainer.admin')}}" class="mb-4" x-data="filterForm()" @submit.prevent="handleSubmit">
                                         @include('admin.build.components.javascriptBlade.sistem')
-                                        <div class="flex flex-wrap  items-center gap-4" style="gap:10px">
-                                            <a href="{{ route('laporan.custom') }}" class="button-custom"
-                                                id="custom-laporan-btn"> Custom
-                                                Laporan</a>
-                                            @include('admin.build.components.javascriptBlade.sistem')
-                                            <input type="date" id="start-date" name="start_date"
-                                                class="border rounded p-2" placeholder="Start Date" required>
-                                            <input type="date" id="end-date" name="end_date"
-                                                class="border rounded p-2" placeholder="End Date" required>
-                                            <button type="submit" id="filter-button"
-                                                class=" py-2 bg-blue-500 text-white rounded button-filter">Filter</button>
+                                        <div class="flex flex-wrap items-center gap-4" style="gap:10px">
+                                            <a href="{{ route('laporan.custom') }}" class="button-custom" id="custom-laporan-btn">Custom Laporan</a>
+                                            <input type="date" id="start-date" name="start_date" class="border rounded p-2" placeholder="Start Date" required x-model="startDate">
+                                            <input type="date" id="end-date" name="end_date" class="border rounded p-2" placeholder="End Date" required x-model="endDate">
+                                            <button type="submit" id="filter-button" class="py-2 bg-blue-500 text-white rounded button-filter"
+                                                    :disabled="isLoading" x-text="isLoading ? 'Loading...' : 'Filter'">
+                                                <span x-show="isLoading" class="fas fa-spinner fa-spin"></span>
+                                                <span x-show="!isLoading">Filter</span>
+                                            </button>
                                         </div>
                                     </form>
+                                    
+                                    {{-- === end fitur filter data tanggal === --}}
                                 </div>
                             </div>
                         </div>
@@ -57,6 +56,7 @@
                                             <div class="flex" style="gap: 20px;">
                                                 <img src="{{ asset('assets/trainer_data/profile/' . $jadwal->profile) }}"
                                                     alt="child"
+                                                     loading="lazy"
                                                     style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%; margin: 0 auto;">
                                                 <div class="flex flex-col">
                                                     <h6 class="mb-4 leading-normal text-sm">{{ $jadwal->nama_trainer }}
@@ -126,49 +126,6 @@
 
 
                 </div>
-
-                <footer class="pt-4">
-                    <div class="w-full px-6 mx-auto">
-                        <div class="flex flex-wrap items-center -mx-3 lg:justify-between">
-                            <div class="w-full max-w-full px-3 mt-0 mb-6 shrink-0 lg:mb-0 lg:w-1/2 lg:flex-none">
-                                <div class="leading-normal text-center text-sm text-slate-500 lg:text-left">
-                                    ©
-                                    <script>
-                                        document.write(new Date().getFullYear() + ",");
-                                    </script>
-                                    made with <i class="fa fa-heart"></i> by
-                                    <a href="https://www.creative-tim.com" class="font-semibold text-slate-700"
-                                        target="_blank">Creative Tim</a>
-                                    for a better web.
-                                </div>
-                            </div>
-                            <div class="w-full max-w-full px-3 mt-0 shrink-0 lg:w-1/2 lg:flex-none">
-                                <ul class="flex flex-wrap justify-center pl-0 mb-0 list-none lg:justify-end">
-                                    <li class="nav-item">
-                                        <a href="https://www.creative-tim.com"
-                                            class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-sm text-slate-500"
-                                            target="_blank">Creative Tim</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="https://www.creative-tim.com/presentation"
-                                            class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-sm text-slate-500"
-                                            target="_blank">About Us</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="https://creative-tim.com/blog"
-                                            class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-sm text-slate-500"
-                                            target="_blank">Blog</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="https://www.creative-tim.com/license"
-                                            class="block px-4 pt-0 pb-1 pr-0 font-normal transition-colors ease-soft-in-out text-sm text-slate-500"
-                                            target="_blank">License</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
             </div>
 
         </main>

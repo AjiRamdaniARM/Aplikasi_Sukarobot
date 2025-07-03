@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Storage;
 
 class Absensi extends Controller
 {
+
+    public function absensiSiswa(){
+        return view('trainer.pages.absen_siswa.index');
+    }
     public function absensi(Request $request, $id)
     {
         $attendances = $request->input('attendance', []);
@@ -30,10 +34,11 @@ class Absensi extends Controller
                 }
             }
         }
-
         return redirect('/home/absen/'.$id)->with('success', 'Data absensi berhasil diperbarui');
     }
 
+
+    // === backup controller === //
     public function UpDrive(Request $request, $id_schedules)
     {
         // Mengambil data schedule berdasarkan ID

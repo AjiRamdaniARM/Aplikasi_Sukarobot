@@ -17,12 +17,12 @@ class DataSiswa extends Model
         'tl',
         'tanggal_lahir',
         'id_sekolah',
-        'id_kelas',
+        'kelas',
         'nama_ortu',
         'work_ortu',
         'alamat',
         'telephone',
-        'file',  // update hosting
+        'file',  
     ];
 
     public function Datasekolah()
@@ -32,4 +32,9 @@ class DataSiswa extends Model
    public function getCreatedAtFormattedAtribute() {
     return $this->created_at->format('Y-m-d H:i:s');
    }
+  public function kelas()
+{
+    return $this->belongsTo(DataKelas::class, 'id');
+}
+
 } 

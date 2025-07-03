@@ -17,7 +17,7 @@
               {{-- === menu dashboard === --}}
               <li class="mt-0.5 w-full">
                   <a class="{{ request()->routeIs('dashboard') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
-                      href="{{ route('dashboard') }}">
+                      onclick="alert('Fitur Dalam Prosess Perbaikan')">
                       <div
                           class="{{ request()->routeIs('dashboard') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' : 'shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' }}">
                           <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1"
@@ -76,7 +76,7 @@
                   </a>
               </li>
 
-              {{-- === menu bigData === --}}
+              {{-- === menu DataAnak === --}}
               <li class="mt-0.5 w-full">
                   <a class="{{ request()->routeIs('index.kids') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
                       href="{{ route('index.kids') }}">
@@ -105,11 +105,22 @@
                               </g>
                           </svg>
                       </div>
-                      <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Data Kids</span>
+                      <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Data Siswa</span>
                   </a>
               </li>
 
-              {{-- === menu jadwal trainer === --}}
+            {{-- === menu  pengelola data siswa trial  === --}}
+            <li class="mt-0.5 w-full">
+                <a href="{{ route('menu.siswaTrial')}}" class="{{ request()->routeIs('menu.siswaTrial') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}">
+                    <div
+                        class="{{ request()->routeIs('menu.siswaTrial') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' : 'shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{ request()->routeIs('menu.siswaTrial') ? '#FFFFFF' : '#000000' }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></svg>                       
+                    </div>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Siswa Trial</span>
+                </a>
+            </li>
+
+              {{-- === menu big data === --}}
               <li class="mt-0.5 w-full">
                   <a class="{{ request()->routeIs('bigaData.index') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
                       href="{{ route('bigaData.index') }}">
@@ -177,31 +188,46 @@
                       <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Shedule Trainers</span>
                   </a>
               </li>
+              
+
+               {{-- === menu Google Drive Dokumentasi Trainer === --}}
+               <li class="mt-0.5 w-full">
+                <a class="{{ request()->routeIs('menu.googleDrive') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
+                    href="{{ route('menu.googleDrive') }}">
+                    <div
+                        class="{{ request()->routeIs('menu.googleDrive') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' : 'shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' }}">
+                        <svg width="12px" height="12px" viewBox="0 0 24 24" fill="{{ request()->routeIs('menu.googleDrive`') ? '#ffffff' : '#000000' }}" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.57437 2C7.86303 2 7.20523 2.37782 6.84681 2.99226L0.450743 13.9569C0.0657947 14.6169 0.0904195 15.4384 0.5142 16.0741L3.87108 21.1094C4.24201 21.6658 4.86647 22 5.53518 22H18.4648C19.1335 22 19.758 21.6658 20.1289 21.1094L23.4858 16.0741C23.9096 15.4384 23.9342 14.6169 23.5492 13.9569L17.1532 2.99226C16.7948 2.37782 16.137 2 15.4256 2H8.57437ZM9.80424 4H15.4256L21.259 14H16.0542L9.80424 4ZM13.6957 14L11.9088 11.1409L10.241 14H13.6957ZM9.07436 16L6.74103 20H18.4648L21.1315 16H9.07436ZM10.7112 9.22473L4.94342 19.1124L2.1783 14.9647L8.02952 4.93403L10.7112 9.22473Z" fill="{{ request()->routeIs('menu.googleDrive') ? '#ffffff' : '#000000' }}"/>
+                        </svg>
+                    </div>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Google Drive</span>
+                </a>
+            </li>
 
               <li class="mt-0.5 w-full">
-                  <a class="{{ request()->routeIs('laporan.trainer') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
-                      href="{{ route('laporan.trainer') }}">
+                  <a class="{{ request()->routeIs('laporan.custom') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
+                      href="{{ route('laporan.custom')}}">
                       <div
-                          class="{{ request()->routeIs('laporan.trainer') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' : 'shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' }}">
+                          class="{{ request()->routeIs('laporan.custom') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' : 'shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' }}">
                           <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1"
                               xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                               <title>settings</title>
                               <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                   <g transform="translate(-2020.000000, -442.000000)"
-                                      fill="{{ request()->routeIs('laporan.trainer') ? '#ffffff' : '#000000' }}"
+                                      fill="{{ request()->routeIs('laporan.custom') ? '#ffffff' : '#000000' }}"
                                       fill-rule="nonzero">
                                       <g transform="translate(1716.000000, 291.000000)">
                                           <g transform="translate(304.000000, 151.000000)">
                                               <polygon
-                                                  class="{{ request()->route('laporan.trainer') ? 'bg-white opacity-60' : 'bg-white' }}"
+                                                  class="{{ request()->route('laporan.custom') ? 'bg-white opacity-60' : 'bg-white' }}"
                                                   points="18.0883333 15.7316667 11.1783333 8.82166667 13.3333333 6.66666667 6.66666667 0 0 6.66666667 6.66666667 13.3333333 8.82166667 11.1783333 15.315 17.6716667">
                                               </polygon>
                                               <path
-                                                  class="{{ request()->route('laporan.trainer') ? 'bg-white' : 'bg-white' }}"
+                                                  class="{{ request()->route('laporan.custom') ? 'bg-white' : 'bg-white' }}"
                                                   d="M31.5666667,23.2333333 C31.0516667,23.2933333 30.53,23.3333333 30,23.3333333 C29.4916667,23.3333333 28.9866667,23.3033333 28.48,23.245 L22.4116667,30.7433333 L29.9416667,38.2733333 C32.2433333,40.575 35.9733333,40.575 38.275,38.2733333 L38.275,38.2733333 C40.5766667,35.9716667 40.5766667,32.2416667 38.275,29.94 L31.5666667,23.2333333 Z">
                                               </path>
                                               <path
-                                                  class="{{ request()->route('laporan.trainer') ? 'bg-white' : 'bg-white' }}"
+                                                  class="{{ request()->route('laporan.custom') ? 'bg-white' : 'bg-white' }}"
                                                   d="M33.785,11.285 L28.715,6.215 L34.0616667,0.868333333 C32.82,0.315 31.4483333,0 30,0 C24.4766667,0 20,4.47666667 20,10 C20,10.99 20.1483333,11.9433333 20.4166667,12.8466667 L2.435,27.3966667 C0.95,28.7083333 0.0633333333,30.595 0.00333333333,32.5733333 C-0.0583333333,34.5533333 0.71,36.4916667 2.11,37.89 C3.47,39.2516667 5.27833333,40 7.20166667,40 C9.26666667,40 11.2366667,39.1133333 12.6033333,37.565 L27.1533333,19.5833333 C28.0566667,19.8516667 29.01,20 30,20 C35.5233333,20 40,15.5233333 40,10 C40,8.55166667 39.685,7.18 39.1316667,5.93666667 L33.785,11.285 Z">
                                               </path>
                                           </g>
@@ -215,7 +241,7 @@
               </li>
 
               {{-- === menu super admin === --}}
-              <li class="w-full mt-4">
+              {{-- <li class="w-full mt-4">
                   <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Fitur Super Admin</h6>
               </li>
 
@@ -223,7 +249,7 @@
 
               <li class="mt-0.5 w-full">
                   <a class="{{ request()->routeIs('dataStaff.index') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
-                      href="{{ route('dataStaff.index') }}">
+                      onclick="alert('Halaman dalam perbaikan')">
                       <div
                           class="{{ request()->routeIs('dataStaff.index') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' : 'shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' }}">
                           <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
@@ -255,7 +281,7 @@
 
               <li class="mt-0.5 w-full">
                   <a class="{{ request()->routeIs('qr-code') ? 'py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors' : 'py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors' }}"
-                      href="{{ route('wa-api') }}">
+                      onclick="alert('Halaman dalam perbaikan')">
                       <div
                           class="{{ request()->routeIs('qr-code') ? 'bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' : 'shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5' }}">
                           <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
@@ -285,44 +311,9 @@
                   </a>
               </li>
 
-              {{-- <li class="mt-0.5 w-full">
-                  <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                      href="./pages/sign-up.html">
-                      <div
-                          class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
-                          <svg width="12px" height="20px" viewBox="0 0 40 40" version="1.1"
-                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                              <title>spaceship</title>
-                              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                  <g transform="translate(-1720.000000, -592.000000)" fill="#FFFFFF"
-                                      fill-rule="nonzero">
-                                      <g transform="translate(1716.000000, 291.000000)">
-                                          <g transform="translate(4.000000, 301.000000)">
-                                              <path class="fill-slate-800"
-                                                  d="M39.3,0.706666667 C38.9660984,0.370464027 38.5048767,0.192278529 38.0316667,0.216666667 C14.6516667,1.43666667 6.015,22.2633333 5.93166667,22.4733333 C5.68236407,23.0926189 5.82664679,23.8009159 6.29833333,24.2733333 L15.7266667,33.7016667 C16.2013871,34.1756798 16.9140329,34.3188658 17.535,34.065 C17.7433333,33.98 38.4583333,25.2466667 39.7816667,1.97666667 C39.8087196,1.50414529 39.6335979,1.04240574 39.3,0.706666667 Z M25.69,19.0233333 C24.7367525,19.9768687 23.3029475,20.2622391 22.0572426,19.7463614 C20.8115377,19.2304837 19.9992882,18.0149658 19.9992882,16.6666667 C19.9992882,15.3183676 20.8115377,14.1028496 22.0572426,13.5869719 C23.3029475,13.0710943 24.7367525,13.3564646 25.69,14.31 C26.9912731,15.6116662 26.9912731,17.7216672 25.69,19.0233333 L25.69,19.0233333 Z">
-                                              </path>
-                                              <path class="fill-slate-800 opacity-60"
-                                                  d="M1.855,31.4066667 C3.05106558,30.2024182 4.79973884,29.7296005 6.43969145,30.1670277 C8.07964407,30.6044549 9.36054508,31.8853559 9.7979723,33.5253085 C10.2353995,35.1652612 9.76258177,36.9139344 8.55833333,38.11 C6.70666667,39.9616667 0,40 0,40 C0,40 0,33.2566667 1.855,31.4066667 Z">
-                                              </path>
-                                              <path class="fill-slate-800 opacity-60"
-                                                  d="M17.2616667,3.90166667 C12.4943643,3.07192755 7.62174065,4.61673894 4.20333333,8.04166667 C3.31200265,8.94126033 2.53706177,9.94913142 1.89666667,11.0416667 C1.5109569,11.6966059 1.61721591,12.5295394 2.155,13.0666667 L5.47,16.3833333 C8.55036617,11.4946947 12.5559074,7.25476565 17.2616667,3.90166667 L17.2616667,3.90166667 Z">
-                                              </path>
-                                              <path class="fill-slate-800 opacity-60"
-                                                  d="M36.0983333,22.7383333 C36.9280725,27.5056357 35.3832611,32.3782594 31.9583333,35.7966667 C31.0587397,36.6879974 30.0508686,37.4629382 28.9583333,38.1033333 C28.3033941,38.4890431 27.4704606,38.3827841 26.9333333,37.845 L23.6166667,34.53 C28.5053053,31.4496338 32.7452344,27.4440926 36.0983333,22.7383333 L36.0983333,22.7383333 Z">
-                                              </path>
-                                          </g>
-                                      </g>
-                                  </g>
-                              </g>
-                          </svg>
-                      </div>
-                      <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Sign Up</span>
-                  </a>
-              </li> --}}
-
               <li class="mt-0.5 w-full">
                   <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                      href="{{ route('profileAdmin.index') }}">
+                      onclick="alert('Halaman dalam perbaikan')">
                       <div
                           class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                           <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"
@@ -350,7 +341,7 @@
                       </div>
                       <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Profile</span>
                   </a>
-              </li>
+              </li> --}}
           </ul>
       </div>
 

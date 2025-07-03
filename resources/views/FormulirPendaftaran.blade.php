@@ -18,21 +18,22 @@
                                 <p class="text-sm text-gray-500 font-normal leading-relaxed">Yuk, daftarkan anak Anda di
                                     Sukarobot Academy!</p>
                             @endif
+ 
                         </div>
                     </div>
                     @include('components.loadingElement')
-                    <form action="{{ route('input.kids') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('daftar/post')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="divide-y divide-gray-200">
                             <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Nama Lengkap</label>
+                                    <label class="leading-loose">Nama Lengkap <span class="text-red-600">*</span></label>
                                     <input type="text"
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                        placeholder="Cth: Aziz Ramadhan" name="nama_lengkap"
+                                        placeholder="Cth: Aziz Ram adhan" name="nama_lengkap"
                                         value="{{ old('nama_lengkap') }}" required>
                                     @error('nama_lengkap')
-                                        <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                        <div class="bg-red-100 mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                             role="alert">
                                             <strong class="font-bold">Kesalahan !! </strong>
                                             <span class="block sm:inline">{{ $message }}</span>
@@ -41,37 +42,37 @@
                                     @enderror
                                 </div>
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Tempat Lahir</label>
+                                    <label class="leading-loose">Tempat Lahir <span class="text-red-600">*</span></label>
                                     <input type="text"
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Cth: Sukabumi " name="tl" value="{{ old('tl') }}" required>
                                 </div>
                                 @error('tl')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                    <div class="bg-red-100  mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
-
                                     </div>
                                 @enderror
 
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Tanggal Lahir</label>
+                                    <label class="leading-loose">Tanggal Lahir <span class="text-red-600">*</span></label>
                                     <input type="date"
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
                                 </div>
                                 @error('tanggal_lahir')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                    <div class="bg-red-100  mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
+
                                     </div>
                                 @enderror
 
                                 <div class="flex flex-col">
                                     <div class="flex flex-col">
-                                        <label class="leading-loose">Pilih Kelas</label>
+                                        <label class="leading-loose">Pilih Kelas <span class="text-red-600">*</span></label>
                                         <select
                                             class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full  sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                             name="id_kelas" id="" required>
@@ -81,12 +82,13 @@
                                                 </option>
                                             @endforeach
                                         </select>
+
                                     </div>
                                 </div>
 
                                 <div class="flex flex-col">
                                     <div class="flex flex-col">
-                                        <label class="leading-loose">Sekolah</label>
+                                        <label class="leading-loose">Sekolah <span class="text-red-600">*</span></label>
                                         <select
                                             class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full  sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                             name="sekolah" id="" required>
@@ -96,30 +98,22 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        {{-- <label class="leading-loose">Sekolah</label>
-                                        <input type="text"
-                                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                            placeholder="Cth: Sukarobot Academy" name="sekolah" value="{{ old('sekolah') }}"
-                                            required> --}}
                                     </div>
                                     @if (session('success'))
                                         <button
-                                            class="bg-green-500 relative -top-5 md:mt-10 w-full rounded-lg text-center p-2 text-white font-bold "
+                                            class="bg-green-500 relative mt-5 p-5 md:mt-10 w-full rounded-lg text-center p-2 text-white font-bold "
                                             type="button"
                                             onclick="window.dialog.showModal();">{{ session('success') }}</button>
                                     @else
                                         <button
-                                            class="bg-blue-500 relative -top-5 md:mt-10 w-full rounded-lg text-center p-2 text-white font-bold "
+                                            class="bg-blue-500 relative mt-5 md:mt-10 w-full rounded-lg text-center p-2 text-white font-bold "
                                             type="button" onclick="window.dialog.showModal();">Daftarkan
                                             Sekolah</button>
                                     @endif
-
-
                                 </div>
 
-
                                 @error('sekolah')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                    <div class="bg-red-100  mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
@@ -128,13 +122,13 @@
                                 @enderror
 
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Kelas</label>
+                                    <label class="leading-loose">Kelas <span class="text-red-600">*</span></label>
                                     <input type="text"
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Cth: 3 SD" name="kelas" value="{{ old('kelas') }}" required>
                                 </div>
                                 @error('kelas')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                    <div class="bg-red-100  mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
@@ -142,14 +136,14 @@
                                     </div>
                                 @enderror
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Nama Orangtua </label>
+                                    <label class="leading-loose">Nama Orangtua <span class="text-red-600">*</span> </label>
                                     <input type="text"
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Cth: Asep Saeban (Lk/Pr)" value="{{ old('nama_ortu') }}"
                                         name="nama_ortu" required>
                                 </div>
                                 @error('nama_ortu')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                    <div class="bg-red-100  mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
@@ -157,7 +151,7 @@
                                     </div>
                                 @enderror
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Nomor Handphone </label>
+                                    <label class="leading-loose">Nomor Handphone <span class="text-red-600">*</span> </label>
                                     <input type="text"
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Cth: 08*****" name="telephone" value="{{ old('telephone') }}"
@@ -168,18 +162,17 @@
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
-
                                     </div>
                                 @enderror
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Pekerjaan Orang Tua </label>
+                                    <label class="leading-loose">Pekerjaan Orang Tua <span class="text-red-600">*</span> </label>
                                     <input type="text"
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Cth: Pegawai Negri" name="work_ortu" value="{{ old('work_ortu') }}"
                                         required>
                                 </div>
                                 @error('work_ortu')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                    <div class="bg-red-100  mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
@@ -187,14 +180,14 @@
                                     </div>
                                 @enderror
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Alamat</label>
+                                    <label class="leading-loose">Alamat <span class="text-red-600">*</span></label>
                                     <input type="text"
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                                         placeholder="Cth: Jl. A. Yani No.283, Kebonjati, Kec. Cikole, Kota Sukabumi, Jawa Barat 43111"
                                         name="alamat" value="{{ old('alamat') }}" required>
                                 </div>
                                 @error('alamat')
-                                    <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
+                                    <div class="bg-red-100 mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Kesalahan !! </strong>
                                         <span class="block sm:inline">{{ $message }}</span>
@@ -202,10 +195,11 @@
                                     </div>
                                 @enderror
                                 <div class="flex flex-col">
-                                    <label class="leading-loose">Pas Foto</label>
+                                    <label class="leading-loose">Pas Foto <span class="text-red-600">*</span></label>
                                     <input type="file"
                                         class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                        placeholder="file" name="file" id="fotoInput" required>
+                                        placeholder="file" name="file" id="fotoInput" required >
+                                    <div class="text-[10px] leading-loose poppins-regular mt-2 text-justify">Apabila belum memiliki pas foto, Anda dapat menggunakan sementara foto lain. Mohon untuk segera mengirimkan pas foto kepada admin setelah tersedia guna memperbarui data pas foto anak</div>
                                 </div>
                                 @error('file')
                                     <div class="bg-red-100 relative mt-2 border border-red-400 text-red-700 px-4 py-3 text-[15px] rounded relative"

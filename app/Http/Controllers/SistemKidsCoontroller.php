@@ -255,7 +255,7 @@ class SistemKidsCoontroller extends Controller
         'work_ortu' => 'nullable|string|max:255',
         'alamat' => 'nullable|string',
         'telephone' => 'nullable|string|max:20',
-        'file' => 'nullable|image|max:2048', // Maks 2MB
+        'file' => 'nullable|image|max:2048',
     ]);
 
     // Ambil data siswa berdasarkan ID
@@ -263,6 +263,7 @@ class SistemKidsCoontroller extends Controller
 
     // Update data dasar
     $siswa->update([
+        'id_kelas' => $request->id_kelas,
         'nama_lengkap' => $request->nama_lengkap,
         'tl' => $request->tl,
         'tanggal_lahir' => $request->tanggal_lahir,

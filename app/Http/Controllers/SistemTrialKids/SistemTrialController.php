@@ -240,8 +240,7 @@ class SistemTrialController extends Controller
 
             if ($siswaTrial && $siswaTrial->status !== 'aktif') {
                 // Update status trial
-                $siswaTrial->status = 'aktif';
-                $siswaTrial->save();
+                $siswaTrial->delete();
 
                 // Simpan ke tabel DataSiswa
                 DataSiswa::create([

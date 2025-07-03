@@ -15,6 +15,9 @@ use App\Http\Controllers\SistemKidsCoontroller;
 use App\Http\Controllers\SistemTrialKids\ExportPdf;
 use App\Http\Controllers\SistemTrialKids\SistemTrialController;
 use App\Http\Controllers\superAdmin\StaffController;
+use App\Models\DataKelas;
+use App\Models\DataSekolah;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
@@ -43,6 +46,39 @@ Route::middleware('auth')->group(function () {
     Route::get('/dataKids', [SistemKidsCoontroller::class, 'index'])->name('index.kids');
     Route::post('/datakids/delete/{nama_lengkap}', [SistemKidsCoontroller::class, 'delete'])->name('delete.kids');
     Route::post('/dataKids/edit/{id}', [SistemKidsCoontroller::class, 'edit'])->name('edit.kids');
+  Route::get('/dataKids/edit/{id}', function ($id) {
+    // Ambil semua sekolah untuk dropdown, terbaru dulu
+    $getDataSchool = DataSekolah::orderBy('created_at', 'desc')->get();
+
+    // Ambil semua kelas untuk dropdown
+    $getDataClass = DataKelas::orderBy('created_at', 'desc')->get();
+
+    // Ambil data siswa tunggal berdasarkan ID
+    $getDataKid = DB::table('data_siswas')
+        ->join('data_sekolahs', 'data_siswas.id_sekolah', '=', 'data_sekolahs.id_sekolah')
+        ->join('data_kelas',    'data_siswas.id_kelas',    '=', 'data_kelas.id')
+        ->where('data_siswas.id', $id)
+        ->select([
+            'data_siswas.*',
+            'data_siswas.id as id_siswa',
+            'data_siswas.id_sekolah as sekolah_id',
+            'data_sekolahs.sekolah',
+            'data_siswas.alamat as alamat_anak',
+            'data_kelas.kelas as nama_kelas',
+        ])
+        ->first();
+
+    // Jika tidak ditemukan, tampilkan 404
+    if (! $getDataKid) {
+        abort(404, 'Data siswa tidak ditemukan.');
+    }
+
+    return view('admin.build.components.dataKids.pageEdit', [
+        'getDataKid'    => $getDataKid,
+        'getDataSchool' => $getDataSchool,
+        'getDataClass'  => $getDataClass,
+    ]);
+})->name('page.edit.dataSiswa');
     // Route::post('/datakids/loading', [SistemKidsCoontroller::class, 'store'])->name('input.kids');
     Route::post('/datakids/loading/admin', [SistemKidsCoontroller::class, 'storeAdmin'])->name('admin.kids');
 

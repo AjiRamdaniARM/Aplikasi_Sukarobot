@@ -280,11 +280,11 @@
                                                             </button>
                                                         </form>
                                                         &nbsp;
-                                                        <a href="#popup/{{ $getDataKid->id_siswa }}"
+                                                        <a href="{{ route('page.edit.dataSiswa',['id' => $getDataKid->id_siswa]) }}"
                                                             class="text-blue-600 hover:text-blue-800 text-xs font-semibold">
                                                             <i class="fas fa-pencil-alt"></i> Edit
                                                         </a>
-                                                        @include('admin.build.components.dataKids.modalEdit')
+                                                       
                                                         &nbsp;
                                                         <a href="{{ url('/datakids/privateData/' . $getDataKid->nama_lengkap) }}"
                                                             class="text-green-600 hover:text-green-800 text-xs font-semibold">

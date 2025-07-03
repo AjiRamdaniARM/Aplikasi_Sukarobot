@@ -105,7 +105,7 @@
                               </g>
                           </svg>
                       </div>
-                      <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Data Kids</span>
+                      <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Data Siswa</span>
                   </a>
               </li>
 
